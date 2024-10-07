@@ -126,14 +126,20 @@ class OrderManage extends ObjectManage {
         this.#components.dinners = RMHelper.default_button("Dinners", 'peoples', () => this.update_current_order('dinners'));
         this.#components.delete = RMHelper.default_button("Delete", 'trash', () => this.delete_current_order(), DOUBLE_CLICK);
 
+        //HELKYDS 06-10-2024
+        console.log('add print kt');
+        this.#components.print_kt = RMHelper.default_button("Print KT", 'print_kt', () => this.print_kitchen(), DOUBLE_CLICK);
+
         this.modal.title_container.empty().append(
             RMHelper.return_main_button(this.title, () => this.modal.hide()).html()
         )
 
+        //HELKYDS 06-10-2024
         this.modal.buttons_container.prepend(`
 			${this.components.delete.html()}
             ${this.components.customer.html()}
 			${this.components.dinners.html()}
+            ${this.#components.print_kt.html()}
 		`);
     }
 
@@ -606,6 +612,9 @@ class OrderManage extends ObjectManage {
                 this.#components.customer.enable().show();
                 this.#components.dinners.enable().show();
                 this.#components.Transfer.enable();
+                //HELKYDS 06-10-2024
+                this.#components.print_kt.enable().show();
+
             } else {
                 this.#components.customer.disable().hide();
                 this.#components.dinners.disable().hide();
@@ -670,6 +679,9 @@ class OrderManage extends ObjectManage {
     }
 
     add_order() {
+        //HELKYDS 06-10-2024
+        console.log('js - restaurant - order-manage');
+
         RM.working("Adding Order");
         frappeHelper.api.call({
             model: "Restaurant Object",
@@ -852,5 +864,68 @@ class OrderManage extends ObjectManage {
                 container.addClass("has-items");
             }
         }
+    }
+
+    //HELKYDS 06-10-2024; Testing Qz-tray
+    print_kitchen() {
+        $.getScript('https://cdn.jsdelivr.net/npm/jsprintmanager@7.0.1/JSPrintManager.min.js', function() {
+            JSPM.JSPrintManager.auto_reconnect = true;
+            JSPM.JSPrintManager.start();
+            JSPM.JSPrintManager.WS.onStatusChanged = function () {
+                if (jspmWSStatus()) {
+                    //get client installed printers
+                    JSPM.JSPrintManager.getPrinters().then(function (myPrinters) {
+                        var options = '';
+                        for (var i = 0; i < myPrinters.length; i++) {
+                            options += '<option>' + myPrinters[i] + '</option>';
+                        }
+                        $('#installedPrinterName').html(options);
+                    });
+                }
+            };
+        
+            //Check JSPM WebSocket status
+            function jspmWSStatus() {
+                if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Open)
+                    return true;
+                else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Closed) {
+                    alert('JSPrintManager (JSPM) is not installed or not running! Download JSPM Client App from https://neodynamic.com/downloads/jspm');
+                    return false;
+                }
+                else if (JSPM.JSPrintManager.websocket_status == JSPM.WSStatus.Blocked) {
+                    alert('JSPM has blocked this website!');
+                    return false;
+                }
+            }            
+        })
+        /*
+        $.getScript("/assets/js/qz-tray.min.js", function() {	
+            alert("Script loaded and executed.");
+            // here you can use anything you defined in the loaded script
+            //const qz = require("qz-tray");
+
+            qz.websocket.connect().then(() => {
+                console.log('ligouuuuuuu');
+                return qz.printers.find();
+            }).then((printers) => {
+                console.log(printers);
+                let config = qz.configs.create('PDF');
+                return qz.print(config, [{
+                    type: 'pixel',
+                    format: 'html',
+                    flavor: 'plain',
+                    data: '<h1>Hello JavaScript!</h1>'
+                }]);
+            }).then(() => {
+                return qz.websocket.disconnect();
+            }).then(() => {
+                // process.exit(0);
+            }).catch((err) => {
+                console.error(err);
+                // process.exit(1);
+            });            
+        });
+        */		
+
     }
 }

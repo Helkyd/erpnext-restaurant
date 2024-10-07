@@ -9,6 +9,11 @@ class FoodCommand {
 
     render() {
         if (!this.rendered) {
+            //HELKYD 06-10-2024
+            var nomedasala = document.querySelector("body > div.modal.fade.show > div > div > div.modal-header > div.fill-width.flex.title-section > h4").innerText.substring(1,document.querySelector("body > div.modal.fade.show > div > div > div.modal-header > div.fill-width.flex.title-section > h4").innerText.indexOf("("))
+            if (nomedasala.trim() == this.data.table_description.substring(0,this.data.table_description.indexOf('(')).trim()) {
+                console.log('PARA VER como separar se for BAR mas mostra se for COZINHA...');
+            }
             this.action_button = frappe.jshtml({
                 tag: "h5",
                 properties: {
@@ -37,6 +42,9 @@ class FoodCommand {
                 },
                 content: ''
             });
+
+            //HELKYDS 06-10-2024
+            console.log ('table description ', this.data.table_description);
 
             this.description = frappe.jshtml({
                 tag: "span",
