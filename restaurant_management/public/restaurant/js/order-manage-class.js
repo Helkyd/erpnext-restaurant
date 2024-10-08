@@ -129,6 +129,9 @@ class OrderManage extends ObjectManage {
         //HELKYDS 06-10-2024
         console.log('add print kt');
         this.#components.print_kt = RMHelper.default_button("Print KT", 'print_kt', () => this.print_kitchen(), DOUBLE_CLICK);
+        console.log('add print kt_QZ');
+        this.#components.print_kt_qz = RMHelper.default_button("Print KT QZ", 'print_kt_qz', () => this.print_kitchen_qz(), DOUBLE_CLICK);
+
 
         this.modal.title_container.empty().append(
             RMHelper.return_main_button(this.title, () => this.modal.hide()).html()
@@ -140,6 +143,7 @@ class OrderManage extends ObjectManage {
             ${this.components.customer.html()}
 			${this.components.dinners.html()}
             ${this.#components.print_kt.html()}
+            ${this.#components.print_kt_qz.html()}
 		`);
     }
 
@@ -614,6 +618,7 @@ class OrderManage extends ObjectManage {
                 this.#components.Transfer.enable();
                 //HELKYDS 06-10-2024
                 this.#components.print_kt.enable().show();
+                this.#components.print_kt_qz.enable().show();
 
             } else {
                 this.#components.customer.disable().hide();
@@ -869,6 +874,8 @@ class OrderManage extends ObjectManage {
     //HELKYDS 06-10-2024; Testing Qz-tray
     print_kitchen() {
         $.getScript('https://cdn.jsdelivr.net/npm/jsprintmanager@7.0.1/JSPrintManager.min.js', function() {
+
+            JSPM.JSPrintManager.license_url = "https://jsprintmanager.azurewebsites.net/jspm"
             JSPM.JSPrintManager.auto_reconnect = true;
             JSPM.JSPrintManager.start();
             JSPM.JSPrintManager.WS.onStatusChanged = function () {
@@ -928,4 +935,35 @@ class OrderManage extends ObjectManage {
         */		
 
     }
+    print_kitchen_qz() {
+        $.getScript("https://cdn.jsdelivr.net/npm/qz-tray@2.2.4/qz-tray.min.js", function() {
+        //$.getScript("/assets/js/qz-tray.min.js", function() {	
+            alert("Script loaded and executed.");
+            // here you can use anything you defined in the loaded script
+            //const qz = require("qz-tray");
+
+            qz.websocket.connect().then(() => {
+                console.log('ligouuuuuuu');
+                return qz.printers.find();
+            }).then((printers) => {
+                console.log(printers);
+                let config = qz.configs.create('PDF');
+                return qz.print(config, [{
+                    type: 'pixel',
+                    format: 'html',
+                    flavor: 'plain',
+                    data: '<h1>Hello JavaScript!</h1>'
+                }]);
+            }).then(() => {
+                return qz.websocket.disconnect();
+            }).then(() => {
+                // process.exit(0);
+            }).catch((err) => {
+                console.error(err);
+                // process.exit(1);
+            });            
+        });
+
+
+    }    
 }

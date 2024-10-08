@@ -9,7 +9,8 @@ class RMHelperClass {
             ok: `<span class='fa fa-check' style="padding-right: 5px"></span>`,
             people: `<span class='fa fa-user' style="padding-right: 5px"><span`,
             peoples: `<span class='fa fa-users' style="padding-right: 5px"><span`,
-            print_kt: `<span class='fa fa-users' style="padding-right: 5px"><span`,  //HELKYDS 06-101-2024
+            print_kt: `<span class='fa fa-users' style="padding-right: 5px"><span`,  //HELKYDS 06-10-2024
+            print_kt_qz: `<span class='fa fa-users' style="padding-right: 5px"><span`,  //HELKYDS 08-10-2024
         }
     }
 
