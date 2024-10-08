@@ -947,7 +947,8 @@ class OrderManage extends ObjectManage {
                 return qz.printers.find();
             }).then((printers) => {
                 console.log(printers);
-                let config = qz.configs.create('PDF');
+                //PRinter 0
+                let config = qz.configs.create(printers[0]);
                 return qz.print(config, [{
                     type: 'pixel',
                     format: 'html',
