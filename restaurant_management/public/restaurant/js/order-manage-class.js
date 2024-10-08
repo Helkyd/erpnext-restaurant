@@ -1,3 +1,4 @@
+
 class OrderManage extends ObjectManage {
     #objects = {};
     #components = {};
@@ -938,11 +939,14 @@ class OrderManage extends ObjectManage {
     print_kitchen_qz() {
         $.getScript("https://cdn.jsdelivr.net/npm/qz-tray@2.2.4/qz-tray.min.js", function() {
         //$.getScript("/assets/js/qz-tray.min.js", function() {	
-            alert("Script loaded and executed.");
+            console.log ("Script loaded and executed.");
             // here you can use anything you defined in the loaded script
             //const qz = require("qz-tray");
+            var options = [];
+            options['host']="192.168.8.210";
+            options['usingSecure']= false;
 
-            qz.websocket.connect().then(() => {
+            qz.websocket.connect(options).then(() => {
                 console.log('ligouuuuuuu');
                 return qz.printers.find();
             }).then((printers) => {
