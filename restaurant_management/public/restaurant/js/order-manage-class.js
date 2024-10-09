@@ -924,7 +924,7 @@ class OrderManage extends ObjectManage {
                     //generate an image of HTML content through html2canvas utility
                     //<div id="savethegirl" style="background-color:coral;color:white;padding:10px;width:200px;">I am a Pretty girl 👩</div>
                     //document.querySelector(".order-entry-container")
-                    html2canvas(document.querySelector(".order-entry-container")).then(function (canvas) {
+                    html2canvas(document.querySelector(".order-entry-container"), {scale:5}).then(function (canvas) {
                     //html2canvas('<div id="savethegirl" style="background-color:coral;color:white;padding:10px;width:200px;">I am a Pretty girl 👩</div>').then(function (canvas) {
                     //html2canvas(document.getElementById('card'), { scale: 5 }).then(function (canvas) {
 
@@ -936,6 +936,22 @@ class OrderManage extends ObjectManage {
                         } else {
                             cpj.clientPrinter = new JSPM.InstalledPrinter("POS80"); // new JSPM.InstalledPrinter($('#installedPrinterName').val());
                         }
+                        //TESTE USING ESC/POS
+                        // Create ESC/POS commands
+                        var escposCommands = "\x1B\x40"; // Initialize printer
+                        escposCommands += "\x1B\x21\x08"; // Emphasized mode
+                        escposCommands += "Hello, World!\n";
+                        escposCommands += "\x1B\x21\x00"; // Cancel emphasized mode
+                        escposCommands += "Thank you for your purchase!\n";
+                        escposCommands += "\x1D\x56\x41"; // Cut paper
+
+                        // Add ESC/POS commands to the print job
+                        cpj.printerCommands = escposCommands;
+
+                        // Send print job to printer
+                        cpj.sendToClient();
+                        
+                        /*
                         //Set content to print... 
                         var b64Prefix = "data:image/png;base64,";
                         var imgBase64DataUri = canvas.toDataURL("image/png");
@@ -945,8 +961,10 @@ class OrderManage extends ObjectManage {
                         //add file to print job
                         cpj.files.push(myImageFile);
 
+
                         //Send print job to printer!
                         cpj.sendToClient();
+                        */
 
 
                     });
