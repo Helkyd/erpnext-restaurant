@@ -923,8 +923,8 @@ class OrderManage extends ObjectManage {
                 if (jspmWSStatus()) {
                     //generate an image of HTML content through html2canvas utility
                     //<div id="savethegirl" style="background-color:coral;color:white;padding:10px;width:200px;">I am a Pretty girl 👩</div>
-                    //document.querySelector("#container-order-entry-05156c24b7")
-                    html2canvas(document.querySelector("#container-order-entry-05156c24b7")).then(function (canvas) {
+                    //document.querySelector(".order-entry-container")
+                    html2canvas(document.querySelector(".order-entry-container")).then(function (canvas) {
                     //html2canvas('<div id="savethegirl" style="background-color:coral;color:white;padding:10px;width:200px;">I am a Pretty girl 👩</div>').then(function (canvas) {
                     //html2canvas(document.getElementById('card'), { scale: 5 }).then(function (canvas) {
 
