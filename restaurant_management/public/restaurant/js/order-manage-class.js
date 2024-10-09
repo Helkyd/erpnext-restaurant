@@ -959,6 +959,8 @@ class OrderManage extends ObjectManage {
                         var newLine = '\x0A'; //LF byte in hex notation
                     
                         var cmds = esc + "@"; //Initializes the printer (ESC @)
+                        cmds += "\x1D\x56\x41"; // Cut paper
+
                         cmds += esc + '!' + '\x38'; //Emphasized + Double-height + Double-width mode selected (ESC ! (8 + 16 + 32)) 56 dec => 38 hex
                         cmds += 'BEST DEAL STORES'; //text to print
                         cmds += newLine + newLine;
@@ -982,9 +984,6 @@ class OrderManage extends ObjectManage {
                         cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
                         cmds += newLine + newLine;
                         cmds += '11/03/13  19:53:17';
-                        cmds += newLine + newLine;
-                        cmds += newLine + newLine;                        
-                        cmds += "\x1D\x56\x41"; // Cut paper
 
                         cpj.printerCommands = cmds;
                         //Send print job to printer!
