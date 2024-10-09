@@ -944,7 +944,7 @@ class OrderManage extends ObjectManage {
             //const qz = require("qz-tray");
             var options = [];
             options['host']="192.168.8.210";
-            options['usingSecure']= false;
+            options['usingSecure']= true;
 
             qz.websocket.connect(options).then(() => {
                 console.log('ligouuuuuuu');
