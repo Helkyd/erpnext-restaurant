@@ -874,6 +874,16 @@ class OrderManage extends ObjectManage {
 
     //HELKYDS 06-10-2024; Testing Qz-tray
     print_kitchen() {
+        $.getScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', function() {
+            console.log('carregou html2canvas...');
+        });
+
+        $.getScript('https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js', function() {
+            console.log('carregou bluebird...');
+        });
+        
+
+
         $.getScript('https://cdn.jsdelivr.net/npm/jsprintmanager@7.0.1/JSPrintManager.min.js', function() {
 
             JSPM.JSPrintManager.license_url = "https://jsprintmanager.azurewebsites.net/jspm"
@@ -888,6 +898,8 @@ class OrderManage extends ObjectManage {
                             options += '<option>' + myPrinters[i] + '</option>';
                         }
                         $('#installedPrinterName').html(options);
+                        console.log('Printers .... ', options);
+                        print();
                     });
                 }
             };
@@ -904,36 +916,47 @@ class OrderManage extends ObjectManage {
                     alert('JSPM has blocked this website!');
                     return false;
                 }
-            }            
-        })
-        /*
-        $.getScript("/assets/js/qz-tray.min.js", function() {	
-            alert("Script loaded and executed.");
-            // here you can use anything you defined in the loaded script
-            //const qz = require("qz-tray");
+            }        
+                        
+            //Do printing...
+            function print(o) {
+                if (jspmWSStatus()) {
+                    //generate an image of HTML content through html2canvas utility
+                    //<div id="savethegirl" style="background-color:coral;color:white;padding:10px;width:200px;">I am a Pretty girl 👩</div>
+                    //document.querySelector("#container-order-entry-05156c24b7")
+                    html2canvas(document.querySelector("#container-order-entry-05156c24b7")).then(function (canvas) {
+                    //html2canvas('<div id="savethegirl" style="background-color:coral;color:white;padding:10px;width:200px;">I am a Pretty girl 👩</div>').then(function (canvas) {
+                    //html2canvas(document.getElementById('card'), { scale: 5 }).then(function (canvas) {
 
-            qz.websocket.connect().then(() => {
-                console.log('ligouuuuuuu');
-                return qz.printers.find();
-            }).then((printers) => {
-                console.log(printers);
-                let config = qz.configs.create('PDF');
-                return qz.print(config, [{
-                    type: 'pixel',
-                    format: 'html',
-                    flavor: 'plain',
-                    data: '<h1>Hello JavaScript!</h1>'
-                }]);
-            }).then(() => {
-                return qz.websocket.disconnect();
-            }).then(() => {
-                // process.exit(0);
-            }).catch((err) => {
-                console.error(err);
-                // process.exit(1);
-            });            
-        });
-        */		
+                        //Create a ClientPrintJob
+                        var cpj = new JSPM.ClientPrintJob();
+                        //Set Printer type (Refer to the help, there many of them!)
+                        if ($('#useDefaultPrinter').prop('checked')) {
+                            cpj.clientPrinter = new JSPM.DefaultPrinter();
+                        } else {
+                            cpj.clientPrinter = new JSPM.InstalledPrinter("POS80"); // new JSPM.InstalledPrinter($('#installedPrinterName').val());
+                        }
+                        //Set content to print... 
+                        var b64Prefix = "data:image/png;base64,";
+                        var imgBase64DataUri = canvas.toDataURL("image/png");
+                        var imgBase64Content = imgBase64DataUri.substring(b64Prefix.length, imgBase64DataUri.length);
+
+                        var myImageFile = new JSPM.PrintFile(imgBase64Content, JSPM.FileSourceType.Base64, 'myFileToPrint.png', 1);
+                        //add file to print job
+                        cpj.files.push(myImageFile);
+
+                        //Send print job to printer!
+                        cpj.sendToClient();
+
+
+                    });
+                }
+            }
+                        
+        })
+
+
+        
 
     }
     print_kitchen_qz() {
@@ -943,8 +966,9 @@ class OrderManage extends ObjectManage {
             // here you can use anything you defined in the loaded script
             //const qz = require("qz-tray");
             var options = [];
-            options['host']="192.168.8.210";
-            options['usingSecure']= true;
+            options['host']=["192.168.8.214"];
+            options['usingSecure']= false;
+
 
             qz.websocket.connect(options).then(() => {
                 console.log('ligouuuuuuu');
