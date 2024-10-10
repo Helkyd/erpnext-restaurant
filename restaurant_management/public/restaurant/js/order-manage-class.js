@@ -985,7 +985,8 @@ class OrderManage extends ObjectManage {
                         cmds += '11/03/13  19:53:17';
 
                         cmds += newLine;
-
+                        cmds += "\x1D\x56\x41"; // Cut paper                        
+                        cmds += newLine + newLine + newLine + newLine;
                         cmds += "\x1D\x56\x41"; // Cut paper
 
                         cpj.printerCommands = cmds;
@@ -1026,8 +1027,8 @@ class OrderManage extends ObjectManage {
             // here you can use anything you defined in the loaded script
             //const qz = require("qz-tray");
             var options = [];
-            options['host']=["192.168.8.214"];
-            options['usingSecure']= false;
+            options['host']=['helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx','192.168.8.214'];
+            options['usingSecure']= true;
 
 
             qz.websocket.connect(options).then(() => {
