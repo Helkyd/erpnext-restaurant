@@ -3,7 +3,6 @@ import frappe
 from erpnext.accounts.doctype.pos_profile.pos_profile import get_item_groups
 from erpnext.accounts.doctype.pos_invoice.pos_invoice import get_stock_availability
 
-<<<<<<< HEAD
 
 class RestaurantManage:
     @staticmethod
@@ -15,22 +14,12 @@ class RestaurantManage:
               "status_managed": ("in", status)
             }
         )
-=======
-class RestaurantManage:
-    @staticmethod
-    def production_center_notify(status):
-        object_in_status = frappe.get_all("Status Managed Production Center", "parent", filters={
-            "parentType": "Restaurant Object",
-            "status_managed": ("in", status)
-        })
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
         for item in object_in_status:
             obj = frappe.get_doc("Restaurant Object", item.parent)
             obj.synchronize()
 
     @staticmethod
-<<<<<<< HEAD
     def common_role(a, b):
         a_set = set(a)
         b_set = set(b)
@@ -54,24 +43,6 @@ class RestaurantManage:
 
         rooms = frappe.get_all("Restaurant Object",
                                 "name,description", filters=filters)
-=======
-    def get_rooms():
-        user_perm = frappe.permissions.get_doc_permissions(
-            frappe.new_doc("Restaurant Object"))
-
-        if frappe.session.user == "Administrator" or user_perm.get("write") or user_perm.get("create"):
-            rooms = frappe.get_all("Restaurant Object", "name, description", {
-                "type": "Room",
-            })
-        else:
-            restaurant_settings = frappe.get_single("Restaurant Settings")
-            rooms_enabled = restaurant_settings.rooms_access()
-
-            rooms = frappe.get_all("Restaurant Object", "name, description", {
-                "type": "Room",
-                "name": ("in", rooms_enabled)
-            })
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
         for room in rooms:
             t = frappe.get_doc("Restaurant Object", room.name)
@@ -83,11 +54,7 @@ class RestaurantManage:
     def add_room():
         room = frappe.new_doc("Restaurant Object")
         room.type = "Room"
-<<<<<<< HEAD
         room.description = f"R {(RestaurantManage().count_roms() + 1)}"
-=======
-        room.description = f"Room {(RestaurantManage().count_roms() + 1)}"
->>>>>>> 446759b (removed frapper route upon roume deletion)
         room.save()
 
         return room
@@ -103,12 +70,8 @@ class RestaurantManage:
                 return data
 
             if d == "Table":
-<<<<<<< HEAD
                 cond = "and `table` in (%s)" % (
                     ', '.join([f"'{row}'" for row in data[d]["data"]]))
-=======
-                cond = "and `table` in (%s)" % (', '.join([f"'{row}'" for row in data[d]["data"]]))
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
                 oc = frappe.db.sql(f"""
                         SELECT `table` as name, count(`table`) as count
@@ -121,12 +84,8 @@ class RestaurantManage:
                     data[d]["data"][o.name]["count"] = o.count
 
             if d == "Room":
-<<<<<<< HEAD
                 cond = "and `room` in (%s)" % (
                     ', '.join([f"'{row}'" for row in data[d]["data"]]))
-=======
-                cond = "and `room` in (%s)" % (', '.join([f"'{row}'" for row in data[d]["data"]]))
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
                 oc = frappe.db.sql(f"""
                         SELECT `room` as name, count(`room`) as count
@@ -145,12 +104,8 @@ class RestaurantManage:
                     data[d]["data"][pc]["count"] = production_center.orders_count_in_production_center
 
             if d == "Process":
-<<<<<<< HEAD
                 production_center = frappe.get_doc(
                     "Restaurant Object", data[d]["data"])
-=======
-                production_center = frappe.get_doc("Restaurant Object", data[d]["data"])
->>>>>>> 446759b (removed frapper route upon roume deletion)
                 status_managed = production_center.status_managed
 
                 filters = {
@@ -159,12 +114,8 @@ class RestaurantManage:
                     "parent": ("!=", "")
                 }
 
-<<<<<<< HEAD
                 data = dict(Process=frappe.db.get_all(
                     "Order Entry Item", "identifier,status", filters=filters))
-=======
-                data = dict(Process=frappe.get_all("Order Entry Item", "identifier,status", filters=filters))
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
         return data
 
@@ -185,11 +136,7 @@ def add_room(client=None):
 
 @frappe.whitelist(allow_guest=True)
 def get_work_station():
-<<<<<<< HEAD
     work_stations = frappe.db.get_all("Work Station")
-=======
-    work_stations = frappe.get_all("Work Station")
->>>>>>> 446759b (removed frapper route upon roume deletion)
     work_station = frappe.get_doc("Work Station", work_stations[0].name)
     return {
         "work_station": work_station,
@@ -213,17 +160,11 @@ def pos_profile_data():
     restaurant_settings = frappe.get_single("Restaurant Settings")
     return restaurant_settings.pos_profile_data()
 
-<<<<<<< HEAD
 
 def set_settings_data(doc, method=None):
     frappe.publish_realtime("update_settings")
 
 
-=======
-def set_settings_data(doc, method=None):
-    frappe.publish_realtime("update_settings")
-
->>>>>>> 446759b (removed frapper route upon roume deletion)
 def set_pos_profile(doc, method=None):
     frappe.publish_realtime("pos_profile_update", pos_profile_data())
 
@@ -239,7 +180,6 @@ def debug_data(data):
 
 
 @frappe.whitelist()
-<<<<<<< HEAD
 @frappe.validate_and_sanitize_search_inputs
 def get_customer_branches(doctype, txt, searchfield, start, page_len, filters):
 	link_name = filters.get('link_name')
@@ -278,16 +218,6 @@ def get_items(start, page_length, price_list, item_group, pos_profile, item_type
         'Stock Settings', 'allow_negative_stock')
     warehouse, hide_unavailable_items = frappe.db.get_value('POS Profile', pos_profile,
                                                             ['warehouse', 'hide_unavailable_items'])
-=======
-def get_items(start, page_length, price_list, item_group, pos_profile, search_value=""):
-    data = dict()
-    result = []
-
-    allow_negative_stock = frappe.db.get_single_value('Stock Settings', 'allow_negative_stock')
-    warehouse, hide_unavailable_items = frappe.db.get_value('POS Profile', pos_profile,
-                                                            ['warehouse', 'hide_unavailable_items'])
-
->>>>>>> 446759b (removed frapper route upon roume deletion)
     if not frappe.db.exists('Item Group', item_group):
         item_group = get_root_of('Item Group')
 
@@ -302,12 +232,7 @@ def get_items(start, page_length, price_list, item_group, pos_profile, search_va
     if data:
         item_info = frappe.db.get_value(
             "Item", data.get("item_code"),
-<<<<<<< HEAD
             ["name as item_code", "item_name", "description", "stock_uom", "image as item_image", "is_stock_item"], as_dict=1)
-=======
-            ["name as item_code", "item_name", "description", "stock_uom", "image as item_image", "is_stock_item"]
-            , as_dict=1)
->>>>>>> 446759b (removed frapper route upon roume deletion)
         item_info.setdefault('serial_no', serial_no)
         item_info.setdefault('batch_no', batch_no)
         item_info.setdefault('barcode', barcode)
@@ -324,12 +249,9 @@ def get_items(start, page_length, price_list, item_group, pos_profile, search_va
         bin_join_selection = ", `tabBin` bin"
         bin_join_condition = "AND bin.warehouse = %(warehouse)s AND bin.item_code = item.name AND bin.actual_qty > 0"
 
-<<<<<<< HEAD
     item_group = "='%s'" % item_group if force_parent == '1' else "in (SELECT name FROM `tabItem Group` WHERE lft >= %s AND rgt <= %s)" % (lft, rgt)
 
     item_type_condition = "AND item_type = '%s'" % item_type if item_type and len(item_type) > 0 else ""
-=======
->>>>>>> 446759b (removed frapper route upon roume deletion)
     items_data = frappe.db.sql("""
 		SELECT
 			item.name AS item_code,
@@ -337,13 +259,9 @@ def get_items(start, page_length, price_list, item_group, pos_profile, search_va
 			item.description,
 			item.stock_uom,
 			item.image AS item_image,
-<<<<<<< HEAD
 			item.is_stock_item,
             item.is_customizable,
             item.item_type
-=======
-			item.is_stock_item
->>>>>>> 446759b (removed frapper route upon roume deletion)
 		FROM
 			`tabItem` item {bin_join_selection}
 		WHERE
@@ -351,12 +269,8 @@ def get_items(start, page_length, price_list, item_group, pos_profile, search_va
 			AND item.has_variants = 0
 			AND item.is_sales_item = 1
 			AND item.is_fixed_asset = 0
-<<<<<<< HEAD
 			AND item.item_group {item_group}
             {item_type_condition}
-=======
-			AND item.item_group in (SELECT name FROM `tabItem Group` WHERE lft >= {lft} AND rgt <= {rgt})
->>>>>>> 446759b (removed frapper route upon roume deletion)
 			AND {condition}
 			{bin_join_condition}
 		ORDER BY
@@ -366,13 +280,8 @@ def get_items(start, page_length, price_list, item_group, pos_profile, search_va
         .format(
         start=start,
         page_length=page_length,
-<<<<<<< HEAD
         item_group=item_group,
         item_type_condition=item_type_condition,
-=======
-        lft=lft,
-        rgt=rgt,
->>>>>>> 446759b (removed frapper route upon roume deletion)
         condition=condition,
         bin_join_selection=bin_join_selection,
         bin_join_condition=bin_join_condition
@@ -380,14 +289,9 @@ def get_items(start, page_length, price_list, item_group, pos_profile, search_va
 
     if items_data:
         items = [d.item_code for d in items_data]
-<<<<<<< HEAD
         item_prices_data = frappe.db.get_all("Item Price",
                                           fields=[
                                               "item_code", "price_list_rate", "currency"],
-=======
-        item_prices_data = frappe.get_all("Item Price",
-                                          fields=["item_code", "price_list_rate", "currency"],
->>>>>>> 446759b (removed frapper route upon roume deletion)
                                           filters={'price_list': price_list, 'item_code': ['in', items]})
 
         item_prices = {}
@@ -399,13 +303,8 @@ def get_items(start, page_length, price_list, item_group, pos_profile, search_va
             item_price = item_prices.get(item_code) or {}
             if allow_negative_stock:
                 item_stock_qty = \
-<<<<<<< HEAD
                     frappe.db.sql("""select ifnull(sum(actual_qty), 0) from `tabBin` where item_code = %s""", item_code)[0][
                         0]
-=======
-                frappe.db.sql("""select ifnull(sum(actual_qty), 0) from `tabBin` where item_code = %s""", item_code)[0][
-                    0]
->>>>>>> 446759b (removed frapper route upon roume deletion)
             else:
                 item_stock_qty = get_stock_availability(item_code, warehouse)
 
@@ -424,7 +323,6 @@ def get_items(start, page_length, price_list, item_group, pos_profile, search_va
 
     return res
 
-<<<<<<< HEAD
 
 @frappe.whitelist()
 def search_serial_or_batch_or_barcode_number(search_value):
@@ -448,25 +346,18 @@ def search_serial_or_batch_or_barcode_number(search_value):
 
 	return {}
     
-=======
->>>>>>> 446759b (removed frapper route upon roume deletion)
 def get_conditions(item_code, serial_no, batch_no, barcode):
 	if serial_no or batch_no or barcode:
 		return "item.name = {0}".format(frappe.db.escape(item_code))
 
 	return """(item.name like {item_code}
-<<<<<<< HEAD
 		or item.item_name like {item_code})""".format(item_code=frappe.db.escape('%' + item_code + '%'))
 
-=======
-		or item.item_name like {item_code})""".format(item_code = frappe.db.escape('%' + item_code + '%'))
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
 def get_item_group_condition(pos_profile):
 	cond = "and 1=1"
 	item_groups = get_item_groups(pos_profile)
 	if item_groups:
-<<<<<<< HEAD
 		cond = "and item.item_group in (%s)" % (', '.join(['%s']*len(item_groups)))
 
 	return cond % tuple(item_groups)
@@ -503,8 +394,3 @@ def set_item_in_menu(item_code, in_menu):
   frappe.publish_realtime("update_menu", {"item_code": item_code, "in_menu": in_menu})
 
   return {"message": "Item added to menu successfully" if in_menu else "Item removed from menu successfully"}
-=======
-		cond = "and item.item_group in (%s)"%(', '.join(['%s']*len(item_groups)))
-
-	return cond % tuple(item_groups)
->>>>>>> 446759b (removed frapper route upon roume deletion)

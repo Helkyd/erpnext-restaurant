@@ -34,11 +34,7 @@
  "is_standard": 1,
  "login_required": 1,
  "max_attachment_size": 0,
-<<<<<<< HEAD
- "modified": "2024-04-19 16:50:49.021661",
-=======
- "modified": "2023-01-07 20:51:23.321756",
->>>>>>> 446759b (removed frapper route upon roume deletion)
+ "modified": "2024-10-11 19:05:32.964749",
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "order-item-note",

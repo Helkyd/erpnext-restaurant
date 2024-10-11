@@ -101,7 +101,6 @@
     width: 100%;
 }
 
-<<<<<<< HEAD
 .restaurant-manage .floor-map .floor-map-reserve{
     position: absolute;
     display: none;
@@ -115,8 +114,6 @@
     display: none;
 }
 
-=======
->>>>>>> 446759b (removed frapper route upon roume deletion)
 .restaurant-manage.editing .floor-map .floor-map-editor{
     display: block;
 }
@@ -190,7 +187,6 @@
 .navbar-default .navbar-brand.navbar-home {
     display: block !important;
 }
-<<<<<<< HEAD
 /****BUTTONS***/
 
 
@@ -216,6 +212,3 @@
   background: #555; 
 }
 /***Custom Scrollbar***/
-=======
-/****BUTTONS***/
->>>>>>> 446759b (removed frapper route upon roume deletion)

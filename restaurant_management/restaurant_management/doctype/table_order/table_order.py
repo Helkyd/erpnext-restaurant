@@ -15,7 +15,6 @@ status_attending = "Attending"
 
 
 class TableOrder(Document):
-<<<<<<< HEAD
     synchronize_data = None
     def before_save(self):
         if self.synchronize_data:
@@ -58,24 +57,17 @@ class TableOrder(Document):
             self.show_in_pos = 0
             self.ordered_time = frappe.utils.now_datetime()
 
-=======
-    def validate(self):
->>>>>>> 446759b (removed frapper route upon roume deletion)
         self.set_default_customer()
 
     def set_default_customer(self):
         if self.customer:
             return
 
-<<<<<<< HEAD
         if self._table and self._table.customer:
             self.customer = self._table.customer
         else:
             self.customer = frappe.db.get_value(
                 'POS Profile', self.pos_profile, 'customer')
-=======
-        self.customer = frappe.db.get_value('POS Profile', self.pos_profile, 'customer')
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
     @property
     def short_name(self):
@@ -136,14 +128,10 @@ class TableOrder(Document):
                     identifier=item.identifier if rest == 0 else divide_item["identifier"],
                     notes=item.notes,
                     ordered_time=item.ordered_time,
-<<<<<<< HEAD
                     room=self.room,
                     branch=self.branch,
                     table=self.table,
                     #table_description=self.table_info,
-=======
-                    table_description=f'{self.room_description} ({self.table_description})',
->>>>>>> 446759b (removed frapper route upon roume deletion)
                     has_batch_no=item.has_batch_no,
                     batch_no=item.batch_no,
                     has_serial_no=item.has_serial_no,
@@ -188,32 +176,10 @@ class TableOrder(Document):
         if status is not None:
             RestaurantManage.production_center_notify(status)
 
-<<<<<<< HEAD
     def make_invoice(self, mode_of_payment):
         if self.link_invoice:
             return frappe.throw(_("The order has been invoiced"))
 
-=======
-    def make_invoice(self, mode_of_payment, customer=None, dinners=0):
-        if self.link_invoice:
-            return frappe.throw(_("The order has been invoiced"))
-
-        if customer is not None:
-            frappe.db.set_value("Table Order", self.name, "customer", customer)
-
-        if dinners > 0:
-            frappe.db.set_value("Table Order", self.name, "dinners", dinners)
-
-        if customer is not None or dinners > 0:
-            frappe.db.commit()
-            self.reload()
-
-        if customer is None or len(customer) == 0:
-            none_customer = _("Please set a Customer") + "<br>" if customer is None or len(customer) == 0 else ""
-            
-            frappe.throw(none_customer)
-
->>>>>>> 446759b (removed frapper route upon roume deletion)
         entry_items = {
             item.identifier: item.as_dict() for item in self.entry_items
         }
@@ -235,27 +201,17 @@ class TableOrder(Document):
         invoice.submit()
 
         self.status = "Invoiced"
-<<<<<<< HEAD
         self.show_in_pos = 0
         self.link_invoice = invoice.name
 
         self.synchronize_data = dict(action="Invoiced", status=["Invoiced"])
         self.save()
 
-=======
-        self.link_invoice = invoice.name
-        self.save()
-        
->>>>>>> 446759b (removed frapper route upon roume deletion)
         frappe.db.set_value("Table Order", self.name, "docstatus", 1)
 
         frappe.msgprint(_('Invoice Created'), indicator='green', alert=True)
 
-<<<<<<< HEAD
         #self.synchronize(dict(action="Invoiced", status=["Invoiced"]))
-=======
-        self.synchronize(dict(action="Invoiced", status=["Invoiced"]))
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
         return dict(
             status=True,
@@ -272,7 +228,6 @@ class TableOrder(Document):
 
         self.table = table
 
-<<<<<<< HEAD
         #self.synchronize_data = dict(
         #    action="Transfer", client=client, last_table=last_table_name)
         self.save()
@@ -287,17 +242,6 @@ class TableOrder(Document):
         
         self.synchronize(
             dict(action="Transfer", client=client, last_table=last_table_name))
-=======
-        self.save()
-
-        for i in self.entry_items:
-            table_description = f'{self.room_description} ({self.table_description})'
-            frappe.db.set_value("Order Entry Item", {"identifier": i.identifier}, "table_description",
-                                table_description)
-
-        self.reload()
-        self.synchronize(dict(action="Transfer", client=client, last_table=last_table_name))
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
         last_table.synchronize()
         return True
@@ -311,10 +255,7 @@ class TableOrder(Document):
         to_doc.selling_price_list = self.selling_price_list
         to_doc.pos_profile = self.pos_profile
         to_doc.table = self.table
-<<<<<<< HEAD
         #to_doc.shipping_rule = self.shipping_rule
-=======
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
     def get_invoice(self, entry_items=None, make=False):
         invoice = frappe.new_doc("POS Invoice")
@@ -323,7 +264,6 @@ class TableOrder(Document):
         invoice.items = []
         invoice.taxes = []
         taxes = {}
-<<<<<<< HEAD
 
         for i in entry_items:
             item = entry_items[i]
@@ -335,14 +275,6 @@ class TableOrder(Document):
                 
                 try: price_list_rate = float(item["price_list_rate"])
                 except ValueError: price_list_rate = 0
-=======
-        
-        for i in entry_items:
-            item = entry_items[i]
-            if item["qty"] > 0:
-                rate = 0 if item["rate"] is None else item["rate"]
-                price_list_rate = 0 if item["price_list_rate"] is None else item["price_list_rate"]
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
                 margin_rate_or_amount = (rate - price_list_rate)
                 invoice.append('items', dict(
@@ -360,18 +292,12 @@ class TableOrder(Document):
 
                     has_serial_no=item["has_serial_no"],
                     serial_no=item["serial_no"],
-<<<<<<< HEAD
-
-=======
-                    
->>>>>>> 446759b (removed frapper route upon roume deletion)
                     has_batch_no=item["has_batch_no"],
                     batch_no=item["batch_no"],
 
                     conversion_factor=1,
                 ))
 
-<<<<<<< HEAD
                 #frappe.publish_realtime("debug", dict(data=item))
 
                 if is_customizable:
@@ -389,8 +315,6 @@ class TableOrder(Document):
                                 conversion_factor=1,
                             ))
 
-=======
->>>>>>> 446759b (removed frapper route upon roume deletion)
                 if "item_tax_rate" in item:
                     if not item["item_tax_rate"] in taxes:
                         taxes[item["item_tax_rate"]] = item["item_tax_rate"]
@@ -401,23 +325,15 @@ class TableOrder(Document):
             if tax is not None:
                 for t in json.loads(tax):
                     in_invoice_taxes.append(t)
-<<<<<<< HEAD
 
         included_in_print_rate = frappe.db.get_value(
             "POS Profile", self.pos_profile, "posa_tax_inclusive")
 
-=======
-        
-        included_in_print_rate = frappe.db.get_value("POS Profile", self.pos_profile, "posa_tax_inclusive")
-        apply_discount_on = frappe.db.get_value(
-            "POS Profile", self.pos_profile, "apply_discount_on")
->>>>>>> 446759b (removed frapper route upon roume deletion)
         cost_center = frappe.db.get_value(
             "POS Profile", self.pos_profile, "cost_center")
 
         invoice.cost_center = cost_center
 
-<<<<<<< HEAD
         tax_template = frappe.db.get_value(
             "Sales Taxes and Charges Template", {"company": self.company})
 
@@ -460,17 +376,6 @@ class TableOrder(Document):
                     "included_in_print_rate": 0
                 })
 
-=======
-        for t in set(in_invoice_taxes):
-            invoice.append('taxes', {
-                "charge_type": "On Net Total",# + apply_discount_on,
-                "account_head": t,
-                "rate": 0, 
-                "description": t,
-                "included_in_print_rate": included_in_print_rate
-            })
-            
->>>>>>> 446759b (removed frapper route upon roume deletion)
         invoice.run_method("set_missing_values")
         invoice.run_method("calculate_taxes_and_totals")
 
@@ -489,7 +394,6 @@ class TableOrder(Document):
     def set_queue_items(self, all_items):
         from restaurant_management.restaurant_management.restaurant_manage import check_exceptions
         check_exceptions(
-<<<<<<< HEAD
             dict(name="Table Order", short_name="order",
                  action="write", data=self),
             "You cannot modify an order from another User"
@@ -509,18 +413,10 @@ class TableOrder(Document):
     def set_delivery_branch(self, delivery_branch):
         self.delivery_branch = delivery_branch
         self.save()
-=======
-            dict(name="Table Order", short_name="order", action="write", data=self),
-            "You cannot modify an order from another User"
-        )
-        self.calculate_order(all_items)
-        self.synchronize(dict(action="queue"))
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
     def push_item(self, item):
         if self.customer is None:
             frappe.throw(_("Please set a Customer"))
-<<<<<<< HEAD
 
         from restaurant_management.restaurant_management.restaurant_manage import check_exceptions
         check_exceptions(
@@ -536,33 +432,18 @@ class TableOrder(Document):
         action = self.update_item(item)
 
         self.synchronize_data = dict(item=item["identifier"])
-=======
-            
-        from restaurant_management.restaurant_management.restaurant_manage import check_exceptions
-        check_exceptions(
-            dict(name="Table Order", short_name="order", action="write", data=self),
-            "You cannot modify an order from another User"
-        )
-        action = self.update_item(item)
-
->>>>>>> 446759b (removed frapper route upon roume deletion)
         if action == "db_commit":
             self.db_commit()
         else:
             self.aggregate()
 
-<<<<<<< HEAD
         
         #self.synchronize(dict(item=item["identifier"]))
-=======
-        self.synchronize(dict(item=item["identifier"]))
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
     def delete_item(self, item, unrestricted=False, synchronize=True):
         if not unrestricted:
             from restaurant_management.restaurant_management.restaurant_manage import check_exceptions
             check_exceptions(
-<<<<<<< HEAD
                 dict(name="Table Order", short_name="order",
                      action="write", data=self),
                 "You cannot modify an order from another User"
@@ -570,24 +451,13 @@ class TableOrder(Document):
 
         status = frappe.db.get_value(
             "Order Entry Item", {'identifier': item}, "status")
-=======
-                dict(name="Table Order", short_name="order", action="write", data=self),
-                "You cannot modify an order from another User"
-            )
-
-        status = frappe.db.get_value("Order Entry Item", {'identifier': item}, "status")
->>>>>>> 446759b (removed frapper route upon roume deletion)
         frappe.db.delete('Order Entry Item', {'identifier': item})
         self.db_commit()
 
         if synchronize and frappe.db.count("Order Entry Item", {"identifier": item}) == 0:
-<<<<<<< HEAD
             #self.synchronize_data = dict(action='queue', item_removed=item, status=[status])
             self.synchronize(
                 dict(action='queue', item_removed=item, status=[status]))
-=======
-            self.synchronize(dict(action='queue', item_removed=item, status=[status]))
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
     def db_commit(self):
         frappe.db.commit()
@@ -607,20 +477,12 @@ class TableOrder(Document):
 
     def update_item(self, entry, unrestricted=False, synchronize_on_delete=True):
         if entry["qty"] == 0:
-<<<<<<< HEAD
             self.delete_item(entry["identifier"],
                              unrestricted, synchronize_on_delete)
-=======
-            self.delete_item(entry["identifier"], unrestricted, synchronize_on_delete)
->>>>>>> 446759b (removed frapper route upon roume deletion)
             return "db_commit"
         else:
             invoice = self.get_invoice({entry["identifier"]: entry})
             item = invoice.items[0]
-<<<<<<< HEAD
-
-=======
->>>>>>> 446759b (removed frapper route upon roume deletion)
             data = dict(
                 item_code=item.item_code,
                 qty=item.qty,
@@ -632,7 +494,6 @@ class TableOrder(Document):
                 amount=invoice.grand_total,
                 discount_percentage=item.discount_percentage,
                 discount_amount=item.discount_amount,
-<<<<<<< HEAD
                 status="Attending" if entry["status"] in [
                     "Pending", "", None] else entry["status"],
                 identifier=entry["identifier"],
@@ -642,22 +503,12 @@ class TableOrder(Document):
                 table=self.table,
                 #table_description=self.table_info,
                 ordered_time=entry["ordered_time"]or frappe.utils.now_datetime(),
-=======
-                status="Attending" if entry["status"] in ["Pending", "", None] else entry["status"],
-                identifier=entry["identifier"],
-                notes=entry["notes"],
-                table_description=f'{self.room_description} ({self.table_description})',
-                ordered_time=entry["ordered_time"] or frappe.utils.now_datetime(),
->>>>>>> 446759b (removed frapper route upon roume deletion)
                 has_batch_no=entry["has_batch_no"],
                 batch_no=entry["batch_no"],
                 has_serial_no=entry["has_serial_no"],
                 serial_no=entry["serial_no"],
-<<<<<<< HEAD
                 sub_items=entry["sub_items"],
                 is_customizable=entry["is_customizable"],
-=======
->>>>>>> 446759b (removed frapper route upon roume deletion)
             )
 
             self.validate()
@@ -666,7 +517,6 @@ class TableOrder(Document):
                 self.append('entry_items', data)
                 return "aggregate"
             else:
-<<<<<<< HEAD
                 values = ','.join('='.join((f"`{key}`", """{value}""".format(value=(f"'{val}'" if val is not None else "") if key == "item_tax_template" else frappe.db.escape(val)))) for (key, val) in data.items())
                 base_sql = f"UPDATE `tabOrder Entry Item` set {values}"
  
@@ -675,20 +525,10 @@ class TableOrder(Document):
                 return "db_commit"
 
     def calculate_order(self, items, save=False):
-=======
-                _data = ','.join('='.join((f"`{key}`", f"'{'' if val is None else val}'")) for (key, val) in data.items())
-                frappe.db.sql("""UPDATE `tabOrder Entry Item` set {data} WHERE `identifier` = '{identifier}'""".format(
-                    identifier=entry["identifier"], data=_data)
-                )
-                return "db_commit"
-
-    def calculate_order(self, items):
->>>>>>> 446759b (removed frapper route upon roume deletion)
         entry_items = {item["identifier"]: item for item in items}
         invoice = self.get_invoice(entry_items)
 
         self.entry_items = []
-<<<<<<< HEAD
         for item in invoice.items:            
             if item.from_customize == 1:
                 continue
@@ -698,13 +538,6 @@ class TableOrder(Document):
                 item_code=item.item_code,
                 item_group=item.item_group,
                 item_name=item.item_name,
-=======
-        for item in invoice.items:
-            entry_item = entry_items[item.serial_no] if item.serial_no in entry_items else None
-
-            self.append('entry_items', dict(
-                item_code=item.item_code,
->>>>>>> 446759b (removed frapper route upon roume deletion)
                 qty=item.qty,
                 rate=item.rate,
                 price_list_rate=item.price_list_rate,
@@ -713,7 +546,6 @@ class TableOrder(Document):
                 amount=item.amount,
                 discount_percentage=item.discount_percentage,
                 discount_amount=item.discount_amount,
-<<<<<<< HEAD
                 status="Attending" if entry_item["status"] in [
                     "Pending", "", None] else entry_item["status"],
                 identifier=entry_item["identifier"],
@@ -723,43 +555,26 @@ class TableOrder(Document):
                 branch=self.branch,
                 table=self.table,
                 #table_description=self.table_info,
-=======
-                status="Attending" if entry_item["status"] in ["Pending", "", None] else entry_item["status"],
-                identifier=entry_item["identifier"],
-                notes=entry_item["notes"],
-                ordered_time=entry_item["ordered_time"],
-                table_description=f'{self.room_description} ({self.table_description})',
->>>>>>> 446759b (removed frapper route upon roume deletion)
                 has_batch_no=entry_item["has_batch_no"],
                 batch_no=entry_item["batch_no"],
                 has_serial_no=entry_item["has_serial_no"],
                 serial_no=entry_item["serial_no"],
-<<<<<<< HEAD
                 sub_items=entry_item["sub_items"],
                 is_customizable=entry_item["is_customizable"],
             ))
             #item.serial_no = None
-=======
-            ))
-            item.serial_no = None
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
         self.tax = invoice.base_total_taxes_and_charges
         self.discount = invoice.base_discount_amount
         self.amount = invoice.grand_total
-<<<<<<< HEAD
         save and self.save()
         #self.save(True)
-=======
-        self.save()
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
     @property
     def identifier(self):
         return self.name
 
     def data(self, items=None, last_table=None):
-<<<<<<< HEAD
         short_data = self.short_data(last_table)
         items = self.items_list() if items is None else items
 
@@ -790,20 +605,12 @@ class TableOrder(Document):
     def table_info(self):
         return f'{self.room_description} ({self.table_description})',
 
-=======
-        return dict(
-            order=self.short_data(last_table),
-            items=self.items_list() if items is None else items
-        )
-
->>>>>>> 446759b (removed frapper route upon roume deletion)
     def short_data(self, last_table=None):
         return dict(
             data=dict(
                 last_table=last_table,
                 table=self.table,
                 customer=self.customer,
-<<<<<<< HEAD
                 is_delivery=self.is_delivery,
                 delivery_branch=self.delivery_branch,
                 charge_amount=self.charge_amount,
@@ -812,9 +619,6 @@ class TableOrder(Document):
                 table_description=self.table_description if self.table_description else self.table,
                 room_description=self.room_description if self.room_description else self.room,
                 #table_description=self.table_info,
-=======
-                name=self.name,
->>>>>>> 446759b (removed frapper route upon roume deletion)
                 status=self.status,
                 short_name=self.short_name,
                 items_count=self.items_count,
@@ -823,7 +627,6 @@ class TableOrder(Document):
                 tax=self.tax,
                 amount=self.amount,
                 owner=self.owner,
-<<<<<<< HEAD
                 dinners=self.dinners,
                 process_status_data=self._table.process_status_data(self),
                 show_in_pos=self.show_in_pos,
@@ -832,24 +635,16 @@ class TableOrder(Document):
                 ordered_time=self.ordered_time or frappe.utils.now_datetime(),
                 branch=self.branch,
                 #table_info=self.table_info,
-=======
-                dinners=self.dinners
->>>>>>> 446759b (removed frapper route upon roume deletion)
             )
         )
 
     def items_list(self, from_item=None):
         table = self._table
         items = []
-<<<<<<< HEAD
         short_name = self.short_name
 
         for item in self.entry_items:
             if item.qty is not None and item.qty > 0 and (from_item is None or from_item == item.identifier):
-=======
-        for item in self.entry_items:
-            if item.qty > 0 and (from_item is None or from_item == item.identifier):
->>>>>>> 446759b (removed frapper route upon roume deletion)
                 _item = item.as_dict()
 
                 row = {col: _item[col] for col in [
@@ -865,14 +660,10 @@ class TableOrder(Document):
                     "price_list_rate",
                     "item_tax_template",
                     "item_tax_rate",
-<<<<<<< HEAD
                     "room",
                     "branch",
                     "table",
                     #"table_description",
-=======
-                    "table_description",
->>>>>>> 446759b (removed frapper route upon roume deletion)
                     "status",
                     "notes",
                     "ordered_time",
@@ -880,26 +671,18 @@ class TableOrder(Document):
                     "batch_no",
                     "has_serial_no",
                     "serial_no",
-<<<<<<< HEAD
                     "sub_items",
                     "is_customizable"
-=======
->>>>>>> 446759b (removed frapper route upon roume deletion)
                 ]}
 
                 row["order_name"] = item.parent
                 row["entry_name"] = item.name
-<<<<<<< HEAD
                 row["short_name"] = short_name
                 row["process_status_data"] = table.process_status_data(item)
                 row["name"] = item.identifier
                 row["order"] = short_name
                 row["table_description"] = self.table_info
                 #row["table_info"] = self.table_info
-=======
-                row["short_name"] = table.order_short_name(item.parent)
-                row["process_status_data"] = table.process_status_data(item)
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
                 items.append(row)
         return items
@@ -921,21 +704,14 @@ class TableOrder(Document):
                 data_to_send.append(table.get_command_data(item))
 
         self.reload()
-<<<<<<< HEAD
         #self.synchronize_data = dict(status=["Sent"])
-=======
->>>>>>> 446759b (removed frapper route upon roume deletion)
         self.synchronize(dict(status=["Sent"]))
 
         return self.data()
 
     def set_item_note(self, item, notes):
-<<<<<<< HEAD
         frappe.db.set_value("Order Entry Item", {
                             "identifier": item}, "notes", notes)
-=======
-        frappe.db.set_value("Order Entry Item", {"identifier": item}, "notes", notes)
->>>>>>> 446759b (removed frapper route upon roume deletion)
         self.reload()
         item = self.items_list(item)
         self.synchronize(dict(items=item))

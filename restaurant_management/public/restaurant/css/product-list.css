@@ -1,34 +1,19 @@
-<<<<<<< HEAD
 .product-list {
     /*padding: 0 10px 10px 10px;*/
-=======
-.erp-items .product-list {
-    padding: 0 10px 10px 10px;
->>>>>>> 446759b (removed frapper route upon roume deletion)
     text-align: left;
     -webkit-transform: translate3d(0, 0, 0);
 }
 
-<<<<<<< HEAD
 .product {
-=======
-.erp-items .product {
->>>>>>> 446759b (removed frapper route upon roume deletion)
     position: relative;
     vertical-align: top;
     display: inline-block;
     line-height: 100px;
     font-size: 11px;
-<<<<<<< HEAD
     /*margin: var(--margin-grid) !important;*/
     /*width: 122px;*/
     /*min-width: 300px;*/
     height: 140px;
-=======
-    margin: var(--margin-grid) !important;
-    width: 122px;
-    height: 115px;
->>>>>>> 446759b (removed frapper route upon roume deletion)
     background: #fff;
     border: var(--default_line);
     border-radius: 3px;
@@ -37,7 +22,6 @@
     cursor: pointer;
 }
 
-<<<<<<< HEAD
 /*@media (100px <= width <= 600px) {.product {width: 100%;}}
 @media (600px <= width <= 800px) {.product {width: 50%;}}
 @media (800px <= width <= 1000px) {.product {width: 33.33333333333333%; }}
@@ -45,37 +29,23 @@
 @media (width > 1500px) {.product {width: 20%;}}*/
 
 
-=======
->>>>>>> 446759b (removed frapper route upon roume deletion)
 article {
     display: block;
 }
 
-<<<<<<< HEAD
 /*.erp-items .product .product-img {
-=======
-.erp-items .product .product-img {
->>>>>>> 446759b (removed frapper route upon roume deletion)
     position: relative;
     width: 120px;
     height: 100px;
     background: white;
     text-align: center;
-<<<<<<< HEAD
 }*/
-=======
-}
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
 div {
     display: block;
 }
 
-<<<<<<< HEAD
 .product .product-name {
-=======
-.erp-items .product .product-name {
->>>>>>> 446759b (removed frapper route upon roume deletion)
     color: var(--gray-dark);
     position: absolute;
     -webkit-box-sizing: border-box;
@@ -94,11 +64,7 @@ div {
     padding: 15px 3px 3px;
 }
 
-<<<<<<< HEAD
 .product .price-tag {
-=======
-.erp-items .product .price-tag {
->>>>>>> 446759b (removed frapper route upon roume deletion)
     position: absolute;
     top: 2px;
     right: 2px;
@@ -111,7 +77,6 @@ div {
     border-radius: 2px;
 }
 
-<<<<<<< HEAD
 .product .no-image {
     font-size: 6em;
     padding-top: 25px;
@@ -204,10 +169,4 @@ div {
     text-shadow: 0 1px 1px rgba(0,0,0,.2);
     position: relative;
     z-index: 2;
-=======
-.erp-items .product .no-image {
-    font-size: 6em;
-    padding-top: 25px;
-    color: #b0bac2
->>>>>>> 446759b (removed frapper route upon roume deletion)
 }

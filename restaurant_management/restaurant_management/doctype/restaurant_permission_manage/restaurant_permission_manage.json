@@ -8,11 +8,7 @@
  "field_order": [
   "pos_profile_user",
   "user",
-<<<<<<< HEAD
   "restaurant_permissions"
-=======
-  "restaurant_permission"
->>>>>>> 446759b (removed frapper route upon roume deletion)
  ],
  "fields": [
   {
@@ -29,12 +25,8 @@
    "label": "User"
   },
   {
-<<<<<<< HEAD
    "description": "Define the permissions to which the user has access. If you select a room, the user will have access to the Tables and Production Centers that correspond to this room, if you exclusively select tables or production centers, the user will have access only to the selected objects.",
    "fieldname": "restaurant_permissions",
-=======
-   "fieldname": "restaurant_permission",
->>>>>>> 446759b (removed frapper route upon roume deletion)
    "fieldtype": "Table",
    "label": "Restaurant Permissions",
    "options": "Restaurant Permission"
@@ -42,18 +34,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
-<<<<<<< HEAD
  "modified": "2024-04-15 15:44:37.413786",
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "Restaurant Permission Manage",
  "naming_rule": "By fieldname",
-=======
- "modified": "2022-09-24 10:03:40.466159",
- "modified_by": "Administrator",
- "module": "Restaurant Management",
- "name": "Restaurant Permission Manage",
->>>>>>> 446759b (removed frapper route upon roume deletion)
  "owner": "Administrator",
  "permissions": [
   {
@@ -67,7 +52,6 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
-<<<<<<< HEAD
   },
   {
    "create": 1,
@@ -80,15 +64,10 @@
    "role": "Restaurant Manager",
    "share": 1,
    "write": 1
-=======
->>>>>>> 446759b (removed frapper route upon roume deletion)
   }
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
-<<<<<<< HEAD
  "states": [],
-=======
->>>>>>> 446759b (removed frapper route upon roume deletion)
  "track_changes": 1
 }

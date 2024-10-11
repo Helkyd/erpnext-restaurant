@@ -12,10 +12,6 @@
    "allow_read_on_all_link_options": 1,
    "collapsible": 0,
    "default": "",
-<<<<<<< HEAD
-=======
-   "depends_on": "",
->>>>>>> 446759b (removed frapper route upon roume deletion)
    "description": "",
    "extra_field": 0,
    "fetch_if_empty": 0,
@@ -37,11 +33,7 @@
  "is_standard": 1,
  "login_required": 1,
  "max_attachment_size": 0,
-<<<<<<< HEAD
- "modified": "2024-04-19 16:50:49.076101",
-=======
- "modified": "2023-01-07 20:51:23.263754",
->>>>>>> 446759b (removed frapper route upon roume deletion)
+ "modified": "2024-10-11 19:05:36.010969",
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "restaurant-order-dinners",
@@ -49,11 +41,7 @@
  "published": 1,
  "route": "restaurant-order-dinners",
  "route_to_success_link": 0,
-<<<<<<< HEAD
  "show_attachments": 1,
-=======
- "show_attachments": 0,
->>>>>>> 446759b (removed frapper route upon roume deletion)
  "show_in_grid": 0,
  "title": "Restaurant Order Dinners"
 }

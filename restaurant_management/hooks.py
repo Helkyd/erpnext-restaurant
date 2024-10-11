@@ -11,11 +11,7 @@ app_icon = "octicon octicon-file-directory"
 app_color = "grey"
 app_email = "qubitcore.io@gmail.com"
 app_license = "MIT"
-<<<<<<< HEAD
 source_link = "https://github.com/alphabit-technology/erpnext-restaurant"
-=======
-source_link = "https://github.com/joepa37/restaurant_management"
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
 doc_events = {
     "POS Profile": {
@@ -28,15 +24,12 @@ doc_events = {
     },
 }
 
-<<<<<<< HEAD
 app_include_css = [
 	"/assets/restaurant_management/helper/css/desk-form.css",
   "/assets/restaurant_management/helper/css/custom.css",
   "/assets/restaurant_management/helper/css/num-pad.css",
 ]
 
-=======
->>>>>>> 446759b (removed frapper route upon roume deletion)
 after_migrate = "restaurant_management.setup.install.after_install"
 after_install = "restaurant_management.setup.install.after_install"
 
@@ -51,7 +44,6 @@ app_include_js = [
     '/assets/restaurant_management/js/interact.min.js',
     '/assets/restaurant_management/js/drag.js',
     '/assets/restaurant_management/js/RM.helper.js',
-<<<<<<< HEAD
     '/assets/restaurant_management/js/object-manage.js',
 
     "/assets/restaurant_management/helper/js/jshtml-class.js",
@@ -60,9 +52,6 @@ app_include_js = [
     "/assets/restaurant_management/helper/js/frappe-helper-api.js",
     "/assets/restaurant_management/helper/js/frappe-form-class.js",
     "/assets/restaurant_management/helper/js/desk-form-class.js"
-=======
-    '/assets/restaurant_management/js/object-manage.js'
->>>>>>> 446759b (removed frapper route upon roume deletion)
 ]
 
 # include js, css files in header of web template

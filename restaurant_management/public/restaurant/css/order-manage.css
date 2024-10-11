@@ -9,32 +9,18 @@
 .order-manage .order-entry-container {
     display: none;
 }
-<<<<<<< HEAD
 /*.order-manage.desk .order-entry-container {
     display: none;
 }*/
-=======
-.order-manage .order-entry-container {
-    display: none;
-}
->>>>>>> 446759b (removed frapper route upon roume deletion)
 
 .order-manage .products-list{
     display: none;
     padding: 5px !important;
 }
-<<<<<<< HEAD
 .order-manage .empty-carts{
     display: none;
 }
 /*****/
-=======
-
-.order-manage .empty-carts{
-    display: none;
-}
-
->>>>>>> 446759b (removed frapper route upon roume deletion)
 .order-manage .no-order-message{
     display: block;
 }
@@ -63,13 +49,9 @@
     display: block;
 }
 
-<<<<<<< HEAD
 /********/
 
 /*.order-manage .table {
-=======
-.order-manage .table {
->>>>>>> 446759b (removed frapper route upon roume deletion)
     padding: 0 !important;
     margin: 0 !important;
     color: var(--text-light) !important;
@@ -117,8 +99,4 @@
     vertical-align: top;
     overflow-y: auto;
 }
-<<<<<<< HEAD
 */
-=======
-
->>>>>>> 446759b (removed frapper route upon roume deletion)

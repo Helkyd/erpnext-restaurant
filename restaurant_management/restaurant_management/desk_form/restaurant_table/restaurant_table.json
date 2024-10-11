@@ -46,15 +46,9 @@
    "allow_read_on_all_link_options": 0,
    "collapsible": 0,
    "extra_field": 0,
-<<<<<<< HEAD
    "fetch_from": "",
    "fetch_if_empty": 0,
    "fieldname": "room_description",
-=======
-   "fetch_from": "room.descriptioin",
-   "fetch_if_empty": 0,
-   "fieldname": "description",
->>>>>>> 446759b (removed frapper route upon roume deletion)
    "fieldtype": "Read Only",
    "hidden": 0,
    "label": "Room",
@@ -72,27 +66,6 @@
    "description": "",
    "extra_field": 0,
    "fetch_if_empty": 0,
-<<<<<<< HEAD
-=======
-   "fieldname": "room",
-   "fieldtype": "Link",
-   "hidden": 1,
-   "label": "Room",
-   "max_length": 0,
-   "max_value": 0,
-   "read_only": 0,
-   "reqd": 0,
-   "show_in_filter": 0
-  },
-  {
-   "allow_read_on_all_link_options": 1,
-   "collapsible": 0,
-   "default": "",
-   "depends_on": "",
-   "description": "",
-   "extra_field": 0,
-   "fetch_if_empty": 0,
->>>>>>> 446759b (removed frapper route upon roume deletion)
    "fieldtype": "Section Break",
    "hidden": 0,
    "max_length": 0,
@@ -225,11 +198,7 @@
  "is_standard": 1,
  "login_required": 1,
  "max_attachment_size": 0,
-<<<<<<< HEAD
- "modified": "2024-04-19 16:50:49.044893",
-=======
- "modified": "2023-01-07 20:51:23.302003",
->>>>>>> 446759b (removed frapper route upon roume deletion)
+ "modified": "2024-10-11 19:05:35.281197",
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "restaurant-table",
