@@ -110,6 +110,7 @@
     z-index: 10;
 }
 
+<<<<<<< HEAD
 .restaurant-manage .floor-map .d-table .has-customer {
     display: block;
     position: absolute;
@@ -128,6 +129,8 @@
     box-shadow: inset 0 0 0 1px var(--warning);
 }
 
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
 .restaurant-manage .floor-map .d-table .order-count.block {
     background: red !important;
 }

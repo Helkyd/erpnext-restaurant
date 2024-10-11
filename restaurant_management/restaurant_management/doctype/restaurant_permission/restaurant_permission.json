@@ -5,6 +5,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+<<<<<<< HEAD
   "object_name",
   "type",
   "room",
@@ -50,12 +51,35 @@
    "label": "Type",
    "options": "Room\nTable\nProduction Center",
    "reqd": 1
+=======
+  "room",
+  "room_description"
+ ],
+ "fields": [
+  {
+   "fieldname": "room",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Room",
+   "options": "Restaurant Object"
+  },
+  {
+   "fetch_from": "room.description",
+   "fieldname": "room_description",
+   "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "label": "Room Description"
+>>>>>>> 446759b (removed frapper route upon roume deletion)
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
+<<<<<<< HEAD
  "modified": "2023-01-02 07:03:09.493270",
+=======
+ "modified": "2022-06-28 20:15:42.922881",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "Restaurant Permission",

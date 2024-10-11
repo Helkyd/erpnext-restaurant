@@ -1,7 +1,10 @@
 {
  "actions": [],
  "creation": "2020-06-07 20:39:44.010918",
+<<<<<<< HEAD
  "description": "Restaurant Management Module",
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -13,7 +16,11 @@
   "column_break_5",
   "multiple_pending_order",
   "section_break_12",
+<<<<<<< HEAD
   "column_break_bbeg",
+=======
+  "pos_profile",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
   "column_break_9",
   "color",
   "column_break_7",
@@ -138,18 +145,32 @@
    "label": "Multiple pending order"
   },
   {
+<<<<<<< HEAD
    "fieldname": "column_break_9",
    "fieldtype": "Column Break"
   },
   {
    "fieldname": "column_break_bbeg",
+=======
+   "fieldname": "pos_profile",
+   "fieldtype": "Link",
+   "label": "POS Profile",
+   "options": "POS Profile"
+  },
+  {
+   "fieldname": "column_break_9",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
+<<<<<<< HEAD
  "modified": "2024-04-19 17:04:12.169553",
+=======
+ "modified": "2022-07-13 21:07:25.854704",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "Restaurant Settings",
@@ -164,6 +185,7 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
+<<<<<<< HEAD
   },
   {
    "create": 1,
@@ -174,11 +196,16 @@
    "role": "Restaurant Manager",
    "share": 1,
    "write": 1
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
   }
  ],
  "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
+<<<<<<< HEAD
  "states": [],
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  "track_changes": 1
 }

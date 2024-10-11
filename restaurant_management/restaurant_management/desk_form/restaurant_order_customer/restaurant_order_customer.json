@@ -6,14 +6,22 @@
  "allow_multiple": 0,
  "allow_print": 0,
  "button_label": "Save",
+<<<<<<< HEAD
  "client_script": "console.log(\"test\")",
  "creation": "2022-08-23 16:06:44.888594",
  "custom_css": "",
+=======
+ "creation": "2022-08-23 16:06:44.888594",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  "desk_form_fields": [
   {
    "allow_read_on_all_link_options": 1,
    "collapsible": 0,
    "default": "",
+<<<<<<< HEAD
+=======
+   "depends_on": "",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "description": "",
    "extra_field": 0,
    "fetch_if_empty": 0,
@@ -25,6 +33,7 @@
    "max_value": 0,
    "options": "Customer",
    "read_only": 0,
+<<<<<<< HEAD
    "reqd": 1,
    "show_in_filter": 0
   },
@@ -116,6 +125,8 @@
    "max_length": 0,
    "max_value": 0,
    "read_only": 0,
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "reqd": 0,
    "show_in_filter": 0
   }
@@ -127,7 +138,11 @@
  "is_standard": 1,
  "login_required": 1,
  "max_attachment_size": 0,
+<<<<<<< HEAD
  "modified": "2024-04-19 16:50:49.348250",
+=======
+ "modified": "2023-01-07 20:51:23.220759",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "restaurant-order-customer",

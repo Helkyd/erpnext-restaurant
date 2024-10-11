@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+<<<<<<< HEAD
 import frappe
 from itertools import chain
 import os
@@ -109,12 +110,51 @@ def clear_custom_fields():
     for doc in custom_fields:
         for field_name in custom_fields[doc]:
             if (field_name in fields_not_needed or field_name in fields_has_changed):
+=======
+from faulthandler import disable
+import frappe
+from itertools import chain
+
+docs = {
+    "POS Profile User": dict(
+        restaurant_permission=dict(label="Restaurant Permission", fieldtype="Button",
+                                   options="Restaurant Permission", insert_after="User", in_list_view=1, read_only=1),
+        parent=dict(label="Parent", fieldtype="Data", hidden=1),
+        parenttype=dict(label="Parent Type", fieldtype="Data", hidden=1),
+        restaurant_permissions=dict(label="Restaurant Permissions", fieldtype="Table",
+                                    options="Restaurant Permission", hidden=1, insert_after="Restaurant Permission"),
+    ),
+    "POS Profile": dict(
+        posa_tax_inclusive=dict(
+            label="Tax Inclusive", fieldtype="Check", insert_after="tax_category", default_value=1)
+    ),
+    "POS Invoice Item": dict(
+        identifier=dict(label="Identifier", fieldtype="Data"),
+    ),
+    "Sales Invoice Item": dict(
+        identifier=dict(label="Identifier", fieldtype="Data"),
+    )
+}
+
+fields_not_needed = ['parent', 'parenttype', 'restaurant_permissions']
+
+def after_install():
+    clear_custom_fields();
+    set_custom_fields()
+    set_custom_scripts()
+
+def clear_custom_fields():
+    for doc in docs:
+        for field_name in docs[doc]:
+            if (field_name in fields_not_needed):
+>>>>>>> 446759b (removed frapper route upon roume deletion)
                 test_field = frappe.get_value(
                     "Custom Field", doc + "-" + field_name)
 
                 if test_field is not None:
                     frappe.db.sql("""DELETE FROM `tabCustom Field` WHERE name=%s""", test_field)
 
+<<<<<<< HEAD
 def set_default_data():
     frappe.db.sql("""UPDATE `tabWorkspace` SET public=1 WHERE name = 'Restaurant Management'""")
     frappe.db.sql("""UPDATE `tabWorkspace` SET title='Restaurant Management' WHERE name = 'Restaurant Management'""")
@@ -225,6 +265,11 @@ def set_cuisine_types():
 def set_custom_fields():
     for doc in custom_fields:
         for field_name in custom_fields[doc]:
+=======
+def set_custom_fields():
+    for doc in docs:
+        for field_name in docs[doc]:
+>>>>>>> 446759b (removed frapper route upon roume deletion)
             if (field_name in fields_not_needed):
                 continue
 
@@ -236,7 +281,11 @@ def set_custom_fields():
                     "Custom Field", test_field)
 
                 _values = dict(chain.from_iterable(d.items() for d in (
+<<<<<<< HEAD
                     custom_fields[doc][field_name], dict(dt=doc, fieldname=field_name))))
+=======
+                    docs[doc][field_name], dict(dt=doc, fieldname=field_name))))
+>>>>>>> 446759b (removed frapper route upon roume deletion)
 
                 for key in _values:
                     CF.set(key, _values[key])
@@ -245,12 +294,30 @@ def set_custom_fields():
 
 
 def set_custom_scripts():
+<<<<<<< HEAD
     custom_scripts = {
         "POS Profile": dict(
             doc="POS Profile",
             script="""
 frappe.ui.form.on('POS Profile', {
     //
+=======
+    test_script = frappe.get_value("Client Script", "POS Profile-Form")
+    if test_script is None:
+        CS = frappe.new_doc("Client Script")
+        CS.set("name", "POS Profile-Form")
+    else:
+        CS = frappe.get_doc("Client Script", test_script)
+
+    CS.set("enabled", 1)
+    CS.set("view", "Form")
+    CS.set("dt", "POS Profile")
+    CS.set("script", """
+frappe.ui.form.on('POS Profile', {
+    refresh(frm) {
+        //refresh
+	}
+>>>>>>> 446759b (removed frapper route upon roume deletion)
 });
 
 frappe.ui.form.on('POS Profile User', {
@@ -266,6 +333,7 @@ frappe.ui.form.on('POS Profile User', {
             callback: (self) => {
                 self.hide();
             },
+<<<<<<< HEAD
             title: __(`Restaurant Permissions`),
             field_properties: {
                 pos_profile_user: {
@@ -277,6 +345,18 @@ frappe.ui.form.on('POS Profile User', {
                             filters: [
                                 ["company", "=", frm.doc.company],
                     			//['type', '!=', 'Room'],
+=======
+            title: __(`Room Access`),
+            field_properties: {
+                pos_profile_user: {
+                  value: cdn  
+                },
+                'restaurant_permission.room': {
+                    "get_query": () => {
+                        return {
+                            filters: [
+                    			['type', '=', 'Room']
+>>>>>>> 446759b (removed frapper route upon roume deletion)
                     		]
                         }
                     }
@@ -285,6 +365,7 @@ frappe.ui.form.on('POS Profile User', {
         });
     }
 });"""
+<<<<<<< HEAD
         ),
         "Customer": dict(
             doc="Customer",
@@ -322,4 +403,7 @@ def set_custom_script(document, script,  apply_to="Form"):
     CS.set("dt", document)
     CS.set("script", script)
 
+=======
+           )
+>>>>>>> 446759b (removed frapper route upon roume deletion)
     CS.insert() if test_script is None else CS.save()

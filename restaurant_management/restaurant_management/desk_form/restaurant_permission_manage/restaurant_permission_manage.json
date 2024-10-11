@@ -60,6 +60,7 @@
    "show_in_filter": 0
   },
   {
+<<<<<<< HEAD
    "allow_read_on_all_link_options": 0,
    "collapsible": 0,
    "description": "These Restrictions are applicable only to users whose role is different from System Manager or Restaurant Manager.",
@@ -69,6 +70,17 @@
    "fieldtype": "Section Break",
    "hidden": 0,
    "label": "Restaurant Permissions",
+=======
+   "allow_read_on_all_link_options": 1,
+   "collapsible": 0,
+   "default": "",
+   "depends_on": "",
+   "description": "",
+   "extra_field": 0,
+   "fetch_if_empty": 0,
+   "fieldtype": "Section Break",
+   "hidden": 0,
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "max_length": 0,
    "max_value": 0,
    "read_only": 0,
@@ -78,6 +90,7 @@
   {
    "allow_read_on_all_link_options": 1,
    "collapsible": 0,
+<<<<<<< HEAD
    "description": "Define the permissions that the user has access to. If you select a Room, the user will have full access to the entire room, if you exclusively select Tables or Production Centers, the user will have access only to the selected objects.",
    "extra_field": 0,
    "fetch_if_empty": 0,
@@ -85,6 +98,14 @@
    "fieldtype": "Table",
    "hidden": 0,
    "label": "",
+=======
+   "extra_field": 0,
+   "fetch_if_empty": 0,
+   "fieldname": "restaurant_permission",
+   "fieldtype": "Table",
+   "hidden": 0,
+   "label": "Restaurant Permissions",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "max_length": 0,
    "max_value": 0,
    "options": "Restaurant Permission",
@@ -100,7 +121,11 @@
  "is_standard": 1,
  "login_required": 1,
  "max_attachment_size": 0,
+<<<<<<< HEAD
  "modified": "2024-04-19 16:50:49.199207",
+=======
+ "modified": "2023-01-07 20:51:23.241233",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "restaurant-permission-manage",

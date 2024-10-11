@@ -1,16 +1,25 @@
 {
  "actions": [],
+<<<<<<< HEAD
  "allow_rename": 1,
  "creation": "2020-04-03 21:41:52.229718",
  "doctype": "DocType",
  "document_type": "Document",
+=======
+ "creation": "2020-04-03 21:41:52.229718",
+ "doctype": "DocType",
+ "document_type": "Setup",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "type",
   "column_break_2",
   "room",
+<<<<<<< HEAD
   "company",
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
   "section_break_2",
   "no_of_seats",
   "column_break_4",
@@ -27,6 +36,7 @@
   "production_center_group",
   "current_user",
   "room_description",
+<<<<<<< HEAD
   "shape",
   "restricted_to_parent_room",
   "section_break_22",
@@ -41,6 +51,9 @@
   "group_items_by_order",
   "file",
   "image"
+=======
+  "shape"
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  ],
  "fields": [
   {
@@ -59,8 +72,12 @@
    "fieldname": "description",
    "fieldtype": "Data",
    "in_list_view": 1,
+<<<<<<< HEAD
    "label": "Description",
    "unique": 1
+=======
+   "label": "Description"
+>>>>>>> 446759b (removed frapper route upon roume deletion)
   },
   {
    "fieldname": "type",
@@ -108,7 +125,10 @@
   {
    "fieldname": "room",
    "fieldtype": "Link",
+<<<<<<< HEAD
    "in_standard_filter": 1,
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "label": "Room",
    "options": "Restaurant Object"
   },
@@ -150,6 +170,7 @@
    "fieldtype": "Select",
    "label": "Shape",
    "options": "Square\nRound"
+<<<<<<< HEAD
   },
   {
    "fetch_from": "room.company",
@@ -238,6 +259,16 @@
  "module": "Restaurant Management",
  "name": "Restaurant Object",
  "naming_rule": "By fieldname",
+=======
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-09-25 11:12:36.299549",
+ "modified_by": "Administrator",
+ "module": "Restaurant Management",
+ "name": "Restaurant Object",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  "owner": "Administrator",
  "permissions": [
   {
@@ -249,7 +280,10 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+<<<<<<< HEAD
    "select": 1,
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "share": 1,
    "write": 1
   },
@@ -262,26 +296,43 @@
    "read": 1,
    "report": 1,
    "role": "Restaurant Manager",
+<<<<<<< HEAD
    "select": 1,
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "share": 1,
    "write": 1
   },
   {
+<<<<<<< HEAD
+=======
+   "create": 1,
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "Restaurant User",
+<<<<<<< HEAD
    "select": 1,
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "share": 1
   }
  ],
  "quick_entry": 1,
+<<<<<<< HEAD
  "search_fields": "room_description,type,description",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
+=======
+ "restrict_to_domain": "Services",
+ "search_fields": "description,type",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  "title_field": "description",
  "track_changes": 1
 }

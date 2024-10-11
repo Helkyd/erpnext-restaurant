@@ -21,13 +21,17 @@
   "item_tax_template",
   "item_tax_rate",
   "table_description",
+<<<<<<< HEAD
   "table",
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
   "discount_amount",
   "tax_amount",
   "ordered_time",
   "has_batch_no",
   "batch_no",
   "has_serial_no",
+<<<<<<< HEAD
   "serial_no",
   "room",
   "branch",
@@ -35,6 +39,9 @@
   "sub_items",
   "from_customize",
   "is_customizable"
+=======
+  "serial_no"
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  ],
  "fields": [
   {
@@ -46,13 +53,21 @@
   {
    "default": "Attending",
    "fieldname": "status",
+<<<<<<< HEAD
    "fieldtype": "Link",
+=======
+   "fieldtype": "Select",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "in_global_search": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Status",
+<<<<<<< HEAD
    "options": "Status Order PC",
+=======
+   "options": "Attending\nSent\nProcessing\nCompleted\nDelivering\nDelivered\nInvoiced",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "reqd": 1
   },
   {
@@ -124,9 +139,14 @@
    "label": "Item Tax Rate"
   },
   {
+<<<<<<< HEAD
    "fetch_from": "table.description",
    "fieldname": "table_description",
    "fieldtype": "Read Only",
+=======
+   "fieldname": "table_description",
+   "fieldtype": "Data",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "label": "Table Description"
   },
   {
@@ -176,6 +196,7 @@
    "fieldtype": "Link",
    "label": "Serial No",
    "options": "Serial No"
+<<<<<<< HEAD
   },
   {
    "fieldname": "table",
@@ -215,12 +236,18 @@
    "fieldname": "is_customizable",
    "fieldtype": "Check",
    "label": "Is Customizable"
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
+<<<<<<< HEAD
  "modified": "2023-02-05 20:23:19.528835",
+=======
+ "modified": "2022-09-12 16:34:06.730751",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "Order Entry Item",

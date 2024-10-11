@@ -23,6 +23,7 @@
    "max_value": 0,
    "options": "Customer",
    "read_only": 0,
+<<<<<<< HEAD
    "reqd": 1,
    "show_in_filter": 0
   },
@@ -56,6 +57,8 @@
    "max_length": 0,
    "max_value": 0,
    "read_only": 0,
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "reqd": 0,
    "show_in_filter": 0
   },
@@ -79,16 +82,25 @@
    "allow_read_on_all_link_options": 1,
    "collapsible": 0,
    "default": "",
+<<<<<<< HEAD
+=======
+   "depends_on": "",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "description": "",
    "extra_field": 0,
    "fetch_if_empty": 0,
    "fieldname": "dinners",
+<<<<<<< HEAD
    "fieldtype": "Int",
+=======
+   "fieldtype": "HTML",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "hidden": 0,
    "label": "Dinners Number",
    "max_length": 0,
    "max_value": 0,
    "read_only": 0,
+<<<<<<< HEAD
    "reqd": 1,
    "show_in_filter": 0
   },
@@ -106,16 +118,23 @@
    "max_value": 0,
    "options": "Branch",
    "read_only": 1,
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "reqd": 0,
    "show_in_filter": 0
   },
   {
    "allow_read_on_all_link_options": 0,
+<<<<<<< HEAD
    "collapsible": 1,
+=======
+   "collapsible": 0,
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "extra_field": 0,
    "fetch_if_empty": 0,
    "fieldname": "delivery_options",
    "fieldtype": "Section Break",
+<<<<<<< HEAD
    "hidden": 0,
    "label": "Delivery Info",
    "max_length": 0,
@@ -150,6 +169,10 @@
    "fieldtype": "Date",
    "hidden": 0,
    "label": "Delivery Date",
+=======
+   "hidden": 1,
+   "label": "Delivery Options",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "max_length": 0,
    "max_value": 0,
    "read_only": 0,
@@ -160,6 +183,7 @@
    "allow_read_on_all_link_options": 0,
    "collapsible": 0,
    "extra_field": 1,
+<<<<<<< HEAD
    "fetch_from": "address.branch",
    "fetch_if_empty": 0,
    "fieldname": "related_branch",
@@ -186,6 +210,17 @@
    "max_value": 0,
    "options": "Branch",
    "read_only": 1,
+=======
+   "fetch_if_empty": 0,
+   "fieldname": "address",
+   "fieldtype": "Link",
+   "hidden": 0,
+   "label": "Address",
+   "max_length": 0,
+   "max_value": 0,
+   "options": "Address",
+   "read_only": 0,
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "reqd": 0,
    "show_in_filter": 0
   },
@@ -193,12 +228,20 @@
    "allow_read_on_all_link_options": 0,
    "collapsible": 0,
    "extra_field": 1,
+<<<<<<< HEAD
    "fetch_from": "",
    "fetch_if_empty": 0,
    "fieldname": "charge_amount",
    "fieldtype": "Currency",
    "hidden": 0,
    "label": "Delivery Charges",
+=======
+   "fetch_if_empty": 0,
+   "fieldname": "primary_address",
+   "fieldtype": "Text",
+   "hidden": 0,
+   "label": "Primary Address",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "max_length": 0,
    "max_value": 0,
    "read_only": 1,
@@ -222,6 +265,7 @@
   {
    "allow_read_on_all_link_options": 0,
    "collapsible": 0,
+<<<<<<< HEAD
    "extra_field": 0,
    "fetch_if_empty": 0,
    "fieldname": "column",
@@ -276,11 +320,24 @@
    "label": "Delivery Address",
    "max_length": 0,
    "max_value": 0,
+=======
+   "extra_field": 1,
+   "fetch_from": "address.posa_delivery_charges",
+   "fetch_if_empty": 0,
+   "fieldname": "delivery_charges",
+   "fieldtype": "Read Only",
+   "hidden": 0,
+   "label": "Delivery Charges",
+   "max_length": 0,
+   "max_value": 0,
+   "options": "",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "read_only": 1,
    "reqd": 0,
    "show_in_filter": 0
   },
   {
+<<<<<<< HEAD
    "allow_read_on_all_link_options": 0,
    "collapsible": 0,
    "extra_field": 0,
@@ -310,6 +367,8 @@
    "show_in_filter": 0
   },
   {
+=======
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "allow_read_on_all_link_options": 1,
    "collapsible": 0,
    "default": "",
@@ -351,6 +410,7 @@
    "description": "",
    "extra_field": 0,
    "fetch_if_empty": 0,
+<<<<<<< HEAD
    "fieldname": "payment_area",
    "fieldtype": "Column Break",
    "hidden": 0,
@@ -358,6 +418,46 @@
    "max_length": 0,
    "max_value": 0,
    "options": "class=test",
+=======
+   "fieldtype": "Column Break",
+   "hidden": 0,
+   "max_length": 0,
+   "max_value": 0,
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 1,
+   "collapsible": 0,
+   "default": "",
+   "depends_on": "",
+   "description": "",
+   "extra_field": 0,
+   "fetch_if_empty": 0,
+   "fieldname": "num_pad",
+   "fieldtype": "HTML",
+   "hidden": 0,
+   "label": "Num Pad",
+   "max_length": 0,
+   "max_value": 0,
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 1,
+   "collapsible": 0,
+   "default": "",
+   "depends_on": "",
+   "description": "",
+   "extra_field": 0,
+   "fetch_if_empty": 0,
+   "fieldtype": "Section Break",
+   "hidden": 0,
+   "max_length": 0,
+   "max_value": 0,
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "read_only": 0,
    "reqd": 0,
    "show_in_filter": 0
@@ -384,6 +484,7 @@
    "allow_read_on_all_link_options": 1,
    "collapsible": 0,
    "default": "",
+<<<<<<< HEAD
    "description": "",
    "extra_field": 0,
    "fetch_if_empty": 0,
@@ -394,6 +495,17 @@
    "max_length": 0,
    "max_value": 0,
    "read_only": 1,
+=======
+   "depends_on": "",
+   "description": "",
+   "extra_field": 0,
+   "fetch_if_empty": 0,
+   "fieldtype": "Column Break",
+   "hidden": 0,
+   "max_length": 0,
+   "max_value": 0,
+   "read_only": 0,
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "reqd": 0,
    "show_in_filter": 0
   },
@@ -416,11 +528,21 @@
    "show_in_filter": 0
   },
   {
+<<<<<<< HEAD
    "allow_read_on_all_link_options": 0,
    "collapsible": 0,
    "extra_field": 0,
    "fetch_if_empty": 0,
    "fieldname": "",
+=======
+   "allow_read_on_all_link_options": 1,
+   "collapsible": 0,
+   "default": "",
+   "depends_on": "",
+   "description": "",
+   "extra_field": 0,
+   "fetch_if_empty": 0,
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "fieldtype": "Section Break",
    "hidden": 0,
    "max_length": 0,
@@ -430,6 +552,7 @@
    "show_in_filter": 0
   },
   {
+<<<<<<< HEAD
    "allow_read_on_all_link_options": 0,
    "collapsible": 0,
    "extra_field": 0,
@@ -438,6 +561,52 @@
    "fieldtype": "HTML",
    "hidden": 0,
    "label": "",
+=======
+   "allow_read_on_all_link_options": 1,
+   "collapsible": 0,
+   "default": "",
+   "description": "",
+   "extra_field": 0,
+   "fetch_if_empty": 0,
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "hidden": 0,
+   "label": "Amount",
+   "max_length": 0,
+   "max_value": 0,
+   "read_only": 1,
+   "reqd": 1,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 1,
+   "collapsible": 0,
+   "default": "",
+   "depends_on": "",
+   "description": "",
+   "extra_field": 0,
+   "fetch_if_empty": 0,
+   "fieldtype": "Column Break",
+   "hidden": 0,
+   "max_length": 0,
+   "max_value": 0,
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 1,
+   "collapsible": 0,
+   "default": "",
+   "depends_on": "",
+   "description": "",
+   "extra_field": 0,
+   "fetch_if_empty": 0,
+   "fieldname": "payment_button",
+   "fieldtype": "HTML",
+   "hidden": 0,
+   "label": "Payment Button",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "max_length": 0,
    "max_value": 0,
    "read_only": 0,
@@ -452,7 +621,11 @@
  "is_standard": 1,
  "login_required": 1,
  "max_attachment_size": 0,
+<<<<<<< HEAD
  "modified": "2024-04-19 16:50:49.283071",
+=======
+ "modified": "2023-01-07 20:51:23.274359",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "payment-order",

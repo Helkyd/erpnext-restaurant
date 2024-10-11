@@ -11,7 +11,11 @@ setup(
 	name='restaurant_management',
 	version=version,
 	description='Restaurant',
+<<<<<<< HEAD
 	author='AlphaBit Technology',
+=======
+	author='Quantum Bit Core',
+>>>>>>> 446759b (removed frapper route upon roume deletion)
 	author_email='qubitcore.io@gmail.com',
 	packages=find_packages(),
 	zip_safe=False,

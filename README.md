@@ -18,8 +18,33 @@ ___
 
 ___
 ### ERPNext Restaurant Management requires
+<<<<<<< HEAD
 1. [ERPNext](https://github.com/frappe/erpnext.git)
     Frappe Helper is another experimental application created by us, in order to be reused by other applications.
+=======
+1. [Frappe Framework](https://github.com/quantumbitcore/frappe_helper.git)
+2. [ERPNext](https://github.com/frappe/erpnext.git)
+3. [Frappe Helper](https://github.com/quantumbitcore/frappe_helper.git)<br>
+    Frappe Helper is another experimental application, in order to be reused by other applications.
+
+___
+### How to Install
+
+#### Self Host:
+1. `bench get-app https://github.com/quantumbitcore/erpnext-restaurant.git`
+2. `bench setup requirements`
+3. `bench build --app restaurant_management`
+4. `bench restart`
+5. `bench --site [site.name] install-app restaurant_management`
+6. `bench --site [site.name] migrate`
+
+#### Frappe Cloud:
+>Available in your hosting on FrappeCloud [here](https://frappecloud.com/marketplace/apps/restaurant_management)
+
+___
+### How to Use
+> See the documentation [here](https://github.com/quantumbitcore/erpnext-restaurant/wiki)
+>>>>>>> 446759b (removed frapper route upon roume deletion)
 
 ___
 ### Compatibility

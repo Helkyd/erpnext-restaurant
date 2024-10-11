@@ -11,24 +11,42 @@
  "fields": [
   {
    "fieldname": "next_status",
+<<<<<<< HEAD
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Next Status",
    "options": "Status Order PC",
+=======
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Next Status",
+   "options": "Sent\nProcessing\nCompleted\nDelivering\nDelivered",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "reqd": 1
   },
   {
    "fieldname": "status_managed",
+<<<<<<< HEAD
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Status Managed",
    "options": "Status Order PC",
+=======
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status Managed",
+   "options": "Sent\nProcessing\nCompleted\nDelivering\nDelivered",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
    "reqd": 1
   }
  ],
  "istable": 1,
  "links": [],
+<<<<<<< HEAD
  "modified": "2022-12-12 17:53:49.524031",
+=======
+ "modified": "2020-04-10 16:21:24.753187",
+>>>>>>> 446759b (removed frapper route upon roume deletion)
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "Status Managed Production Center",
