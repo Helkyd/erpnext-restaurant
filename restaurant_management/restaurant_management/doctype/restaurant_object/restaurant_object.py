@@ -81,6 +81,8 @@ class RestaurantObject(Document):
         return False
 
     def validate_transaction(self, user=frappe.session.user, from_crm=None):
+        print ('sef name ', self.name)
+        print (self.doctype)
         if not self.can_access():
             frappe.throw(_("You don't have access to this table"))
 

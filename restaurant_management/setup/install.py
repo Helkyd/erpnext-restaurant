@@ -116,9 +116,10 @@ def clear_custom_fields():
                     frappe.db.sql("""DELETE FROM `tabCustom Field` WHERE name=%s""", test_field)
 
 def set_default_data():
-    #FIX 11-10-2024; Changed public to is_standard; title to label
+    #FIX 11-10-2024; Changed public to is_standard; title to label; Added category Modules..
     frappe.db.sql("""UPDATE `tabWorkspace` SET is_standard=1 WHERE name = 'Restaurant Management'""")
     frappe.db.sql("""UPDATE `tabWorkspace` SET label='Restaurant Management' WHERE name = 'Restaurant Management'""")
+    frappe.db.sql("""UPDATE `tabWorkspace` SET category='Modules' WHERE name = 'Restaurant Management'""")
     
     set_default_process_status()
     set_cuisine_types()
