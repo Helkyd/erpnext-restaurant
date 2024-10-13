@@ -606,6 +606,165 @@ class TableOrder {
       customize: true,
       title: title
     }
+    console.log('print account....');
+    
+    var order_print = "";
+    var ficha_tec = "";
+    var orderprint  = "";
+
+    frappe.model.with_doc('Table Order', this.data.name, function() { 
+      var d = Object.keys(locals['Table Order'])[0]
+      frappe.model.with_doctype('Table Order', () => {
+        let meta = frappe.get_meta("Table Order");
+        var fichatec = frappe.model.get_doc('Table Order', d);
+        ficha_tec = fichatec; 
+        console.log ('ficccc ', ficha_tec.name);      
+        /*
+        frappe.route_options = {
+          //frm: frm,
+          print_format_list : ['POS Invoice'],
+          print_format_select_val : ['POS Invoice'],
+          print_sel : ['POS Invoice'],
+          default_print_format : ['POS Invoice'],
+          print_format_selector : ['POS Invoice'],
+        };
+        */
+        
+        //frappe.set_route('print', 'Table Order', d);   
+        //meta.default_print_format
+        console.log('default template ');
+        console.log(meta.__print_formats[1].html);
+
+        /*        
+        let print_template_data = frappe.render_template("print_template", {
+          content: meta.__print_formats[1].html, //this.print_template,
+          title: "POS TESTE",
+          base_url: frappe.urllib.get_base_url(),
+          print_css: frappe.boot.print_css,
+          print_settings: locals[":Print Settings"]["Print Settings"],
+          //header: this.letter_head.header,
+          //footer: this.letter_head.footer,
+          landscape: false,
+          lang: "PT",
+          layout_direction: "Portrait",
+          columns: []
+
+        })
+        console.log(' printe temaple');
+        console.log(print_template_data)
+    
+        
+        order_print = print_template_data;
+        var aaa  = frappe.render(order_print,ficha_tec)      
+        */
+
+        //let print_template_data = frappe.get_html_and_style(ficha_tec.name,null,"Order_ACC_QUARD",meta,null,null,true,null,null,null);
+        /*
+        frappe.call({
+          "method": "frappe.www.printview.get_html_and_style",
+          args: {
+            doc :"Table Order",
+            name :ficha_tec.name,
+            print_format:"Order_ACC_QUARD",
+            trigger_print:false,
+          },
+          callback: function (r) {
+            console.log('dbbbbbbbbbb')
+            console.log(r);
+            //var print_template_data = r.message.html;
+            order_print = r.message.html;
+
+            //print ('print template ', print_template_data);
+            //order_print = print_template_data;
+    
+          }
+        })
+          */
+
+
+        //print ('print template ', print_template_data);
+        //order_print = print_template_data;
+
+        //orderprint = aaa;
+
+        /*
+        var bbb = "<h1>Hello, World!</h1><p>This is a sample content to print.</p>"
+
+        var w = window.open();
+        w.document.write('<html><head><title>Print</title></head><body>');
+        w.document.write(bbb);
+        w.document.write('</body></html>');
+        w.document.close();
+        setTimeout(function () {
+          w.print();
+          w.close();
+        }, 1000)
+        */  
+      }).then((r) => {
+        //console.log('TERMINOUIadfsadfsfsafsafasfa');
+
+        frappe.call({
+          "method": "frappe.www.printview.get_html_and_style",
+          args: {
+            doc :"Table Order",
+            name :ficha_tec.name,
+            print_format:"Order_ACC_QUARD",
+            trigger_print:false,
+          },
+          callback: function (r) {
+            console.log('dbbbbbbbbbb')
+            console.log(r);
+            //var print_template_data = r.message.html;
+            order_print = r.message.html;
+            let print_template_data = frappe.render_template("print_template", {
+              content: order_print, //this.print_template,
+              title: "POS TESTE",
+              base_url: frappe.urllib.get_base_url(),
+              print_css: frappe.boot.print_css,
+              print_settings: locals[":Print Settings"]["Print Settings"],
+              //header: this.letter_head.header,
+              //footer: this.letter_head.footer,
+              landscape: false,
+              lang: "PT",
+              layout_direction: "Portrait",
+              columns: []
+    
+            })
+    
+            //console.log('aaaaaaa ', print_template_data);
+            
+            var w = window.open();
+            w.document.write(print_template_data);
+            w.document.close();
+            setTimeout(function () {
+              w.print();
+              w.close();
+            }, 1000)
+            
+    
+          }
+        })
+
+        /*
+        console.log('aaaaaaa ', order_print);
+        
+        var w = window.open();
+        //w.document.write('<html><head><title>Print</title></head><body>');
+        w.document.write(orderprint);
+        //w.document.write('</body></html>');
+        w.document.close();
+        setTimeout(function () {
+          w.print();
+          w.close();
+        }, 1000)
+        */
+    
+      });
+  
+    })
+  
+    /*
+    REMOVED FOR NOW
 
     if (order_manage.print_modal) {
       order_manage.print_modal.set_props(props);
@@ -614,6 +773,7 @@ class TableOrder {
     } else {
       order_manage.print_modal = new DeskModal(props);
     }
+      */
   }
 
   set_customer() {
