@@ -13,6 +13,7 @@ import string
 from frappe.utils import get_datetime
 from datetime import timedelta
 
+#Last Modified 13-10-2024
 
 class RestaurantObject(Document):
     @property
@@ -476,6 +477,8 @@ class RestaurantObject(Document):
             status=entry.status,
             last_status=las_status,
             notes=entry.notes,
+            was_printed=entry.was_printed,   #FIX 13-10-2024
+
             # frappe.format_value(entry.creation, {"fieldtype": "Datetime"}),
             ordered_time=entry.ordered_time or frappe.utils.now_datetime(),
             process_status_data=self.process_status_data(entry)

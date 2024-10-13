@@ -67,6 +67,7 @@ ProcessManage = class ProcessManage {
 
   get_commands_food(clean = false) {
     RM.working("Load commands food");
+    console.log('PROCESS MANAGE CLASS - GET COMMANDS FOOD');
     frappeHelper.api.call({
       model: "Restaurant Object",
       name: this.table.data.name,
@@ -223,6 +224,9 @@ ProcessManage = class ProcessManage {
       });
 
       this.get_field(data, "print-order").on("click", () => {
+        //HELKYDS 13-10-2024
+        console.log('print DATA....');
+        console.log(data);
         this.print_order(data);
       });
     };
@@ -259,6 +263,11 @@ ProcessManage = class ProcessManage {
       const available = this.check_available_item(data, data);
 
       if (order_is_render(order)) {
+        //HELKYDS 13-10-2024
+        console.log('print DATA....');
+        console.log(data);
+        console.log('availabel ', available);
+        
         available ? update_order(data) : delete_order(data);
       } else if (available) {
         add_order(order);
@@ -318,6 +327,7 @@ ProcessManage = class ProcessManage {
   }
 
   make_food_commands(items = {}) {
+    console.log('PROCESS MANAGE CLASS - make food commands');
     this.render_group_container(items);
 
     Object.values(items).forEach(item => {
@@ -330,6 +340,13 @@ ProcessManage = class ProcessManage {
           this.items[item.identifier].render();
         } else {
           this.add_item(item, order);
+        }
+        //FIX 13-10-2024; Check if was printed....
+        console.log('PRINTED ', item.entry_name);
+        console.log(item.was_printed);
+        //TODO: Print to default PRINTER.... 
+        if (!item.was_printed) {
+          console.log('PRINT ..... ', item);
         }
 
         this.items[item.identifier].process_manage = this;
