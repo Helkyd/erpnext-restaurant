@@ -652,7 +652,7 @@ ProcessManage = class ProcessManage {
             // here you can use anything you defined in the loaded script
             //const qz = require("qz-tray");
             var options = [];
-            options['host']=['helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx','192.168.8.214'];
+            options['host']=['POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx','192.168.8.214'];
             options['usingSecure']= true;
 
             if (qz.websocket.isActive()) {	// if already active, resolve immediately
@@ -671,12 +671,13 @@ ProcessManage = class ProcessManage {
                   //To get from USER Settings WHICH PRINTER BAR and KITCHEN
                   //let config = qz.configs.create(printers[0]);
                   let config = qz.configs.create(printers);
-                  let dados_print =  '<div><h1>PEDIDO FEITO</h1></div> '
-                  dados_print += '<h2>Sala: ' + data.table_description + ' </h2> '
-                  dados_print += '<h2>MESA: ' + data.table_description + ' </h2> '
-                  dados_print += '<p>ITEM: ' + data.item_name + ' </p> '
-                  dados_print += '<p>QTD:  ' + data.qty + ' </p> '
-                  dados_print += '<p>Pedido as:  ' + data.ordered_time + ' </p>'
+                  let dados_print =  '<!DOCTYPE html><style>	.print-format table, .print-format tr, 	.print-format td, .print-format div, .print-format p {		font-family: Tahoma, sans-serif;		line-height: 150%;		vertical-align: middle;	}	@media screen {		.print-format {			width: 4in;			padding: 0.25in;			min-height: 8in;		}	}</style><p class="text-center" style="margin-bottom: 1rem">	"PEDIDO MESA"<br></p>'
+                  //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
+                  dados_print += '&nbsp;&nbsp;<strong><p style="font-size:10px;>Sala: ' + data.table_description + ' </p> '
+                  dados_print += '<p style="font-size:10px;>MESA: ' + data.table_description + ' </p> </strong>'
+                  dados_print += '<strong><p class="text-center">' + data.item_name.trim() + ' </p> '
+                  dados_print += ' &nbsp;&nbsp;<p>QTD:  ' + data.qty + ' </p> </strong>'
+                  dados_print += '&nbsp;&nbsp;&nbsp;&nbsp;<p class="text-center" style="font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p>'
 
                   return qz.print(config, [{
                       type: 'pixel',
