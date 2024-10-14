@@ -13,6 +13,7 @@ from restaurant_management.restaurant_management.page.restaurant_manage.restaura
 
 status_attending = "Attending"
 
+#Last Modified: 14-10-2024
 
 class TableOrder(Document):
     synchronize_data = None
@@ -507,8 +508,8 @@ class TableOrder(Document):
                 batch_no=entry["batch_no"],
                 has_serial_no=entry["has_serial_no"],
                 serial_no=entry["serial_no"],
-                sub_items=entry["sub_items"],
-                is_customizable=entry["is_customizable"],
+                #sub_items=entry["sub_items"],  #REMOVED FOR NOW; 14-10-2024
+                #is_customizable=entry["is_customizable"],  #REMOVED FOR NOW; 14-10-2024
             )
 
             self.validate()
