@@ -469,7 +469,8 @@ class TableOrder(Document):
         tax = 0
         amount = 0
         for item in self.entry_items:
-            tax += item.tax_amount
+            #FIX 15-10-2024
+            tax += item.tax_amount if item.tax_amount else 0
             amount += item.amount
 
         self.tax = tax

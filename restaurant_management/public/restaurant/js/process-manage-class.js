@@ -348,12 +348,15 @@ ProcessManage = class ProcessManage {
         //TODO: Print to default PRINTER.... 
         if (!item.was_printed) {
           console.log('PRINT ..... ', item);
-          this.print_kitchen_qz(item);
+          //this.print_kitchen_qz(item);
         }
 
         this.items[item.identifier].process_manage = this;
       });
+
     });
+    //FIX 15-10-2024
+    this.print_kitchen_qz(this.items);
 
     setTimeout(() => {
       this.debug_items();
@@ -637,18 +640,61 @@ ProcessManage = class ProcessManage {
     // here you can use anything you defined in the loaded script
     //const qz = require("qz-tray");
     var options = [];
-    options['host']=['POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx','192.168.8.214'];
+    options['host']=['localhost','POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx'];
     options['usingSecure']= true;
     
     var kitprinter_name = "PRT-KIT01"; 
+    var bar1printer_name = "PRT-BAR01"; //Ground Floor
+    var bar2printer_name = "PRT-BAR02"; //1st Floor
 
-    let dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;">	PEDIDO MESA<br></p></strong>'
+    console.log('daaatttttttaaaaa');
+    console.log(data);
+    var new_data = [];
+    Object.keys(data).forEach((i) => { 
+      console.log(data[i].data.item_code);
+      console.log(data[i].data.was_printed); 
+      if (!data[i].data.was_printed) {
+        new_data.push({
+          'short_name': data[i].data.short_name,
+          'table_description': data[i].data.table_description,
+          'item_name': data[i].data.item_name,
+          'qty':data[i].data.qty,
+          'ordered_time': data[i].data.ordered_time,
+          'item_group': data[i].data.item_group});
+      }
+
+    })
+
+    console.log('NEWWWWW DATA');
+    console.log(new_data);
+    var dados_to_print = [];
+    var dados_print = "";
+
+    new_data.forEach((data) => {
+      dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;font-size:12px;">	PEDIDO MESA<br></p></strong>'
+      //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
+      dados_print += '<strong><p style="font-size:12px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
+      //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
+      dados_print += '<strong><p style="font-size:16px;text-align:center;text-transform: uppercase;">' + data.item_name.trim() + ' </p> </strong>'
+      dados_print += '<strong><p>QTD:  ' + data.qty + ' </p> </strong>'
+      dados_print += '<strong><p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p> </strong>'
+
+      dados_to_print.push(dados_print);
+  
+    })
+
+    console.log('USAR PARA PRINT ');
+    console.log(dados_to_print);
+
+    /*
+    let dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;font-size:12px;">	PEDIDO MESA<br></p></strong>'
     //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
-    dados_print += '&nbsp;&nbsp;<strong><p style="font-size:10px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
+    dados_print += '<strong><p style="font-size:12px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
     //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
-    dados_print += '<strong><p style="font-size:14px;text-align:center;">' + data.item_name.trim() + ' </p> '
-    dados_print += ' &nbsp;&nbsp;<p>QTD:  ' + data.qty + ' </p> </strong>'
-    dados_print += '&nbsp;&nbsp;&nbsp;&nbsp;<p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p>'
+    dados_print += '<strong><p style="font-size:16px;text-align:center;text-transform: uppercase;">' + data.item_name.trim() + ' </p> </strong>'
+    dados_print += '<strong><p>QTD:  ' + data.qty + ' </p> </strong>'
+    dados_print += '<strong><p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p> </strong>'
+    */
 
     if (qz.websocket.isActive()) {	// if already active, resolve immediately
       resolve();
@@ -656,6 +702,43 @@ ProcessManage = class ProcessManage {
     } else {
       qz.websocket.connect(options).then(function() { 
         console.log('ligouuuuuuu');
+        
+        dados_to_print.forEach((dd) => {
+          if (dd.item_group == "Comidas") {
+            qz.printers.find(kitprinter_name).then((r) => {
+              console.log('aaaaa PRINTER ');
+              console.log(r);
+              let config = qz.configs.create(r);
+    
+              return qz.print(config, [{
+                  type: 'pixel',
+                  format: 'html',
+                  flavor: 'plain',
+                  data: dd
+              }]);            
+  
+            });
+  
+          } else {
+            qz.printers.getDefault().then((r) => {
+              console.log('PRINTERRRRRRRRRRRRRRRRR ');
+              console.log(r);
+              console.log(dd);
+              let config = qz.configs.create(r);
+    
+              return qz.print(config, [{
+                  type: 'pixel',
+                  format: 'html',
+                  flavor: 'plain',
+                  data: dd
+              }]);            
+  
+            });
+  
+          }
+        })
+
+        /*
         if (data.item_group == "Comidas") {
           qz.printers.find(kitprinter_name).then((r) => {
             console.log('aaaaa PRINTER ');
@@ -686,6 +769,7 @@ ProcessManage = class ProcessManage {
 
           });
         }
+        */
       })
     
       /*
