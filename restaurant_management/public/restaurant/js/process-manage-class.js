@@ -348,7 +348,7 @@ ProcessManage = class ProcessManage {
         //TODO: Print to default PRINTER.... 
         if (!item.was_printed) {
           console.log('PRINT ..... ', item);
-          this.print_kitchen_qz_OLD(item);
+          this.print_kitchen_qz(item);
         }
 
         this.items[item.identifier].process_manage = this;
@@ -520,7 +520,7 @@ ProcessManage = class ProcessManage {
     return this.table.data.group_items_by_order === 1;
   }
 
-  print_kitchen_qz_OLD(data) {
+  print_kitchen_qz(data) {
     console.log('check if QZ LOADED...');
           
     qz.security.setCertificatePromise(function(resolve, reject) {
@@ -624,7 +624,7 @@ ProcessManage = class ProcessManage {
                 sig.init(pk);
                 sig.updateString(toSign);
                 var hex = sig.sign();
-                console.log("DEBUG: \n\n" + stob64(hextorstr(hex)));
+                //console.log("DEBUG: \n\n" + stob64(hextorstr(hex)));
                 resolve(stob64(hextorstr(hex)));
             } catch (err) {
                 console.error(err);
@@ -638,6 +638,8 @@ ProcessManage = class ProcessManage {
     var options = [];
     options['host']=['POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx','192.168.8.214'];
     options['usingSecure']= true;
+    
+    var kitprinter_name = "PRT-KIT01"; 
 
     if (qz.websocket.isActive()) {	// if already active, resolve immediately
       //resolve();
@@ -645,8 +647,12 @@ ProcessManage = class ProcessManage {
     } else {
       qz.websocket.connect(options).then(() => {
         console.log('ligouuuuuuu');
-        //return qz.printers.find();
-        return qz.printers.getDefault();
+        if (data.item_group == "Comidas") {
+          return qz.printers.find(kitprinter_name);
+        } else {
+          return qz.printers.getDefault();
+        }
+
       }).then((printers) => {
           console.log(printers);
           print ('dadaosssssss');
@@ -656,13 +662,13 @@ ProcessManage = class ProcessManage {
           //To get from USER Settings WHICH PRINTER BAR and KITCHEN
           //let config = qz.configs.create(printers[0]);
           let config = qz.configs.create(printers);
-          let dados_print =  '<!DOCTYPE html><style>	.print-format table, .print-format tr, 	.print-format td, .print-format div, .print-format p {		font-family: Tahoma, sans-serif;		line-height: 150%;		vertical-align: middle;	}	@media screen {		.print-format {			width: 4in;			padding: 0.25in;			min-height: 8in;		}	}</style><p class="text-center" style="margin-bottom: 1rem">	PEDIDO MESA<br></p>'
+          let dados_print =  '<!DOCTYPE html><style>	.print-format table, .print-format tr, 	.print-format td, .print-format div, .print-format p {		font-family: Tahoma, sans-serif;		line-height: 150%;		vertical-align: middle;	}	@media screen {		.print-format {			width: 4in;			padding: 0.25in;			min-height: 8in;		}	}</style><strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;">	PEDIDO MESA<br></p></strong>'
           //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
-          dados_print += '&nbsp;&nbsp;<strong><p style="font-size:10px;>Sala: ' + data.table_description + ' </p> '
-          dados_print += '<p style="font-size:10px;>MESA: ' + data.table_description + ' </p> </strong>'
-          dados_print += '<strong><p class="text-center">' + data.item_name.trim() + ' </p> '
+          dados_print += '&nbsp;&nbsp;<strong><p style="font-size:10px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
+          //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
+          dados_print += '<strong><p style="font-size:13px;text-align:center;">' + data.item_name.trim() + ' </p> '
           dados_print += ' &nbsp;&nbsp;<p>QTD:  ' + data.qty + ' </p> </strong>'
-          dados_print += '&nbsp;&nbsp;&nbsp;&nbsp;<p class="text-center" style="font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p>'
+          dados_print += '&nbsp;&nbsp;&nbsp;&nbsp;<p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p>'
 
           return qz.print(config, [{
               type: 'pixel',
@@ -684,7 +690,7 @@ ProcessManage = class ProcessManage {
   }      
 
 
-  print_kitchen_qz(data) {
+  print_kitchen_qz_ORIG(data) {
     $.getScript("https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/11.1.0/jsrsasign-all-min.js", function() {
         console.log('Carregou jsrass.... USER O LOCAL MELHOR');
 
