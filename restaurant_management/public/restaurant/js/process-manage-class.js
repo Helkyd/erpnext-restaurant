@@ -662,11 +662,12 @@ ProcessManage = class ProcessManage {
           //To get from USER Settings WHICH PRINTER BAR and KITCHEN
           //let config = qz.configs.create(printers[0]);
           let config = qz.configs.create(impressora);
-          let dados_print =  '<!DOCTYPE html><style>	.print-format table, .print-format tr, 	.print-format td, .print-format div, .print-format p {		font-family: Tahoma, sans-serif;		line-height: 150%;		vertical-align: middle;	}	@media screen {		.print-format {			width: 4in;			padding: 0.25in;			min-height: 8in;		}	}</style><strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;">	PEDIDO MESA<br></p></strong>'
+          //let dados_print =  '<!DOCTYPE html><style>	.print-format table, .print-format tr, 	.print-format td, .print-format div, .print-format p {		font-family: Tahoma, sans-serif;		line-height: 150%;		vertical-align: middle;	}	@media screen {		.print-format {			width: 4in;			padding: 0.25in;			min-height: 8in;		}	}</style><strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;">	PEDIDO MESA<br></p></strong>'
+          let dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;">	PEDIDO MESA<br></p></strong>'
           //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
           dados_print += '&nbsp;&nbsp;<strong><p style="font-size:10px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
           //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
-          dados_print += '<strong><p style="font-size:13px;text-align:center;">' + data.item_name.trim() + ' </p> '
+          dados_print += '<strong><p style="font-size:14px;text-align:center;">' + data.item_name.trim() + ' </p> '
           dados_print += ' &nbsp;&nbsp;<p>QTD:  ' + data.qty + ' </p> </strong>'
           dados_print += '&nbsp;&nbsp;&nbsp;&nbsp;<p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p>'
 
