@@ -271,6 +271,11 @@ ProcessManage = class ProcessManage {
         
         available ? update_order(data) : delete_order(data);
       } else if (available) {
+        //HELKYDS 16-10-2024
+        console.log('ADD ORDER - process manage class');
+        console.log('data ',data);
+        console.log('------- ORDER');
+        console.log(order);
         add_order(order);
       }
     });
