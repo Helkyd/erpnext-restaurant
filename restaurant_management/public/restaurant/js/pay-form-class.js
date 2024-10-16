@@ -422,7 +422,7 @@ class PayForm extends DeskForm {
           args: {
             doc :"POS Invoice",
             name :ficha_tec.name,
-            print_format:"Factura_POS",
+            print_format:"POS Invoice_selling",
             trigger_print:false,
           },
           callback: function (r) {
