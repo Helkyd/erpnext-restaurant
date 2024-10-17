@@ -4,6 +4,7 @@ ProcessManage = class ProcessManage {
   items = {};
   new_items_keys = [];
   orders = {};
+  
 
   constructor(options) {
     Object.assign(this, options);
@@ -28,7 +29,8 @@ ProcessManage = class ProcessManage {
     } else {
       this.show();
     }
-  
+    //FIX 17-10-2024
+    //qz.security.setSignatureAlgorithm("SHA512"); // Since 2.1
   }
 
   show() {
@@ -232,7 +234,7 @@ ProcessManage = class ProcessManage {
       });
       //FIX 17-10-2024
       console.log('TENTA PRINT on ADD ORDER');
-      //this.print_kitchen_qz(order);
+      this.print_kitchen_qz(order);
 
     };
 
@@ -628,8 +630,13 @@ ProcessManage = class ProcessManage {
     "6cTzgXdrTHIIvgMa+UcKU4QfOWZcLNEa8BYL4TWm0lJFT4u1szdHePruuC13CzpK\n" +
     "optJSuqGciLUsSiPRFVWcUII\n" +
     "-----END PRIVATE KEY-----\n";
+    if (qz.security.getSignatureAlgorithm() == "SHA512") {
+      console.log('JA TEM SHA512');
+    } else {
+      console.log('Adddddddddddddddd SHA512');
+      qz.security.setSignatureAlgorithm("SHA512"); // Since 2.1
+    }
 
-    qz.security.setSignatureAlgorithm("SHA512"); // Since 2.1
     qz.security.setSignaturePromise(function(toSign) {
         return function(resolve, reject) {
             try {
@@ -650,7 +657,7 @@ ProcessManage = class ProcessManage {
     // here you can use anything you defined in the loaded script
     //const qz = require("qz-tray");
     var options = [];
-    options['host']=['localhost','POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx'];
+    options['host']=['localhost','POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx','192.168.8.210'];
     options['usingSecure']= true;
     
     var kitprinter_name = "PRT-KIT01"; 
@@ -723,8 +730,44 @@ ProcessManage = class ProcessManage {
     */
 
     if (qz.websocket.isActive()) {	// if already active, resolve immediately
-      resolve();
+      //resolve();
       console.log('ja ESTA LIGADOOOOOOOOOOOOOOOOOOOOOO');
+        
+      dados_to_print.forEach((dd) => {
+        if (dd.item_group == "Comidas") {
+          qz.printers.find(kitprinter_name).then((r) => {
+            console.log('aaaaa PRINTER ');
+            console.log(r);
+            let config = qz.configs.create(r);
+  
+            return qz.print(config, [{
+                type: 'pixel',
+                format: 'html',
+                flavor: 'plain',
+                data: dd
+            }]);            
+
+          });
+
+        } else {
+          qz.printers.getDefault().then((r) => {
+            console.log('PRINTERRRRRRRRRRRRRRRRR ');
+            console.log(r);
+            console.log(dd);
+            let config = qz.configs.create(r);
+  
+            return qz.print(config, [{
+                type: 'pixel',
+                format: 'html',
+                flavor: 'plain',
+                data: dd
+            }]);            
+
+          });
+
+        }
+      })
+
     } else {
       qz.websocket.connect(options).then(function() { 
         console.log('ligouuuuuuu');
