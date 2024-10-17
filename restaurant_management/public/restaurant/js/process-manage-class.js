@@ -659,7 +659,7 @@ ProcessManage = class ProcessManage {
     console.log(data);
     var new_data = [];
     Object.keys(data).forEach((i) => { 
-      if (data[i].includes('data',0)) {
+      if (data[i].indexOf('data') != -1){ // (data[i].includes('data',0)) {
         console.log(data[i].data.item_code);
         console.log(data[i].data.was_printed); 
         if (!data[i].data.was_printed) {
@@ -673,16 +673,16 @@ ProcessManage = class ProcessManage {
         }
   
       } else {
-        console.log(data[i].item_code);
-        console.log(data[i].was_printed); 
-        if (!data[i].was_printed) {
+        console.log(data[i][0].item_code);
+        console.log(data[i][0].was_printed); 
+        if (!data[i][0].was_printed) {
           new_data.push({
-            'short_name': data[i].short_name,
-            'table_description': data[i].table_description,
-            'item_name': data[i].item_name,
-            'qty':data[i].qty,
-            'ordered_time': data[i].ordered_time,
-            'item_group': data[i].item_group});
+            'short_name': data[i][0].short_name,
+            'table_description': data[i][0].table_description,
+            'item_name': data[i][0].item_name,
+            'qty':data[i][0].qty,
+            'ordered_time': data[i][0].ordered_time,
+            'item_group': data[i][0].item_group});
         }
   
       }
