@@ -233,8 +233,8 @@ ProcessManage = class ProcessManage {
         this.print_order(data);
       });
       //FIX 17-10-2024
-      console.log('TENTA PRINT on ADD ORDER');
-      this.print_kitchen_qz(order);
+      //console.log('TENTA PRINT on ADD ORDER');
+      //this.print_kitchen_qz(order);
 
     };
 
@@ -282,6 +282,10 @@ ProcessManage = class ProcessManage {
         console.log('data ',data);
         console.log('------- ORDER');
         console.log(order);
+        //FIX 17-10-2024
+        console.log('PRINT BEFOREEeeeeeeeeeeeee ADD ORDER');
+        this.print_kitchen_qz(order);
+
         add_order(order);
 
       }
