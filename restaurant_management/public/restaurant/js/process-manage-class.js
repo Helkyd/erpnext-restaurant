@@ -659,7 +659,7 @@ ProcessManage = class ProcessManage {
     console.log(data);
     var new_data = [];
     Object.keys(data).forEach((i) => { 
-      if (i == "item" && data[i].indexOf('data') != -1){ // (data[i].includes('data',0)) {
+      if (i == "items" && data[i].indexOf('data') != -1){ // (data[i].includes('data',0)) {
         console.log(data[i].data.item_code);
         console.log(data[i].data.was_printed); 
         if (!data[i].data.was_printed) {
@@ -672,7 +672,7 @@ ProcessManage = class ProcessManage {
             'item_group': data[i].data.item_group});
         }
   
-      } else if (i == "item" ) {
+      } else if (i == "items" ) {
         console.log(data[i][0].item_code);
         console.log(data[i][0].was_printed); 
         if (!data[i][0].was_printed) {
