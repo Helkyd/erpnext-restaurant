@@ -372,7 +372,7 @@ ProcessManage = class ProcessManage {
 
     });
     //FIX 15-10-2024
-    this.print_kitchen_qz(this.items);
+    //this.print_kitchen_qz(this.items);
 
     setTimeout(() => {
       this.debug_items();
@@ -698,6 +698,19 @@ ProcessManage = class ProcessManage {
             'item_group': data[i][0].item_group});
         }
   
+      } else if (Object(data).hasOwnProperty('item_code')) {
+        console.log(data[i].item_code);
+        console.log(data[i].was_printed); 
+        if (!data[i].was_printed) {
+          new_data.push({
+            'short_name': data[i].short_name,
+            'table_description': data[i].table_description,
+            'item_name': data[i].item_name,
+            'qty':data[i].qty,
+            'ordered_time': data[i].ordered_time,
+            'item_group': data[i].item_group});
+        }
+
       }
 
     })
