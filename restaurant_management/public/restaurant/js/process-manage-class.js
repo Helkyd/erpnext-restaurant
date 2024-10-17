@@ -672,7 +672,7 @@ ProcessManage = class ProcessManage {
             'item_group': data[i].data.item_group});
         }
   
-      } else {
+      } else if (i == "item" ) {
         console.log(data[i][0].item_code);
         console.log(data[i][0].was_printed); 
         if (!data[i][0].was_printed) {
