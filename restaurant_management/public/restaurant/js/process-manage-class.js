@@ -265,7 +265,7 @@ ProcessManage = class ProcessManage {
 
       if (order_is_render(order)) {
         //HELKYDS 13-10-2024
-        console.log('print DATA....');
+        console.log('print DATA.... UPDATE');
         console.log(data);
         console.log('availabel ', available);
         
@@ -277,6 +277,9 @@ ProcessManage = class ProcessManage {
         console.log('------- ORDER');
         console.log(order);
         add_order(order);
+        //FIX 15-10-2024
+        this.print_kitchen_qz(order);
+
       }
     });
   }
