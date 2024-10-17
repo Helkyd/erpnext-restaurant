@@ -659,16 +659,32 @@ ProcessManage = class ProcessManage {
     console.log(data);
     var new_data = [];
     Object.keys(data).forEach((i) => { 
-      console.log(data[i].data.item_code);
-      console.log(data[i].data.was_printed); 
-      if (!data[i].data.was_printed) {
-        new_data.push({
-          'short_name': data[i].data.short_name,
-          'table_description': data[i].data.table_description,
-          'item_name': data[i].data.item_name,
-          'qty':data[i].data.qty,
-          'ordered_time': data[i].data.ordered_time,
-          'item_group': data[i].data.item_group});
+      if (data[i].includes('data',0)) {
+        console.log(data[i].data.item_code);
+        console.log(data[i].data.was_printed); 
+        if (!data[i].data.was_printed) {
+          new_data.push({
+            'short_name': data[i].data.short_name,
+            'table_description': data[i].data.table_description,
+            'item_name': data[i].data.item_name,
+            'qty':data[i].data.qty,
+            'ordered_time': data[i].data.ordered_time,
+            'item_group': data[i].data.item_group});
+        }
+  
+      } else {
+        console.log(data[i].item_code);
+        console.log(data[i].was_printed); 
+        if (!data[i].was_printed) {
+          new_data.push({
+            'short_name': data[i].short_name,
+            'table_description': data[i].table_description,
+            'item_name': data[i].item_name,
+            'qty':data[i].qty,
+            'ordered_time': data[i].ordered_time,
+            'item_group': data[i].item_group});
+        }
+  
       }
 
     })
