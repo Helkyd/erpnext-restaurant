@@ -834,16 +834,16 @@ ProcessManage = class ProcessManage {
         }
   
       } else if (Object(data).hasOwnProperty('item_code')) {
-        console.log(data[i].item_code);
-        console.log(data[i].was_printed); 
-        if (!data[i].was_printed) {
+        console.log(data.item_code);
+        console.log(data.was_printed); 
+        if (!data.was_printed) {
           new_data.push({
-            'short_name': data[i].short_name,
-            'table_description': data[i].table_description,
-            'item_name': data[i].item_name,
-            'qty':data[i].qty,
-            'ordered_time': data[i].ordered_time,
-            'item_group': data[i].item_group});
+            'short_name': data.short_name,
+            'table_description': data.table_description,
+            'item_name': data.item_name,
+            'qty':data.qty,
+            'ordered_time': data.ordered_time,
+            'item_group': data.item_group});
         }
 
       }
