@@ -816,6 +816,7 @@ ProcessManage = class ProcessManage {
             'short_name': data[i].data.short_name,
             'table_description': data[i].data.table_description,
             'item_name': data[i].data.item_name,
+            'item_code': data[i].data.item_code,
             'qty':data[i].data.qty,
             'ordered_time': data[i].data.ordered_time,
             'item_group': data[i].data.item_group});
@@ -829,6 +830,7 @@ ProcessManage = class ProcessManage {
             'short_name': data[i][0].short_name,
             'table_description': data[i][0].table_description,
             'item_name': data[i][0].item_name,
+            'item_code': data[i][0].item_code,
             'qty':data[i][0].qty,
             'ordered_time': data[i][0].ordered_time,
             'item_group': data[i][0].item_group});
@@ -842,6 +844,7 @@ ProcessManage = class ProcessManage {
             'short_name': data.short_name,
             'table_description': data.table_description,
             'item_name': data.item_name,
+            'item_code': data.item_code,
             'qty':data.qty,
             'ordered_time': data.ordered_time,
             'item_group': data.item_group});
@@ -897,8 +900,8 @@ ProcessManage = class ProcessManage {
             //SET ITEM PRINTED...
             new_data.forEach((nn) => {
               if (dd.indexOf(nn.item_name) != -1) {
-                console.log(dd.name);
-                console.log(dd.item_code);
+                console.log(nn.name);
+                console.log(nn.item_code);
                 console.log('table data name ', this.table)
                 frappeHelper.api.call({
                   model: "Table Order",
@@ -936,8 +939,8 @@ ProcessManage = class ProcessManage {
             //SET ITEM PRINTED...
             new_data.forEach((nn) => {
               if (dd.indexOf(nn.item_name) != -1) {
-                console.log(dd.name);
-                console.log(dd.item_code);
+                console.log(nn.name);
+                console.log(nn.item_code);
                 console.log('table data name ', this.table)
                 frappeHelper.api.call({
                   model: "Table Order",
@@ -982,8 +985,8 @@ ProcessManage = class ProcessManage {
               //SET ITEM PRINTED...
               new_data.forEach((nn) => {
                 if (dd.indexOf(nn.item_name) != -1) {
-                  console.log(dd.name);
-                  console.log(dd.item_code);
+                  console.log(nn.name);
+                  console.log(nn.item_code);
                   console.log('table data name ', this.table)
                   frappeHelper.api.call({
                     model: "Table Order",
@@ -1021,15 +1024,15 @@ ProcessManage = class ProcessManage {
               //SET ITEM PRINTED...
               new_data.forEach((nn) => {
                 if (dd.indexOf(nn.item_name) != -1) {
-                  console.log(dd.name);
-                  console.log(dd.item_code);
+                  console.log(nn.name);
+                  console.log(nn.item_code);
                   console.log('table data name ', this.table)
                   frappeHelper.api.call({
                     model: "Table Order",
-                    name: nn.short_name,
+                    name: "OR-" + str(moment(frappe.datetime.nowdate()).year()) + "-" + nn.short_name,
                     method: "set_printed_status",
                     args: {
-                      identifier: nn.short_name,
+                      identifier: "OR-" + str(moment(frappe.datetime.nowdate()).year()) + "-" + nn.short_name,
                       itemcode: nn.item_code
                     },
                     always: () => {
