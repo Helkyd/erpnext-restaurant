@@ -819,7 +819,10 @@ ProcessManage = class ProcessManage {
               if (aa.short_name != data[i].data.short_name && aa.item_code != data[i].data.item_code)
                 add_newdata = true;
             })
+          } else {
+            add_newdata = true;
           }
+
           if (add_newdata) {
 
             new_data.push({
@@ -845,6 +848,8 @@ ProcessManage = class ProcessManage {
               if (aa.short_name != data[i][0].short_name && aa.item_code != data[i][0].item_code)
                 add_newdata = true;
             })
+          } else {
+            add_newdata = true;
           }
           if (add_newdata) {
 
@@ -871,7 +876,10 @@ ProcessManage = class ProcessManage {
               if (aa.short_name != data.short_name && aa.item_code != data.item_code)
                 add_newdata = true;
             })
+          } else {
+            add_newdata = true;
           }
+
           if (add_newdata) {
             new_data.push({
               'short_name': data.short_name,
