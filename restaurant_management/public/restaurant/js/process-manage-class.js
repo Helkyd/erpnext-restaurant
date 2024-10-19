@@ -812,42 +812,77 @@ ProcessManage = class ProcessManage {
         console.log(data[i].data.item_code);
         console.log(data[i].data.was_printed); 
         if (!data[i].data.was_printed) {
-          new_data.push({
-            'short_name': data[i].data.short_name,
-            'table_description': data[i].data.table_description,
-            'item_name': data[i].data.item_name,
-            'item_code': data[i].data.item_code,
-            'qty':data[i].data.qty,
-            'ordered_time': data[i].data.ordered_time,
-            'item_group': data[i].data.item_group});
+          //Check if already... 
+          var add_newdata = false;
+          if (new_data.length) {
+            new_data.forEach((aa) => {
+              if (aa.short_name != data[i].data.short_name && aa.item_code != data[i].data.item_code)
+                add_newdata = true;
+            })
+          }
+          if (add_newdata) {
+
+            new_data.push({
+              'short_name': data[i].data.short_name,
+              'table_description': data[i].data.table_description,
+              'item_name': data[i].data.item_name,
+              'item_code': data[i].data.item_code,
+              'qty':data[i].data.qty,
+              'ordered_time': data[i].data.ordered_time,
+              'item_group': data[i].data.item_group
+            });
+          }
         }
   
       } else if (i == "items" ) {
         console.log(data[i][0].item_code);
         console.log(data[i][0].was_printed); 
         if (!data[i][0].was_printed) {
-          new_data.push({
-            'short_name': data[i][0].short_name,
-            'table_description': data[i][0].table_description,
-            'item_name': data[i][0].item_name,
-            'item_code': data[i][0].item_code,
-            'qty':data[i][0].qty,
-            'ordered_time': data[i][0].ordered_time,
-            'item_group': data[i][0].item_group});
+          //Check if already... 
+          var add_newdata = false;
+          if (new_data.length) {
+            new_data.forEach((aa) => {
+              if (aa.short_name != data[i][0].short_name && aa.item_code != data[i][0].item_code)
+                add_newdata = true;
+            })
+          }
+          if (add_newdata) {
+
+            new_data.push({
+              'short_name': data[i][0].short_name,
+              'table_description': data[i][0].table_description,
+              'item_name': data[i][0].item_name,
+              'item_code': data[i][0].item_code,
+              'qty':data[i][0].qty,
+              'ordered_time': data[i][0].ordered_time,
+              'item_group': data[i][0].item_group
+            });
+          }
         }
   
       } else if (Object(data).hasOwnProperty('item_code')) {
         console.log(data.item_code);
         console.log(data.was_printed); 
         if (!data.was_printed) {
-          new_data.push({
-            'short_name': data.short_name,
-            'table_description': data.table_description,
-            'item_name': data.item_name,
-            'item_code': data.item_code,
-            'qty':data.qty,
-            'ordered_time': data.ordered_time,
-            'item_group': data.item_group});
+          //Check if already... 
+          var add_newdata = false;
+          if (new_data.length) {
+            new_data.forEach((aa) => {
+              if (aa.short_name != data.short_name && aa.item_code != data.item_code)
+                add_newdata = true;
+            })
+          }
+          if (add_newdata) {
+            new_data.push({
+              'short_name': data.short_name,
+              'table_description': data.table_description,
+              'item_name': data.item_name,
+              'item_code': data.item_code,
+              'qty':data.qty,
+              'ordered_time': data.ordered_time,
+              'item_group': data.item_group});
+              
+          }
         }
 
       }
