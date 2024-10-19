@@ -1,3 +1,4 @@
+//LAST MODIFIED: 19-10-2024
 ProcessManage = class ProcessManage {
   status = "close";
   modal = null;
@@ -661,7 +662,7 @@ ProcessManage = class ProcessManage {
     // here you can use anything you defined in the loaded script
     //const qz = require("qz-tray");
     var options = [];
-    options['host']=['localhost','POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx','192.168.8.210'];
+    options['host']=['localhost','POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx'];
     options['usingSecure']= true;
     
     var kitprinter_name = "PRT-KIT01"; 
@@ -796,7 +797,7 @@ ProcessManage = class ProcessManage {
     // here you can use anything you defined in the loaded script
     //const qz = require("qz-tray");
     var options = [];
-    options['host']=['localhost','POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx','192.168.8.210'];
+    options['host']=['localhost','POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx'];
     options['usingSecure']= true;
     
     var kitprinter_name = "PRT-KIT01"; 
@@ -891,7 +892,21 @@ ProcessManage = class ProcessManage {
             console.log('aaaaa PRINTER ');
             console.log(r);
             let config = qz.configs.create(r);
-  
+
+            //SET ITEM PRINTED...
+            frappeHelper.api.call({
+              model: "Table Order",
+              name: this.table.data.name,
+              method: "set_printed_status",
+              args: {
+                identifier: data.name,
+                itemcode: data.item_code
+              },
+              always: () => {
+                RM.ready(false, "success");
+              },
+            });            
+
             return qz.print(config, [{
                 type: 'pixel',
                 format: 'html',
@@ -907,6 +922,20 @@ ProcessManage = class ProcessManage {
             console.log(r);
             console.log(dd);
             let config = qz.configs.create(r);
+
+            //SET ITEM PRINTED...
+            frappeHelper.api.call({
+              model: "Table Order",
+              name: this.table.data.name,
+              method: "set_printed_status",
+              args: {
+                identifier: data.name,
+                itemcode: data.item_code
+              },
+              always: () => {
+                RM.ready(false, "success");
+              },
+            });            
   
             return qz.print(config, [{
                 type: 'pixel',
@@ -930,7 +959,21 @@ ProcessManage = class ProcessManage {
               console.log('aaaaa PRINTER ');
               console.log(r);
               let config = qz.configs.create(r);
-    
+
+              //SET ITEM PRINTED...
+              frappeHelper.api.call({
+                model: "Table Order",
+                name: this.table.data.name,
+                method: "set_printed_status",
+                args: {
+                  identifier: data.name,
+                  itemcode: data.item_code
+                },
+                always: () => {
+                  RM.ready(false, "success");
+                },
+              });            
+
               return qz.print(config, [{
                   type: 'pixel',
                   format: 'html',
@@ -946,7 +989,21 @@ ProcessManage = class ProcessManage {
               console.log(r);
               console.log(dd);
               let config = qz.configs.create(r);
-    
+
+              //SET ITEM PRINTED...
+              frappeHelper.api.call({
+                model: "Table Order",
+                name: this.table.data.name,
+                method: "set_printed_status",
+                args: {
+                  identifier: data.name,
+                  itemcode: data.item_code
+                },
+                always: () => {
+                  RM.ready(false, "success");
+                },
+              });            
+
               return qz.print(config, [{
                   type: 'pixel',
                   format: 'html',
@@ -1157,7 +1214,7 @@ ProcessManage = class ProcessManage {
     // here you can use anything you defined in the loaded script
     //const qz = require("qz-tray");
     var options = [];
-    options['host']=['POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx','192.168.8.214'];
+    options['host']=['POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx'];
     options['usingSecure']= true;
     
     var kitprinter_name = "PRT-KIT01"; 
@@ -1345,7 +1402,7 @@ ProcessManage = class ProcessManage {
             // here you can use anything you defined in the loaded script
             //const qz = require("qz-tray");
             var options = [];
-            options['host']=['POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx','192.168.8.214'];
+            options['host']=['POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx'];
             options['usingSecure']= true;
 
             if (qz.websocket.isActive()) {	// if already active, resolve immediately
