@@ -861,8 +861,9 @@ ProcessManage = class ProcessManage {
       //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
       dados_print += '<strong><p style="font-size:12px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
       //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
-      dados_print += '<strong><p style="font-size:16px;text-align:center;text-transform: uppercase;">' + data.item_name.trim() + ' </p> </strong>'
+      dados_print += '<strong><p style="font-size:14px;text-align:center;text-transform: uppercase;">' + data.item_name.trim() + ' </p> </strong>'
       dados_print += '<strong><p>QTD:  ' + data.qty + ' </p> </strong>'
+      dados_print += '<p> ' + data.item_group + ' </p>'
       dados_print += '<strong><p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p> </strong>'
 
       dados_to_print.push(dados_print);
@@ -887,25 +888,34 @@ ProcessManage = class ProcessManage {
       console.log('ja ESTA LIGADOOOOOOOOOOOOOOOOOOOOOO');
         
       dados_to_print.forEach((dd) => {
-        if (dd.item_group == "Comidas") {
+        if (dd.indexOf("Comidas") != -1) {
           qz.printers.find(kitprinter_name).then((r) => {
             console.log('aaaaa PRINTER ');
             console.log(r);
             let config = qz.configs.create(r);
 
             //SET ITEM PRINTED...
-            frappeHelper.api.call({
-              model: "Table Order",
-              name: this.table.data.name,
-              method: "set_printed_status",
-              args: {
-                identifier: data.name,
-                itemcode: data.item_code
-              },
-              always: () => {
-                RM.ready(false, "success");
-              },
-            });            
+            new_data.forEach((nn) => {
+              if (dd.indexOf(nn.item_name) != -1) {
+                console.log(dd.name);
+                console.log(dd.item_code);
+                console.log('table data name ', this.table)
+                frappeHelper.api.call({
+                  model: "Table Order",
+                  name: nn.short_name,
+                  method: "set_printed_status",
+                  args: {
+                    identifier: nn.short_name,
+                    itemcode: nn.item_code
+                  },
+                  always: () => {
+                    RM.ready(false, "success");
+                  },
+                });            
+    
+              }
+
+            })
 
             return qz.print(config, [{
                 type: 'pixel',
@@ -924,19 +934,28 @@ ProcessManage = class ProcessManage {
             let config = qz.configs.create(r);
 
             //SET ITEM PRINTED...
-            frappeHelper.api.call({
-              model: "Table Order",
-              name: this.table.data.name,
-              method: "set_printed_status",
-              args: {
-                identifier: data.name,
-                itemcode: data.item_code
-              },
-              always: () => {
-                RM.ready(false, "success");
-              },
-            });            
-  
+            new_data.forEach((nn) => {
+              if (dd.indexOf(nn.item_name) != -1) {
+                console.log(dd.name);
+                console.log(dd.item_code);
+                console.log('table data name ', this.table)
+                frappeHelper.api.call({
+                  model: "Table Order",
+                  name: nn.short_name,
+                  method: "set_printed_status",
+                  args: {
+                    identifier: nn.short_name,
+                    itemcode: nn.item_code
+                  },
+                  always: () => {
+                    RM.ready(false, "success");
+                  },
+                });            
+    
+              }
+
+            })
+
             return qz.print(config, [{
                 type: 'pixel',
                 format: 'html',
@@ -954,25 +973,34 @@ ProcessManage = class ProcessManage {
         console.log('ligouuuuuuu');
         
         dados_to_print.forEach((dd) => {
-          if (dd.item_group == "Comidas") {
+          if (dd.indexOf("Comidas") != -1) {
             qz.printers.find(kitprinter_name).then((r) => {
               console.log('aaaaa PRINTER ');
               console.log(r);
               let config = qz.configs.create(r);
 
               //SET ITEM PRINTED...
-              frappeHelper.api.call({
-                model: "Table Order",
-                name: this.table.data.name,
-                method: "set_printed_status",
-                args: {
-                  identifier: data.name,
-                  itemcode: data.item_code
-                },
-                always: () => {
-                  RM.ready(false, "success");
-                },
-              });            
+              new_data.forEach((nn) => {
+                if (dd.indexOf(nn.item_name) != -1) {
+                  console.log(dd.name);
+                  console.log(dd.item_code);
+                  console.log('table data name ', this.table)
+                  frappeHelper.api.call({
+                    model: "Table Order",
+                    name: nn.short_name,
+                    method: "set_printed_status",
+                    args: {
+                      identifier: nn.short_name,
+                      itemcode: nn.item_code
+                    },
+                    always: () => {
+                      RM.ready(false, "success");
+                    },
+                  });            
+      
+                }
+
+              })
 
               return qz.print(config, [{
                   type: 'pixel',
@@ -991,18 +1019,27 @@ ProcessManage = class ProcessManage {
               let config = qz.configs.create(r);
 
               //SET ITEM PRINTED...
-              frappeHelper.api.call({
-                model: "Table Order",
-                name: this.table.data.name,
-                method: "set_printed_status",
-                args: {
-                  identifier: data.name,
-                  itemcode: data.item_code
-                },
-                always: () => {
-                  RM.ready(false, "success");
-                },
-              });            
+              new_data.forEach((nn) => {
+                if (dd.indexOf(nn.item_name) != -1) {
+                  console.log(dd.name);
+                  console.log(dd.item_code);
+                  console.log('table data name ', this.table)
+                  frappeHelper.api.call({
+                    model: "Table Order",
+                    name: nn.short_name,
+                    method: "set_printed_status",
+                    args: {
+                      identifier: nn.short_name,
+                      itemcode: nn.item_code
+                    },
+                    always: () => {
+                      RM.ready(false, "success");
+                    },
+                  });            
+      
+                }
+
+              })
 
               return qz.print(config, [{
                   type: 'pixel',
