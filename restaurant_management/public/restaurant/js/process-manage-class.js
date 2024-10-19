@@ -905,10 +905,10 @@ ProcessManage = class ProcessManage {
                 console.log('table data name ', this.table)
                 frappeHelper.api.call({
                   model: "Table Order",
-                  name: "OR-" + str(moment(frappe.datetime.nowdate()).year()) + "-" + nn.short_name,
+                  name: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
                   method: "set_printed_status",
                   args: {
-                    identifier: "OR-" + str(moment(frappe.datetime.nowdate()).year()) + "-" + nn.short_name,
+                    identifier: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
                     itemcode: nn.item_code
                   },
                   always: () => {
@@ -945,10 +945,10 @@ ProcessManage = class ProcessManage {
                 console.log('table data name ', this.table)
                 frappeHelper.api.call({
                   model: "Table Order",
-                  name: "OR-" + str(moment(frappe.datetime.nowdate()).year()) + "-" + nn.short_name,
+                  name: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
                   method: "set_printed_status",
                   args: {
-                    identifier: "OR-" + str(moment(frappe.datetime.nowdate()).year()) + "-" + nn.short_name,
+                    identifier: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
                     itemcode: nn.item_code
                   },
                   always: () => {
@@ -991,10 +991,10 @@ ProcessManage = class ProcessManage {
                   console.log('table data name ', this.table)
                   frappeHelper.api.call({
                     model: "Table Order",
-                    name: "OR-" + str(moment(frappe.datetime.nowdate()).year()) + "-" + nn.short_name,
+                    name: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
                     method: "set_printed_status",
                     args: {
-                      identifier: "OR-" + str(moment(frappe.datetime.nowdate()).year()) + "-" + nn.short_name,
+                      identifier: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
                       itemcode: nn.item_code
                     },
                     always: () => {
@@ -1030,10 +1030,10 @@ ProcessManage = class ProcessManage {
                   console.log('table data name ', this.table)
                   frappeHelper.api.call({
                     model: "Table Order",
-                    name: "OR-" + str(moment(frappe.datetime.nowdate()).year()) + "-" + nn.short_name,
+                    name: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
                     method: "set_printed_status",
                     args: {
-                      identifier: "OR-" + str(moment(frappe.datetime.nowdate()).year()) + "-" + nn.short_name,
+                      identifier: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
                       itemcode: nn.item_code
                     },
                     always: () => {
