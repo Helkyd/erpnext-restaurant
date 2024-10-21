@@ -264,7 +264,7 @@ class RestaurantObject(Document):
             data["restricted_rooms"] = self.restricted_rooms
             data["restricted_tables"] = self.restricted_tables
             data["restricted_branches"] = self.restricted_branches
-            #data["printer_name"] = self.printer_name    #FIX 21-10-2024
+            data["printer_name"] = self.printer_name    #FIX 21-10-2024
         else:
             data["status"] = self.status
 
@@ -479,7 +479,7 @@ class RestaurantObject(Document):
             last_status=las_status,
             notes=entry.notes,
             was_printed=entry.was_printed,   #FIX 13-10-2024
-            printer_name=entry.printer_name,    #FIX 21-10-2024
+            #printer_name=entry.printer_name,    #FIX 21-10-2024
 
             # frappe.format_value(entry.creation, {"fieldtype": "Datetime"}),
             ordered_time=entry.ordered_time or frappe.utils.now_datetime(),
