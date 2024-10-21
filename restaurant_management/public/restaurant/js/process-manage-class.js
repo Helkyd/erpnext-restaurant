@@ -832,7 +832,8 @@ ProcessManage = class ProcessManage {
               'item_code': data[i].data.item_code,
               'qty':data[i].data.qty,
               'ordered_time': data[i].data.ordered_time,
-              'item_group': data[i].data.item_group
+              'item_group': data[i].data.item_group,
+              'notes': data[i].data.notes
             });
           }
         }
@@ -860,7 +861,8 @@ ProcessManage = class ProcessManage {
               'item_code': data[i][0].item_code,
               'qty':data[i][0].qty,
               'ordered_time': data[i][0].ordered_time,
-              'item_group': data[i][0].item_group
+              'item_group': data[i][0].item_group,
+              'notes': data[i][0].notes
             });
           }
         }
@@ -888,7 +890,9 @@ ProcessManage = class ProcessManage {
               'item_code': data.item_code,
               'qty':data.qty,
               'ordered_time': data.ordered_time,
-              'item_group': data.item_group});
+              'item_group': data.item_group,
+              'notes': data.notes
+            });
               
           }
         }
@@ -908,6 +912,9 @@ ProcessManage = class ProcessManage {
       dados_print += '<strong><p style="font-size:12px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
       //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
       dados_print += '<strong><p style="font-size:14px;text-align:center;text-transform: uppercase;">' + data.item_name.trim() + ' </p> </strong>'
+      if (data.notes != "") {
+        dados_print += '<strong><p style="font-size:12px;text-align:center;text-transform: uppercase;">' + data.notes.trim() + ' </p> </strong>'
+      }
       dados_print += '<strong><p>QTD:  ' + data.qty + ' </p> </strong>'
       dados_print += '<p> ' + data.item_group + ' </p>'
       dados_print += '<strong><p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p> </strong>'
