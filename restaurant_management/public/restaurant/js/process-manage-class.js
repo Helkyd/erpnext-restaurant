@@ -1,4 +1,4 @@
-//LAST MODIFIED: 19-10-2024
+//LAST MODIFIED: 21-10-2024
 ProcessManage = class ProcessManage {
   status = "close";
   modal = null;
@@ -972,7 +972,44 @@ ProcessManage = class ProcessManage {
             }]);            
 
           });
+        } else if (this.table.data.printer_name != "" && this.table.data.printer_name != null) {
+          qz.printers.find(this.table.data.printer_name).then((r) => {
+            console.log('aaaaa PRINTER ', this.table.data.printer_name);
+            console.log(r);
+            let config = qz.configs.create(r);
 
+            //SET ITEM PRINTED...
+            new_data.forEach((nn) => {
+              if (dd.indexOf(nn.item_name) != -1) {
+                console.log(nn.name);
+                console.log(nn.item_code);
+                console.log('table data name ', this.table)
+                frappeHelper.api.call({
+                  model: "Table Order",
+                  name: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
+                  method: "set_printed_status",
+                  args: {
+                    identifier: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
+                    itemcode: nn.item_code
+                  },
+                  always: () => {
+                    RM.ready(false, "success");
+                  },
+                });            
+    
+              }
+
+            })
+
+
+            return qz.print(config, [{
+                type: 'pixel',
+                format: 'html',
+                flavor: 'plain',
+                data: dd
+            }]);            
+
+          });          
         } else {
           qz.printers.getDefault().then((r) => {
             console.log('PRINTERRRRRRRRRRRRRRRRR ');
@@ -1057,7 +1094,45 @@ ProcessManage = class ProcessManage {
               }]);            
   
             });
+          } else if (this.table.data.printer_name != "" && this.table.data.printer_name != null) {
+            qz.printers.find(this.table.data.printer_name).then((r) => {
+              console.log('aaaaa PRINTER ', this.table.data.printer_name);
+              console.log(r);
+              let config = qz.configs.create(r);
   
+              //SET ITEM PRINTED...
+              new_data.forEach((nn) => {
+                if (dd.indexOf(nn.item_name) != -1) {
+                  console.log(nn.name);
+                  console.log(nn.item_code);
+                  console.log('table data name ', this.table)
+                  frappeHelper.api.call({
+                    model: "Table Order",
+                    name: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
+                    method: "set_printed_status",
+                    args: {
+                      identifier: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
+                      itemcode: nn.item_code
+                    },
+                    always: () => {
+                      RM.ready(false, "success");
+                    },
+                  });            
+      
+                }
+  
+              })
+  
+  
+              return qz.print(config, [{
+                  type: 'pixel',
+                  format: 'html',
+                  flavor: 'plain',
+                  data: dd
+              }]);            
+  
+            });          
+
           } else {
             qz.printers.getDefault().then((r) => {
               console.log('PRINTERRRRRRRRRRRRRRRRR ');
