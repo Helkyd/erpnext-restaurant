@@ -484,9 +484,11 @@ class JSHtml {
         if (this.is_float) {
             this.#value = parseFloat(val).toFixed(2);
             if (isNaN(this.#value)) this.#value = "";
-        } else if (this.is_int && val != "" && !val.endsWith('.')) { //FIX 22-10-2024
-            this.#value = parseInt(val);
-            if (isNaN(this.#value)) this.#value = "";
+        } else if (this.is_int && val != "") { //FIX 22-10-2024
+            if (!val.endsWith('.')) {
+                this.#value = parseInt(val);
+                if (isNaN(this.#value)) this.#value = "";    
+            }
         } else {
             this.#value = val;
         }
