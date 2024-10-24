@@ -662,8 +662,10 @@ ProcessManage = class ProcessManage {
     // here you can use anything you defined in the loaded script
     //const qz = require("qz-tray");
     var options = [];
-    options['host']=['localhost','POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx'];
-    options['usingSecure']= true;
+    //FIX 24-10-2024; Due to Cert on Qz-Tray we will try local first not SECURED
+    //options['host']=['localhost','POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx'];
+    options['host']='localhost';
+    options['usingSecure']= false;
     
     var kitprinter_name = "PRT-KIT01"; 
     var bar1printer_name = "PRT-BAR01"; //Ground Floor
