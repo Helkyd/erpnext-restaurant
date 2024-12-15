@@ -1,4 +1,4 @@
-//LAST Modified: 15-10-2024
+//LAST Modified: 15-12-2024
 class PayForm extends DeskForm {
   payment_methods = {};
   form_name = "Payment Order";
@@ -135,8 +135,12 @@ class PayForm extends DeskForm {
       } else {
         this.get_field("delivery_options").wrapper[0].style.display = "none";;
         this.set_field_property(["delivery_date", "pick_time", "branch", "address"], "reqd", 0);
-        this.set_field_property("dinners", "reqd", 1);
-        this.get_field("dinners").$wrapper.show();
+        //FIX 15-12-2024; SET DINNERS default to 0;
+        //FIX 15-12-2024; HIDE as we dont need for NOW
+        console.log('set Dinners 0');
+        this.set_value('dinners', 0);
+        this.set_field_property("dinners", "reqd", 0);
+        this.get_field("dinners").$wrapper.hide();
       }
 
       this.trigger("charge_amount", "change");
