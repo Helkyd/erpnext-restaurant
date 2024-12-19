@@ -13,7 +13,7 @@ from restaurant_management.restaurant_management.page.restaurant_manage.restaura
 
 status_attending = "Attending"
 
-#Last Modified: 14-10-2024
+#Last Modified: 19-12-2024
 
 class TableOrder(Document):
     synchronize_data = None
@@ -338,9 +338,12 @@ class TableOrder(Document):
         tax_template = frappe.db.get_value(
             "Sales Taxes and Charges Template", {"company": self.company})
 
+        print ('in_invoice_taxes')
+        print (in_invoice_taxes)
         for t in set(in_invoice_taxes):
-            tax = frappe.db.get_value("Sales Taxes And Charges", dict(
-                parenttype=tax_template, account_head=t), ["charge_type", "rate", "amount", "included_in_print_rate"], as_dict=True)
+            #FIX 19-12-2024; Sales Taxes And Charges to Sales Taxes and Charges; amount to tax_amount
+            tax = frappe.db.get_value("Sales Taxes and Charges", dict(
+                parenttype=tax_template, account_head=t), ["charge_type", "rate", "tax_amount", "included_in_print_rate"], as_dict=True)
 
             if isinstance(tax, type(None)):
                 invoice.append('taxes', {
@@ -355,7 +358,7 @@ class TableOrder(Document):
                     "charge_type": tax.charge_type,
                     "account_head": t,
                     "rate": tax.rate or 0,
-                    "tax_amount": tax.amount or 0,
+                    "tax_amount": tax.tax_amount or 0,
                     "description": t,
                     "included_in_print_rate": included_in_print_rate or tax.included_in_print_rate
                 })
