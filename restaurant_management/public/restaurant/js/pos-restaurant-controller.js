@@ -1,3 +1,4 @@
+//LAST MODIFIED: 19-12-2024
 erpnext.PointOfSale.RestaurantController = class {
 	constructor(wrapper) {
 		this.wrapper = $(wrapper).find('.layout-main-section');
@@ -46,6 +47,7 @@ erpnext.PointOfSale.RestaurantController = class {
 			}
 		];
 		const fetch_pos_payment_methods = () => {
+			console.log('fetch pos payment methods......');
 			const pos_profile = dialog.fields_dict.pos_profile.get_value();
 			if (!pos_profile) return;
 			frappe.db.get_doc("POS Profile", pos_profile).then(({ payments }) => {
@@ -106,6 +108,11 @@ erpnext.PointOfSale.RestaurantController = class {
 			},
 			primary_action_label: __('Submit...')
 		});
+		//FIX 19-12-2024; SET DEFAULT CASH
+		console.log('FIX 19-12-2024; SET DEFAULT CASH');
+		dialog.fields_dict.balance_details.df.data.push({ "mode_of_payment":"Cash", opening_amount: '0' });
+		dialog.fields_dict.balance_details.grid.refresh();
+
 		dialog.show();
 	}
 

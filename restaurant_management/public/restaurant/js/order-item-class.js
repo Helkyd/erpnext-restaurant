@@ -194,12 +194,19 @@ class OrderItem {
 
   tax_calculate(base_amount) {
     const tax_inclusive = RM.pos_profile.posa_tax_inclusive;
+    //FIX 19-12-2024; CHECK IF two TAXES.... 
+    console.log('TAXXES ', this.data.item_tax_rate);
+    console.log(Object.values(RMHelper.JSONparse(this.data.item_tax_rate) || {}));
 
     const tax_amount = Object.values(RMHelper.JSONparse(this.data.item_tax_rate) || {}).reduce((acc, cur) => {
       if (tax_inclusive) {
         const base_without_tax = base_amount / (1 + (cur / 100));
         return acc + (base_without_tax * (cur / 100));
       } else {
+        //FIX 19-12-2024; Has two TAXES Accounts; Avoid Duplicated Calcs
+        if (this.data.item_tax_rate.split(',').length >= 2 && acc > 0) {
+          acc = 0;
+        }
         return acc + (base_amount * cur / 100);
       }
     }, 0);
