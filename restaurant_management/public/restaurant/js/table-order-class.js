@@ -777,6 +777,8 @@ class TableOrder {
   }
 
   set_customer() {
+    //FIX 20-12-2024
+    console.log('DIGITA O CLIENTE');
     this.edit("customer");
   }
 
