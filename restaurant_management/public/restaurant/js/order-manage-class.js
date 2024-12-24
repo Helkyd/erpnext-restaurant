@@ -1,3 +1,4 @@
+//LAST MODIFIED: 24-12-2024
 class OrderManage extends ObjectManage {
   #objects = {};
   #components = {};
@@ -831,6 +832,9 @@ class OrderManage extends ObjectManage {
   }
 
   check_buttons_status() {
+    //FIX 24-12-2024
+    console.log('ORDER MANAGE - Check buttons status');
+
     if (this.current_order == null) {
       this.disable_components();
       if (typeof this.#components.new_order_button != "undefined") {
@@ -954,6 +958,10 @@ class OrderManage extends ObjectManage {
         RM.ready();
         if (typeof r.message != "undefined") {
           RM.sound_submit();
+          //FIX 24-12-2024;
+          //this.reload();
+          //this.modal.load_data();
+          this.modal.render();
           //RM.is_mobile && this.select_last_order();
         }
       },
@@ -1050,6 +1058,8 @@ class OrderManage extends ObjectManage {
       },
       content: `<span class="fa fa-plus"></span>`
     }).on("click", () => {
+      //FIX 24-12-2024
+      console.log('ORDER CLICK!!!!!');
       this.add_order();
     }, !RM.restrictions.to_new_order ? DOUBLE_CLICK : null);
 

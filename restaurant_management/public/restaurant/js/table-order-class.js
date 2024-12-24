@@ -521,6 +521,8 @@ class TableOrder {
   }
 
   order() {
+    //FIX 24-12-2024;
+    console.log('table order - ORDER');
     if (RM.busy_message() || this.data.products_not_ordered <= 0) {
       return;
     }
