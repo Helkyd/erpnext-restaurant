@@ -1,4 +1,4 @@
-//LAST MODIFIED: 20-12-2024
+//LAST MODIFIED: 28-12-2024
 ProcessManage = class ProcessManage {
   status = "close";
   modal = null;
@@ -6,6 +6,8 @@ ProcessManage = class ProcessManage {
   new_items_keys = [];
   orders = {};
   
+  //FIX 28-12-2024
+  timeoutId = null;
 
   constructor(options) {
     Object.assign(this, options);
@@ -15,6 +17,18 @@ ProcessManage = class ProcessManage {
   }
 
   reload(clean = false) {
+    //FIX 28-12-2024; Trying to AUTO-RELOAD so items are printted
+    /*
+    setTimeout(() => {
+      if(clean) {
+        this.get_commands_food(clean);
+      } else {
+        console.log(' timeout 2 minutes');
+        console.log(' timeout 2 minutes!!!!!!');
+        this.get_commands_food(false);
+      }
+    }, 120000);
+    */
     this.get_commands_food(clean);
   }
 
@@ -51,6 +65,15 @@ ProcessManage = class ProcessManage {
   make() {
     this.make_dom();
     this.get_commands_food();
+    //FIX 28-12-2024; Trying to AUTO-RELOAD so items are printted
+    /*
+    setTimeout(() => {
+      console.log(' timeout 2 minutes');
+      console.log(' timeout 2 minutes!!!!!!');
+      this.get_commands_food();
+    }, 30000);
+    */
+
   }
 
   make_dom() {
@@ -391,7 +414,43 @@ ProcessManage = class ProcessManage {
       input.html(RMHelper.prettyDate(data.ordered_time, true, time_elapsed => this.show_alert_time_elapsed(input, time_elapsed)));
     });
 
-    setTimeout(() => this.time_elapsed(), 3000);
+    //setTimeout(() => this.time_elapsed(), 3000);
+    //FIX 28-12-2024;
+    //FIX 28-12-2024; Trying to AUTO-RELOAD so items are printted
+    /*
+    setTimeout(() => {
+      console.log(' timeout 1 minutes');
+      console.log(' timeout 1 minutes!!!!!!');
+      this.get_commands_food(true);
+      this.time_elapsed();
+    }, 60000);
+    */
+    if (this.timeoutId) {
+      // Clear the timeout before it executes
+      console.log('Clear the timeout before it executes');
+      clearTimeout(this.timeoutId);
+      this.timeoutId = setTimeout(() => {
+        console.log("This message will not be displayed.");
+        //this.time_elapsed();
+        this.get_commands_food(true);
+      }, 60000);
+
+    } else {
+      this.timeoutId = setTimeout(() => {
+        console.log("This message will not be displayed.");
+        this.time_elapsed();
+      }, 60000);
+
+    }
+  
+    /*
+    setInterval(() => {
+      console.log('set interval 0000000');
+      this.get_commands_food(true);
+      this.time_elapsed();
+    }, 120000);
+    */
+
   }
 
   show_alert_time_elapsed(input, time_elapsed) {
