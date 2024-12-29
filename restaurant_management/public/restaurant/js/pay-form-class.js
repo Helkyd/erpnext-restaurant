@@ -1,4 +1,4 @@
-//LAST Modified: 15-12-2024
+//LAST Modified: 29-12-2024
 class PayForm extends DeskForm {
   payment_methods = {};
   form_name = "Payment Order";
@@ -486,6 +486,14 @@ class PayForm extends DeskForm {
 
       this.set_value("total_payment", total);
       this.set_value("change_amount", (total - this.order.amount));
+      //FIX 29-12-2024; Check if change amount is MINUS... meaning paying LESS
+      console.log('change amou ', (total - this.order.amount));
+      if ((total - this.order.amount) < 0) {
+        this.actions.pay.disable();
+      } else {
+        this.actions.pay.enable();
+      }
+      
     }, 0);
   }
 
