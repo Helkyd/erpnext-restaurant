@@ -1,4 +1,4 @@
-//LAST MODIFIED: 28-12-2024
+//LAST MODIFIED: 30-12-2024
 ProcessManage = class ProcessManage {
   status = "close";
   modal = null;
@@ -968,25 +968,37 @@ ProcessManage = class ProcessManage {
     var dados_print = "";
 
     new_data.forEach((data) => {
-      dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;font-size:12px;">	PEDIDO MESA<br></p></strong>'
-      //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
-      dados_print += '<strong><p style="font-size:12px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
-      //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
-      dados_print += '<strong><p style="font-size:14px;text-align:center;text-transform: uppercase;">' + data.item_name.trim() + ' </p> </strong>'
-      if (data.notes != "") {
-        dados_print += '<strong><p style="font-size:12px;text-align:center;text-transform: uppercase;">' + data.notes.trim() + ' </p> </strong>'
-      }
-      dados_print += '<strong><p>QTD:  ' + data.qty + ' </p> </strong>'
-      dados_print += '<p> ' + data.item_group + ' </p>'
-      dados_print += '<strong><p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p> </strong>'
-
-      dados_to_print.push(dados_print);
+      console.log('TEM SHORT NAMEEEEEEEEEEE ', data.short_name);
+      console.log('TEM MESAAAAAAAAAAAAAAA ', data.table_description);
+      //FIX 30-12-2024; TO Avoid printting twice
+      if (data.table_description.startsWith("M-") || data.table_description.startsWith("MV-")) {
+        //PRINTS
+        dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;font-size:12px;">	PEDIDO MESA<br></p></strong>'
+        //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
+        dados_print += '<strong><p style="font-size:12px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
+        //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
+        dados_print += '<strong><p style="font-size:14px;text-align:center;text-transform: uppercase;">' + data.item_name.trim() + ' </p> </strong>'
+        if (data.notes != "") {
+          dados_print += '<strong><p style="font-size:12px;text-align:center;text-transform: uppercase;">' + data.notes.trim() + ' </p> </strong>'
+        }
+        dados_print += '<strong><p>QTD:  ' + data.qty + ' </p> </strong>'
+        dados_print += '<p> ' + data.item_group + ' </p>'
+        dados_print += '<strong><p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p> </strong>'
   
+        dados_to_print.push(dados_print);
+
+      } else {
+        //NO PRINT
+        console.log('DO NOT PRINT');
+        dados_to_print = [];
+      }
+
     })
 
     console.log('USAR PARA PRINT ');
+    
     console.log(dados_to_print);
-
+    
     /*
     let dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;font-size:12px;">	PEDIDO MESA<br></p></strong>'
     //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
