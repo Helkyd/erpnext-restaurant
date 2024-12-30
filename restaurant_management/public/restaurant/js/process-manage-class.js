@@ -870,6 +870,7 @@ ProcessManage = class ProcessManage {
     var new_data = [];
     Object.keys(data).forEach((i) => { 
       if (i == "items" && data[i].indexOf('data') != -1){ // (data[i].includes('data',0)) {
+        console.log('ITEMS E DATA');
         console.log(data[i].data.item_code);
         console.log(data[i].data.was_printed); 
         if (!data[i].data.was_printed) {
@@ -900,6 +901,7 @@ ProcessManage = class ProcessManage {
         }
   
       } else if (i == "items" ) {
+        console.log('ITEMSSSSSSSSSSSSSS');
         console.log(data[i][0].item_code);
         console.log(data[i][0].was_printed); 
         if (!data[i][0].was_printed) {
@@ -929,6 +931,7 @@ ProcessManage = class ProcessManage {
         }
   
       } else if (Object(data).hasOwnProperty('item_code')) {
+        console.log('ITEM CODEEEEEEEEEEEEEEEEEEE');
         console.log(data.item_code);
         console.log(data.was_printed); 
         if (!data.was_printed) {
@@ -970,7 +973,8 @@ ProcessManage = class ProcessManage {
     new_data.forEach((data) => {
       console.log('TEM SHORT NAMEEEEEEEEEEE ', data.short_name);
       console.log('TEM MESAAAAAAAAAAAAAAA ', data.table_description);
-      //FIX 30-12-2024; TO Avoid printting twice
+      //FIX 30-12-2024; TO Avoid printting twice; NOT NEEDED AS THE PROBLEM WAS ELSEWHERE...
+      //KEEP FOR A WHILE
       if (data.table_description.startsWith("M-") || data.table_description.startsWith("MV-")) {
         //PRINTS
         dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;font-size:12px;">	PEDIDO MESA<br></p></strong>'

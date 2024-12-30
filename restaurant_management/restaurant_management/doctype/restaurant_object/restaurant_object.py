@@ -13,7 +13,7 @@ import string
 from frappe.utils import get_datetime
 from datetime import timedelta
 
-#Last Modified 21-10-2024
+#Last Modified 30-12-2024
 
 class RestaurantObject(Document):
     @property
@@ -457,6 +457,7 @@ class RestaurantObject(Document):
 
     def get_command_data(self, entry, las_status=None, key_name="identifier"):
         short_name = self.order_short_name(entry.parent)
+        #FIX 30-12-2024; On table_description to get description from Restaurant Object
         return dict(
             identifier=entry.identifier,
             item_group=entry.item_group,
@@ -467,7 +468,7 @@ class RestaurantObject(Document):
             room=entry.room,
             branch=entry.branch,
             table=entry.table,
-            table_description=entry.table_description if entry.table_description is not None else entry.table,
+            table_description=entry.table_description if entry.table_description is not None else frappe.get_value('Restaurant Object',entry.table,'description'),
             room_description=entry.room_description if entry.room_description is not None else entry.room,
             short_name=short_name,
             qty=entry.qty,
