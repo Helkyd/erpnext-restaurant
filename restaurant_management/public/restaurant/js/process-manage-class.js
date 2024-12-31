@@ -998,7 +998,7 @@ ProcessManage = class ProcessManage {
     */
 
     //FIX 30-12-2024; TO Avoid printting twice;
-    if (new_data) {
+    if (new_data.length >0) {
       frappeHelper.api.call({
         model: "Restaurant Object",
         name: this.table.data.name,
