@@ -13,7 +13,7 @@ from restaurant_management.restaurant_management.page.restaurant_manage.restaura
 
 status_attending = "Attending"
 
-#Last Modified: 19-12-2024
+#Last Modified: 31-12-2024
 
 class TableOrder(Document):
     synchronize_data = None
@@ -488,6 +488,12 @@ class TableOrder(Document):
         else:
             invoice = self.get_invoice({entry["identifier"]: entry})
             item = invoice.items[0]
+            #FIX 31-12-2024            
+            get_wasprinted =  frappe.get_all("Order Entry Item",filters={'identifier':entry["identifier"]},fields=['name','parent','was_printed'])
+            print ('get_wasprinted ', get_wasprinted)
+            if get_wasprinted:
+                print (get_wasprinted[0].was_printed)
+
             data = dict(
                 item_code=item.item_code,
                 qty=item.qty,
@@ -512,6 +518,8 @@ class TableOrder(Document):
                 batch_no=entry["batch_no"],
                 has_serial_no=entry["has_serial_no"],
                 serial_no=entry["serial_no"],
+                was_printed=get_wasprinted[0].was_printed if get_wasprinted !=[] else 0   #FIX 31-12-2024
+
                 #sub_items=entry["sub_items"],  #REMOVED FOR NOW; 14-10-2024
                 #is_customizable=entry["is_customizable"],  #REMOVED FOR NOW; 14-10-2024
             )
@@ -526,7 +534,7 @@ class TableOrder(Document):
                 base_sql = f"UPDATE `tabOrder Entry Item` set {values}"
  
                 frappe.db.sql("""{base_sql} WHERE `identifier`='{identifier}'""".format(base_sql = base_sql, identifier=entry["identifier"]))
-                
+
                 return "db_commit"
 
     def calculate_order(self, items, save=False):
@@ -566,6 +574,7 @@ class TableOrder(Document):
                 serial_no=entry_item["serial_no"],
                 sub_items=entry_item["sub_items"],
                 is_customizable=entry_item["is_customizable"],
+                was_printed=entry_item["was_printed"]    #FIX 31-12-2024
             ))
             #item.serial_no = None
 
@@ -677,7 +686,8 @@ class TableOrder(Document):
                     "has_serial_no",
                     "serial_no",
                     "sub_items",
-                    "is_customizable"
+                    "is_customizable",
+                    "was_printed"
                 ]}
 
                 row["order_name"] = item.parent
@@ -688,6 +698,9 @@ class TableOrder(Document):
                 row["order"] = short_name
                 row["table_description"] = self.table_info
                 #row["table_info"] = self.table_info
+
+                #FIX 31-12-2024
+                #row["was_printed"] = item.was_printed
 
                 items.append(row)
         return items
@@ -754,6 +767,7 @@ class TableOrder(Document):
                     batch_no=item.batch_no,
                     has_serial_no=item.has_serial_no,
                     serial_no=item.serial_no,
+                    was_printed=item.was_printed    #FIX 31-12-2024
                 ))
         self.save()
 

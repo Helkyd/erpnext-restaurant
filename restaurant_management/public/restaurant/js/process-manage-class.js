@@ -430,7 +430,7 @@ ProcessManage = class ProcessManage {
       console.log('Clear the timeout before it executes');
       clearTimeout(this.timeoutId);
       this.timeoutId = setTimeout(() => {
-        console.log("This message will not be displayed.");
+        console.log("This message will not be displayed. 000000");
         //this.time_elapsed();
         this.get_commands_food(false);
       }, 40000);
@@ -509,6 +509,7 @@ ProcessManage = class ProcessManage {
   }
 
   check_item(item, order) {
+    console.log('PROCESS MANAGE - CHECK ITEMMMMMMM');
     const current_item = this.items[item.identifier];
     const data = order.data || order;
     const available = this.check_available_item(item, data);

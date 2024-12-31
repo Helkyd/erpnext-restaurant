@@ -82,8 +82,6 @@ class RestaurantObject(Document):
         return False
 
     def validate_transaction(self, user=frappe.session.user, from_crm=None):
-        print ('sef name ', self.name)
-        print (self.doctype)
         if not self.can_access():
             frappe.throw(_("You don't have access to this table"))
 
@@ -601,11 +599,7 @@ class RestaurantObject(Document):
 
     def get_item_wasprinted(self,shortcode=None,itemcode=None):
         #FIX 31-12-2024; TO get Was Printed status... and avoid duplicate printting...
-        print ('shortcode ', shortcode)
-        print ('items ', itemcode)
         itemprinted = frappe.model.frappe.get_all('Order Entry Item',filters={'parent':['like', '%' + shortcode],'item_code':itemcode},fields=['*'])
-        print ('PRINTED ITEM')
-        print (itemprinted)
         if itemprinted != []:
             return itemprinted
 

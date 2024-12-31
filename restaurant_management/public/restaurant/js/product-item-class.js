@@ -111,6 +111,8 @@ class ProductItem {
         }
 
         add_qty.html(1);
+        //FIX 31-12-2024;
+        console.log('PRODUCT ITEM - RENDER ITEMS - ON CLICK; ADD BTN');
         self.add_item_in_order(self.get(item_code), qty);
       });
     });
@@ -416,6 +418,7 @@ class ProductItem {
       serial_no: null,
       has_batch_no: 0,
       batch_no: null,
+      was_printed: 0  //FIX 31-12-2024
       //sub_items: sub_items,
     };
 
@@ -452,6 +455,9 @@ class ProductItem {
         item_to_push.rate = rate;
         item_to_push.price_list_rate = rate;
 
+        //FIX 31-12-2024
+        console.log('PRODUCT ITEM CLASSE - ADD ITEM IN ORDER');
+        console.log(item_to_push);
         current_order.push_item(item_to_push);
       });
     }

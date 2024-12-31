@@ -20,6 +20,7 @@ class TableOrder {
   }
 
   reset_data(data, action) {
+    console.log('TABLE ORDER - RESET DATAAAAA');
     this.data = data.order.data;
     if (this.data.show_in_pos !== 1) {
       this.remove();
@@ -151,6 +152,8 @@ class TableOrder {
   }
 
   push_item(new_item) {
+    //FIX 31-12-2024
+    console.log('TABLE ORDER CLASS - PUSH ITEM');
     if (!this.data.customer) {
       this.order_manage.components.customer.highlight();
       frappe.throw(__("Please set a Customer"));
