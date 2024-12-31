@@ -895,7 +895,8 @@ ProcessManage = class ProcessManage {
               'qty':data[i].data.qty,
               'ordered_time': data[i].data.ordered_time,
               'item_group': data[i].data.item_group,
-              'notes': data[i].data.notes
+              'notes': data[i].data.notes,
+              'was_printed': data[i].data.was_printed
             });
           }
         }
@@ -925,7 +926,8 @@ ProcessManage = class ProcessManage {
               'qty':data[i][0].qty,
               'ordered_time': data[i][0].ordered_time,
               'item_group': data[i][0].item_group,
-              'notes': data[i][0].notes
+              'notes': data[i][0].notes,
+              'was_printed': data[i][0].was_printed
             });
           }
         }
@@ -955,7 +957,8 @@ ProcessManage = class ProcessManage {
               'qty':data.qty,
               'ordered_time': data.ordered_time,
               'item_group': data.item_group,
-              'notes': data.notes
+              'notes': data.notes,
+              'was_printed': data.was_printed
             });
               
           }
@@ -970,12 +973,38 @@ ProcessManage = class ProcessManage {
     var dados_to_print = [];
     var dados_print = "";
 
+    //FIX 31-12-2024; RECHECK if Printed
+    /*
+    frappeHelper.api.call({
+      model: "Restaurant Object",
+      name: this.table.data.name,
+      method: "commands_food",
+      args: {},
+      always: (r) => {
+        RM.ready();
+
+        setTimeout(() => {
+          if (clean) {
+            this.items = {};
+            this.new_items_keys = [];
+            this.orders = {};
+
+            $(this.command_container()).empty();
+          }
+          this.make_food_commands(r.message);
+        }, 100);
+      },
+    });    
+    */
+
     new_data.forEach((data) => {
       console.log('TEM SHORT NAMEEEEEEEEEEE ', data.short_name);
       console.log('TEM MESAAAAAAAAAAAAAAA ', data.table_description);
+      console.log('WAS PRINTEDDDDDDDDDDD ', data.was_printed);
       //FIX 30-12-2024; TO Avoid printting twice; NOT NEEDED AS THE PROBLEM WAS ELSEWHERE...
       //KEEP FOR A WHILE
-      if (data.table_description.startsWith("M-") || data.table_description.startsWith("MV-")) {
+      if (!data.was_printed) {
+      //if (data.table_description.startsWith("M-") || data.table_description.startsWith("MV-")) {
         //PRINTS
         dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;font-size:12px;">	PEDIDO MESA<br></p></strong>'
         //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
