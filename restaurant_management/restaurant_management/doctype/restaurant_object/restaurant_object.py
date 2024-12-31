@@ -13,7 +13,7 @@ import string
 from frappe.utils import get_datetime
 from datetime import timedelta
 
-#Last Modified 30-12-2024
+#Last Modified 31-12-2024
 
 class RestaurantObject(Document):
     @property
@@ -598,6 +598,16 @@ class RestaurantObject(Document):
     @ property
     def status(self):
         return "Available" if self.is_enabled_to_reservation() else "Reserved"
+
+    def get_item_wasprinted(self,shortcode=None,itemcode=None):
+        #FIX 31-12-2024; TO get Was Printed status... and avoid duplicate printting...
+        print ('shortcode ', shortcode)
+        print ('items ', itemcode)
+        itemprinted = frappe.model.frappe.get_all('Order Entry Item',filters={'parent':['like', '%' + shortcode],'item_code':itemcode},fields=['*'])
+        print ('PRINTED ITEM')
+        print (itemprinted)
+        if itemprinted != []:
+            return itemprinted
 
 def load_json(data):
     import json
