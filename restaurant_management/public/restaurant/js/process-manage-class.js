@@ -433,13 +433,13 @@ ProcessManage = class ProcessManage {
         console.log("This message will not be displayed.");
         //this.time_elapsed();
         this.get_commands_food(true);
-      }, 60000);
+      }, 40000);
 
     } else {
       this.timeoutId = setTimeout(() => {
         console.log("This message will not be displayed.");
         this.time_elapsed();
-      }, 60000);
+      }, 40000);
 
     }
   
@@ -1003,7 +1003,7 @@ ProcessManage = class ProcessManage {
       console.log('WAS PRINTEDDDDDDDDDDD ', data.was_printed);
       //FIX 30-12-2024; TO Avoid printting twice; NOT NEEDED AS THE PROBLEM WAS ELSEWHERE...
       //KEEP FOR A WHILE
-      if (!data.was_printed) {
+      if (data.was_printed == 0) {
       //if (data.table_description.startsWith("M-") || data.table_description.startsWith("MV-")) {
         //PRINTS
         dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;font-size:12px;">	PEDIDO MESA<br></p></strong>'
