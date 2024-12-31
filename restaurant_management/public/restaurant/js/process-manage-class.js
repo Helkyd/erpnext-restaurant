@@ -432,7 +432,7 @@ ProcessManage = class ProcessManage {
       this.timeoutId = setTimeout(() => {
         console.log("This message will not be displayed.");
         //this.time_elapsed();
-        this.get_commands_food(true);
+        this.get_commands_food(false);
       }, 40000);
 
     } else {
