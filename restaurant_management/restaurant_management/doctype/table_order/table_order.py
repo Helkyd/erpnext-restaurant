@@ -762,6 +762,9 @@ class TableOrder(Document):
 
     def set_printed_status(self, identifier, itemcode):
         #FIX 19-10-2024
+        print ('identi ', identifier)
+        print ('itemmmm ', itemcode)
+
         if identifier:
             print ('SET PRINTED STATUZ DONE....')
             frappe.db.sql(""" UPDATE `tabOrder Entry Item` set was_printed = 1 where parent = %s and item_code = %s """, (identifier,itemcode), as_dict=False)
