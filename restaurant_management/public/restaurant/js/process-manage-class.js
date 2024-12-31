@@ -998,204 +998,82 @@ ProcessManage = class ProcessManage {
     */
 
     //FIX 30-12-2024; TO Avoid printting twice;
-    frappeHelper.api.call({
-      model: "Restaurant Object",
-      name: this.table.data.name,
-      method: "get_item_wasprinted",
-      args: {
-        'shortcode': new_data[0].short_name,
-        'itemcode': new_data[0].item_code
-      },
-      always: (r) => {
-        RM.ready();
-
-        setTimeout(() => {
-          var new_dados = r.message;
-          console.log('NEW DADOS ', new_dados);
-          console.log('NEW DADOS PRINT ', new_dados[0].was_printed);
-          if (new_dados[0].was_printed == 0) {    
-
-            new_data.forEach((data) => {
-              console.log('TEM SHORT NAMEEEEEEEEEEE ', data.short_name);
-              console.log('TEM MESAAAAAAAAAAAAAAA ', data.table_description);
-              console.log('ITEM ', data.item_code);
-              console.log('WAS PRINTEDDDDDDDDDDD ', data.was_printed);
-
-              //FIX 31-12-2024; Not REAL as no REFRESH WAS DONE... but the CALL API BEFORE will check and get the real PRINTED result
-              if (data.was_printed == 0) {
-              //if (data.table_description.startsWith("M-") || data.table_description.startsWith("MV-")) {
-                //PRINTS
-                dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;font-size:12px;">	PEDIDO MESA<br></p></strong>'
-                //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
-                dados_print += '<strong><p style="font-size:12px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
-                //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
-                dados_print += '<strong><p style="font-size:14px;text-align:center;text-transform: uppercase;">' + data.item_name.trim() + ' </p> </strong>'
-                if (data.notes != "") {
-                  dados_print += '<strong><p style="font-size:12px;text-align:center;text-transform: uppercase;">' + data.notes.trim() + ' </p> </strong>'
-                }
-                dados_print += '<strong><p>QTD:  ' + data.qty + ' </p> </strong>'
-                dados_print += '<p> ' + data.item_group + ' </p>'
-                dados_print += '<strong><p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p> </strong>'
-          
-                dados_to_print.push(dados_print);
-
-              } else {
-                //NO PRINT
-                console.log('DO NOT PRINT');
-                dados_to_print = [];
-              }
-              
-
-            })
-
-            console.log('USAR PARA PRINT ');
+    if (new_data) {
+      frappeHelper.api.call({
+        model: "Restaurant Object",
+        name: this.table.data.name,
+        method: "get_item_wasprinted",
+        args: {
+          'shortcode': new_data[0].short_name,
+          'itemcode': new_data[0].item_code
+        },
+        always: (r) => {
+          RM.ready();
+  
+          setTimeout(() => {
+            var new_dados = r.message;
+            console.log('NEW DADOS ', new_dados);
+            console.log('NEW DADOS PRINT ', new_dados[0].was_printed);
+            if (new_dados[0].was_printed == 0) {    
+  
+              new_data.forEach((data) => {
+                console.log('TEM SHORT NAMEEEEEEEEEEE ', data.short_name);
+                console.log('TEM MESAAAAAAAAAAAAAAA ', data.table_description);
+                console.log('ITEM ', data.item_code);
+                console.log('WAS PRINTEDDDDDDDDDDD ', data.was_printed);
+  
+                //FIX 31-12-2024; Not REAL as no REFRESH WAS DONE... but the CALL API BEFORE will check and get the real PRINTED result
+                if (data.was_printed == 0) {
+                //if (data.table_description.startsWith("M-") || data.table_description.startsWith("MV-")) {
+                  //PRINTS
+                  dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;font-size:12px;">	PEDIDO MESA<br></p></strong>'
+                  //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
+                  dados_print += '<strong><p style="font-size:12px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
+                  //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
+                  dados_print += '<strong><p style="font-size:14px;text-align:center;text-transform: uppercase;">' + data.item_name.trim() + ' </p> </strong>'
+                  if (data.notes != "") {
+                    dados_print += '<strong><p style="font-size:12px;text-align:center;text-transform: uppercase;">' + data.notes.trim() + ' </p> </strong>'
+                  }
+                  dados_print += '<strong><p>QTD:  ' + data.qty + ' </p> </strong>'
+                  dados_print += '<p> ' + data.item_group + ' </p>'
+                  dados_print += '<strong><p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p> </strong>'
             
-            console.log(dados_to_print);
-            
-            /*
-            let dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;font-size:12px;">	PEDIDO MESA<br></p></strong>'
-            //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
-            dados_print += '<strong><p style="font-size:12px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
-            //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
-            dados_print += '<strong><p style="font-size:16px;text-align:center;text-transform: uppercase;">' + data.item_name.trim() + ' </p> </strong>'
-            dados_print += '<strong><p>QTD:  ' + data.qty + ' </p> </strong>'
-            dados_print += '<strong><p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p> </strong>'
-            */
-
-            if (qz.websocket.isActive()) {	// if already active, resolve immediately
-              //resolve();
-              console.log('ja ESTA LIGADOOOOOOOOOOOOOOOOOOOOOO');
-                
-              dados_to_print.forEach((dd) => {
-                if (dd.indexOf("Comidas") != -1) {
-                  qz.printers.find(kitprinter_name).then((r) => {
-                    console.log('aaaaa PRINTER ');
-                    console.log(r);
-                    let config = qz.configs.create(r);
-
-                    //SET ITEM PRINTED...
-                    new_data.forEach((nn) => {
-                      if (dd.indexOf(nn.item_name) != -1) {
-                        console.log(nn.name);
-                        console.log(nn.item_code);
-                        console.log('table data name ', this.table)
-                        frappeHelper.api.call({
-                          model: "Table Order",
-                          name: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
-                          method: "set_printed_status",
-                          args: {
-                            identifier: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
-                            itemcode: nn.item_code
-                          },
-                          always: () => {
-                            RM.ready(false, "success");
-                          },
-                        });            
-            
-                      }
-
-                    })
-
-
-                    return qz.print(config, [{
-                        type: 'pixel',
-                        format: 'html',
-                        flavor: 'plain',
-                        data: dd
-                    }]);            
-
-                  });
-                } else if (this.table.data.printer_name != "" && this.table.data.printer_name != null) {
-                  qz.printers.find(this.table.data.printer_name).then((r) => {
-                    console.log('aaaaa PRINTER ', this.table.data.printer_name);
-                    console.log(r);
-                    let config = qz.configs.create(r);
-
-                    //SET ITEM PRINTED...
-                    new_data.forEach((nn) => {
-                      if (dd.indexOf(nn.item_name) != -1) {
-                        console.log(nn.name);
-                        console.log(nn.item_code);
-                        console.log('table data name ', this.table)
-                        frappeHelper.api.call({
-                          model: "Table Order",
-                          name: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
-                          method: "set_printed_status",
-                          args: {
-                            identifier: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
-                            itemcode: nn.item_code
-                          },
-                          always: () => {
-                            RM.ready(false, "success");
-                          },
-                        });            
-            
-                      }
-
-                    })
-
-
-                    return qz.print(config, [{
-                        type: 'pixel',
-                        format: 'html',
-                        flavor: 'plain',
-                        data: dd
-                    }]);            
-
-                  });          
+                  dados_to_print.push(dados_print);
+  
                 } else {
-                  qz.printers.getDefault().then((r) => {
-                    console.log('PRINTERRRRRRRRRRRRRRRRR ');
-                    console.log(r);
-                    console.log(dd);
-                    let config = qz.configs.create(r);
-
-                    //SET ITEM PRINTED...
-                    new_data.forEach((nn) => {
-                      if (dd.indexOf(nn.item_name) != -1) {
-                        console.log(nn.name);
-                        console.log(nn.item_code);
-                        console.log('table data name ', this.table)
-                        frappeHelper.api.call({
-                          model: "Table Order",
-                          name: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
-                          method: "set_printed_status",
-                          args: {
-                            identifier: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
-                            itemcode: nn.item_code
-                          },
-                          always: () => {
-                            RM.ready(false, "success");
-                          },
-                        });            
-            
-                      }
-
-                    })
-
-                    return qz.print(config, [{
-                        type: 'pixel',
-                        format: 'html',
-                        flavor: 'plain',
-                        data: dd
-                    }]);            
-
-                  });
-
+                  //NO PRINT
+                  console.log('DO NOT PRINT');
+                  dados_to_print = [];
                 }
-              })
-
-            } else {
-              qz.websocket.connect(options).then(function() { 
-                console.log('ligouuuuuuu');
                 
+  
+              })
+  
+              console.log('USAR PARA PRINT ');
+              
+              console.log(dados_to_print);
+              
+              /*
+              let dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;font-size:12px;">	PEDIDO MESA<br></p></strong>'
+              //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
+              dados_print += '<strong><p style="font-size:12px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
+              //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
+              dados_print += '<strong><p style="font-size:16px;text-align:center;text-transform: uppercase;">' + data.item_name.trim() + ' </p> </strong>'
+              dados_print += '<strong><p>QTD:  ' + data.qty + ' </p> </strong>'
+              dados_print += '<strong><p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p> </strong>'
+              */
+  
+              if (qz.websocket.isActive()) {	// if already active, resolve immediately
+                //resolve();
+                console.log('ja ESTA LIGADOOOOOOOOOOOOOOOOOOOOOO');
+                  
                 dados_to_print.forEach((dd) => {
                   if (dd.indexOf("Comidas") != -1) {
                     qz.printers.find(kitprinter_name).then((r) => {
                       console.log('aaaaa PRINTER ');
                       console.log(r);
                       let config = qz.configs.create(r);
-
+  
                       //SET ITEM PRINTED...
                       new_data.forEach((nn) => {
                         if (dd.indexOf(nn.item_name) != -1) {
@@ -1216,23 +1094,24 @@ ProcessManage = class ProcessManage {
                           });            
               
                         }
-
+  
                       })
-
+  
+  
                       return qz.print(config, [{
                           type: 'pixel',
                           format: 'html',
                           flavor: 'plain',
                           data: dd
                       }]);            
-          
+  
                     });
                   } else if (this.table.data.printer_name != "" && this.table.data.printer_name != null) {
                     qz.printers.find(this.table.data.printer_name).then((r) => {
                       console.log('aaaaa PRINTER ', this.table.data.printer_name);
                       console.log(r);
                       let config = qz.configs.create(r);
-          
+  
                       //SET ITEM PRINTED...
                       new_data.forEach((nn) => {
                         if (dd.indexOf(nn.item_name) != -1) {
@@ -1253,26 +1132,25 @@ ProcessManage = class ProcessManage {
                           });            
               
                         }
-          
+  
                       })
-          
-          
+  
+  
                       return qz.print(config, [{
                           type: 'pixel',
                           format: 'html',
                           flavor: 'plain',
                           data: dd
                       }]);            
-          
+  
                     });          
-
                   } else {
                     qz.printers.getDefault().then((r) => {
                       console.log('PRINTERRRRRRRRRRRRRRRRR ');
                       console.log(r);
                       console.log(dd);
                       let config = qz.configs.create(r);
-
+  
                       //SET ITEM PRINTED...
                       new_data.forEach((nn) => {
                         if (dd.indexOf(nn.item_name) != -1) {
@@ -1293,102 +1171,227 @@ ProcessManage = class ProcessManage {
                           });            
               
                         }
-
+  
                       })
-
+  
                       return qz.print(config, [{
                           type: 'pixel',
                           format: 'html',
                           flavor: 'plain',
                           data: dd
                       }]);            
-          
+  
                     });
-          
+  
                   }
                 })
-
-                /*
-                if (data.item_group == "Comidas") {
-                  qz.printers.find(kitprinter_name).then((r) => {
-                    console.log('aaaaa PRINTER ');
-                    console.log(r);
-                    let config = qz.configs.create(r);
-          
-                    return qz.print(config, [{
-                        type: 'pixel',
-                        format: 'html',
-                        flavor: 'plain',
-                        data: dados_print
-                    }]);            
-
-                  });
-                } else {
-                  qz.printers.getDefault().then((r) => {
-                    console.log('PRINTERRRRRRRRRRRRRRRRR ');
-                    console.log(r);
-                    console.log(dados_print);
-                    let config = qz.configs.create(r);
-          
-                    return qz.print(config, [{
-                        type: 'pixel',
-                        format: 'html',
-                        flavor: 'plain',
-                        data: dados_print
-                    }]);            
-
-                  });
-                }
-                */
-              })
+  
+              } else {
+                qz.websocket.connect(options).then(function() { 
+                  console.log('ligouuuuuuu');
+                  
+                  dados_to_print.forEach((dd) => {
+                    if (dd.indexOf("Comidas") != -1) {
+                      qz.printers.find(kitprinter_name).then((r) => {
+                        console.log('aaaaa PRINTER ');
+                        console.log(r);
+                        let config = qz.configs.create(r);
+  
+                        //SET ITEM PRINTED...
+                        new_data.forEach((nn) => {
+                          if (dd.indexOf(nn.item_name) != -1) {
+                            console.log(nn.name);
+                            console.log(nn.item_code);
+                            console.log('table data name ', this.table)
+                            frappeHelper.api.call({
+                              model: "Table Order",
+                              name: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
+                              method: "set_printed_status",
+                              args: {
+                                identifier: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
+                                itemcode: nn.item_code
+                              },
+                              always: () => {
+                                RM.ready(false, "success");
+                              },
+                            });            
+                
+                          }
+  
+                        })
+  
+                        return qz.print(config, [{
+                            type: 'pixel',
+                            format: 'html',
+                            flavor: 'plain',
+                            data: dd
+                        }]);            
             
-              /*
-              qz.websocket.connect(options).then(() => {
-                console.log('ligouuuuuuu');
-                if (data.item_group == "Comidas") {
-                  return qz.printers.find(kitprinter_name);
-                } else {
-                  return qz.printers.getDefault();
-                }
-
-              }).then((impressora) => {
-                  console.log(impressora);
-                  print ('dadaosssssss');
-                  print (data);
-
-                  //PRinter 0
-                  //To get from USER Settings WHICH PRINTER BAR and KITCHEN
-                  //let config = qz.configs.create(printers[0]);
-                  let config = qz.configs.create(impressora);
-                  //let dados_print =  '<!DOCTYPE html><style>	.print-format table, .print-format tr, 	.print-format td, .print-format div, .print-format p {		font-family: Tahoma, sans-serif;		line-height: 150%;		vertical-align: middle;	}	@media screen {		.print-format {			width: 4in;			padding: 0.25in;			min-height: 8in;		}	}</style><strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;">	PEDIDO MESA<br></p></strong>'
-                  let dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;">	PEDIDO MESA<br></p></strong>'
-                  //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
-                  dados_print += '&nbsp;&nbsp;<strong><p style="font-size:10px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
-                  //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
-                  dados_print += '<strong><p style="font-size:14px;text-align:center;">' + data.item_name.trim() + ' </p> '
-                  dados_print += ' &nbsp;&nbsp;<p>QTD:  ' + data.qty + ' </p> </strong>'
-                  dados_print += '&nbsp;&nbsp;&nbsp;&nbsp;<p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p>'
-
-                  return qz.print(config, [{
-                      type: 'pixel',
-                      format: 'html',
-                      flavor: 'plain',
-                      data: dados_print
-                  }]);
-              }).then(() => {
-                  return qz.websocket.disconnect();
-              }).then(() => {
-                  // process.exit(0);
-              }).catch((err) => {
-                  console.error(err);
-                  // process.exit(1);
-              });
-              */           
+                      });
+                    } else if (this.table.data.printer_name != "" && this.table.data.printer_name != null) {
+                      qz.printers.find(this.table.data.printer_name).then((r) => {
+                        console.log('aaaaa PRINTER ', this.table.data.printer_name);
+                        console.log(r);
+                        let config = qz.configs.create(r);
+            
+                        //SET ITEM PRINTED...
+                        new_data.forEach((nn) => {
+                          if (dd.indexOf(nn.item_name) != -1) {
+                            console.log(nn.name);
+                            console.log(nn.item_code);
+                            console.log('table data name ', this.table)
+                            frappeHelper.api.call({
+                              model: "Table Order",
+                              name: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
+                              method: "set_printed_status",
+                              args: {
+                                identifier: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
+                                itemcode: nn.item_code
+                              },
+                              always: () => {
+                                RM.ready(false, "success");
+                              },
+                            });            
+                
+                          }
+            
+                        })
+            
+            
+                        return qz.print(config, [{
+                            type: 'pixel',
+                            format: 'html',
+                            flavor: 'plain',
+                            data: dd
+                        }]);            
+            
+                      });          
+  
+                    } else {
+                      qz.printers.getDefault().then((r) => {
+                        console.log('PRINTERRRRRRRRRRRRRRRRR ');
+                        console.log(r);
+                        console.log(dd);
+                        let config = qz.configs.create(r);
+  
+                        //SET ITEM PRINTED...
+                        new_data.forEach((nn) => {
+                          if (dd.indexOf(nn.item_name) != -1) {
+                            console.log(nn.name);
+                            console.log(nn.item_code);
+                            console.log('table data name ', this.table)
+                            frappeHelper.api.call({
+                              model: "Table Order",
+                              name: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
+                              method: "set_printed_status",
+                              args: {
+                                identifier: "OR-" + moment(frappe.datetime.nowdate()).year().toString() + "-" + nn.short_name,
+                                itemcode: nn.item_code
+                              },
+                              always: () => {
+                                RM.ready(false, "success");
+                              },
+                            });            
+                
+                          }
+  
+                        })
+  
+                        return qz.print(config, [{
+                            type: 'pixel',
+                            format: 'html',
+                            flavor: 'plain',
+                            data: dd
+                        }]);            
+            
+                      });
+            
+                    }
+                  })
+  
+                  /*
+                  if (data.item_group == "Comidas") {
+                    qz.printers.find(kitprinter_name).then((r) => {
+                      console.log('aaaaa PRINTER ');
+                      console.log(r);
+                      let config = qz.configs.create(r);
+            
+                      return qz.print(config, [{
+                          type: 'pixel',
+                          format: 'html',
+                          flavor: 'plain',
+                          data: dados_print
+                      }]);            
+  
+                    });
+                  } else {
+                    qz.printers.getDefault().then((r) => {
+                      console.log('PRINTERRRRRRRRRRRRRRRRR ');
+                      console.log(r);
+                      console.log(dados_print);
+                      let config = qz.configs.create(r);
+            
+                      return qz.print(config, [{
+                          type: 'pixel',
+                          format: 'html',
+                          flavor: 'plain',
+                          data: dados_print
+                      }]);            
+  
+                    });
+                  }
+                  */
+                })
+              
+                /*
+                qz.websocket.connect(options).then(() => {
+                  console.log('ligouuuuuuu');
+                  if (data.item_group == "Comidas") {
+                    return qz.printers.find(kitprinter_name);
+                  } else {
+                    return qz.printers.getDefault();
+                  }
+  
+                }).then((impressora) => {
+                    console.log(impressora);
+                    print ('dadaosssssss');
+                    print (data);
+  
+                    //PRinter 0
+                    //To get from USER Settings WHICH PRINTER BAR and KITCHEN
+                    //let config = qz.configs.create(printers[0]);
+                    let config = qz.configs.create(impressora);
+                    //let dados_print =  '<!DOCTYPE html><style>	.print-format table, .print-format tr, 	.print-format td, .print-format div, .print-format p {		font-family: Tahoma, sans-serif;		line-height: 150%;		vertical-align: middle;	}	@media screen {		.print-format {			width: 4in;			padding: 0.25in;			min-height: 8in;		}	}</style><strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;">	PEDIDO MESA<br></p></strong>'
+                    let dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;">	PEDIDO MESA<br></p></strong>'
+                    //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
+                    dados_print += '&nbsp;&nbsp;<strong><p style="font-size:10px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
+                    //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
+                    dados_print += '<strong><p style="font-size:14px;text-align:center;">' + data.item_name.trim() + ' </p> '
+                    dados_print += ' &nbsp;&nbsp;<p>QTD:  ' + data.qty + ' </p> </strong>'
+                    dados_print += '&nbsp;&nbsp;&nbsp;&nbsp;<p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p>'
+  
+                    return qz.print(config, [{
+                        type: 'pixel',
+                        format: 'html',
+                        flavor: 'plain',
+                        data: dados_print
+                    }]);
+                }).then(() => {
+                    return qz.websocket.disconnect();
+                }).then(() => {
+                    // process.exit(0);
+                }).catch((err) => {
+                    console.error(err);
+                    // process.exit(1);
+                });
+                */           
+              }
             }
-          }
-        }, 100);
-      }
-    })
+          }, 100);
+        }
+      })
+    }
+
 
 
   }      
