@@ -1,4 +1,4 @@
-//LAST MODIFIED: 30-12-2024
+//LAST MODIFIED: 01-01-2025
 ProcessManage = class ProcessManage {
   status = "close";
   modal = null;
@@ -432,7 +432,7 @@ ProcessManage = class ProcessManage {
       this.timeoutId = setTimeout(() => {
         console.log("This message will not be displayed. 000000");
         //this.time_elapsed();
-        this.get_commands_food(false);
+        this.get_commands_food(true);
       }, 40000);
 
     } else {
