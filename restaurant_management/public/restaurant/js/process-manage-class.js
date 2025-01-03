@@ -335,7 +335,8 @@ ProcessManage = class ProcessManage {
       customize: true,
       title: title
     }
-
+    //FIX 02-01-2025
+    console.log('PROCESS MANAGE - PRINT ORDER');
     if (this.print_modal) {
       this.print_modal.set_props(props);
       this.print_modal.set_title(title);

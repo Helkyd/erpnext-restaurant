@@ -1,3 +1,4 @@
+//FIX 02-01-2025
 class TableOrder {
   constructor(options) {
     Object.assign(this, options);
@@ -745,6 +746,8 @@ class TableOrder {
               w.print();
               w.close();
             }, 1000)
+
+            
             
     
           }

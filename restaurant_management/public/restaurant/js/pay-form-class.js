@@ -1,4 +1,4 @@
-//LAST Modified: 29-12-2024
+//LAST Modified: 02-01-2025
 class PayForm extends DeskForm {
   payment_methods = {};
   form_name = "Payment Order";
@@ -474,6 +474,11 @@ class PayForm extends DeskForm {
       order_manage.print_modal = new DeskModal(props);
     }
     */
+
+    //FIX 02-01-2025; TRying to reload
+    console.log('RELOAD after printting PAYMENT');
+    this.reload();
+
   }
 
   update_paid_value() {
