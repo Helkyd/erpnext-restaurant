@@ -696,7 +696,7 @@ ProcessManage = class ProcessManage {
   "RMjje70TMn/AlVXabsvVmVNphVBD8IA1wpi9MivTd7ypcuV3nCOf6GLavlkjlCVc\n" +
   "vc0evRxMwIuZXEaf86aT1JkaDKrgvXk9eUJxHZ4+zVgP932K8jELsZkG4wdv6fqB\n" +
   "wKDMJOQHouVXPMyEGNnuoQ==\n" +
-  "-----END PRIVATE KEY-----\n"s;
+  "-----END PRIVATE KEY-----\n";
     if (qz.security.getSignatureAlgorithm() == "SHA512") {
       console.log('JA TEM SHA512');
     } else {
