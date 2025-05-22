@@ -130,6 +130,31 @@ class OrderItem {
 
         window.saving = false;
         RM.ready();
+        //FIX 22-05-2025; Click on ORder to update...
+        console.log('update Order by clicking...');
+        //this.order.order_manage.reload();
+        //this.order.order_manage.modal.render();
+        //this.order.order_manage.render();
+        //this.modal.render();
+        //this.calculate();
+        //this.check_buttons_status();
+        //this.order.order_manage.objects
+        this.order.order_manage.check_permissions_status();
+        //this.order.order_manage.check_permissions_status();
+
+        /*
+        frappeHelper.api.call({
+          model: "Table Order",
+          name: this.order.data.name,
+          method: "get_items",
+          always: (r) => {
+            console.log('RECARRRRRRRR');
+            this.order.order_manage.reload();
+            //this.order.order_manage.in_modal.reload();
+          }
+        });
+        */
+
       }
     });
   }

@@ -1,4 +1,4 @@
-//LAST Modified: 02-01-2025
+//LAST Modified: 22-05-2025
 class PayForm extends DeskForm {
   payment_methods = {};
   form_name = "Payment Order";
@@ -488,13 +488,18 @@ class PayForm extends DeskForm {
       Object.keys(this.payment_methods).forEach((payment_method) => {
         total += this.payment_methods[payment_method].float_val;
       });
-
+      //FIX 22-05-2025; Added roundNumber(this.order.amount,2) to avoid 4 decimals; 
       this.set_value("total_payment", total);
-      this.set_value("change_amount", (total - this.order.amount));
+      this.set_value("change_amount", (total - roundNumber(this.order.amount,2)));
       //FIX 29-12-2024; Check if change amount is MINUS... meaning paying LESS
-      console.log('change amou ', (total - this.order.amount));
-      if ((total - this.order.amount) < 0) {
+      console.log('total ', total);
+      console.log('orderamount ', roundNumber(this.order.amount,2));
+      console.log('change amou ', (total - roundNumber(this.order.amount,2)));
+      if ((total - roundNumber(this.order.amount,2)) < 0) {
         this.actions.pay.disable();
+      } else if (total == roundNumber(this.order.amount,2)) {
+        //FIX 22-05-2025
+        this.actions.pay.enable();
       } else {
         this.actions.pay.enable();
       }
