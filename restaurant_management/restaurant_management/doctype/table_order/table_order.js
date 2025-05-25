@@ -68,6 +68,36 @@ frappe.ui.form.on('Table Order', {
 				  })
 				})				
 			});
+		} else if (frm.doc.status == "Attending") {
+			//25-05-2025; PRINT NODE Consulta de MESA
+			frm.add_custom_button(__('Print NODE'), function() {
+				// Detect if frontend is running on HTTPS
+				const apiBaseUrl = window.location.protocol === 'https:' 
+					? 'https://192.168.8.147:3443' 
+					: 'http://192.168.8.147:3000';
+					
+				//TESTE using ESC/POS
+				frappe.call({
+					method: "angola_erp.util.angola.generate_escpos_and_print",
+					args: {
+						server_url: apiBaseUrl,
+						doctype: frm.doc.doctype,
+						docname: frm.doc.name,
+						company_info: frm.doc.company,
+						logo_path: '/files/logo.png'
+					},
+					callback: function(response) {
+						if (response.message) {
+							console.log('response ESCPOS and Print')
+							console.log(response.message)
+
+
+						
+						}
+					}
+				})
+
+			});			
 		}
 
 	}
