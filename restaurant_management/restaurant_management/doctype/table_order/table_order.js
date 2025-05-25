@@ -68,6 +68,54 @@ frappe.ui.form.on('Table Order', {
 				  })
 				})				
 			});
+
+			//25-05-2025; PRINT NODE Consulta de MESA
+			frm.add_custom_button(__('Print NODE INVOICE'), function() {
+				// Detect if frontend is running on HTTPS
+				const apiBaseUrl = window.location.protocol === 'https:' 
+					? 'https://192.168.8.147:3443' 
+					: 'http://192.168.8.147:3000';
+					
+
+				var order_print = "";
+				var ficha_tec = "";
+				var orderprint  = "";
+			
+				frappe.model.with_doc('POS Invoice', frm.doc.link_invoice, function() { 
+					var d = Object.keys(locals['POS Invoice'])[0]
+					frappe.model.with_doctype('POS Invoice', () => {
+					let meta = frappe.get_meta("POS Invoice");
+					var fichatec = frappe.model.get_doc('POS Invoice', d);
+					ficha_tec = fichatec; 
+					console.log ('ficccc ', ficha_tec.name);      
+			
+					}).then((r) => {
+
+						//TESTE using ESC/POS
+						frappe.call({
+							method: "angola_erp.util.angola.generate_escpos_and_print",
+							args: {
+								server_url: apiBaseUrl,
+								doctype: 'POS Invoice',
+								docname: ficha_tec.name,
+								company_info: frm.doc.company,
+								logo_path: '/files/logo.png'
+							},
+							callback: function(response) {
+								if (response.message) {
+									console.log('response ESCPOS and Print')
+									console.log(response.message)
+
+
+								
+								}
+							}
+						})
+					});
+				});
+
+			});			
+
 		} else if (frm.doc.status == "Attending") {
 			//25-05-2025; PRINT NODE Consulta de MESA
 			frm.add_custom_button(__('Print NODE'), function() {
@@ -75,7 +123,7 @@ frappe.ui.form.on('Table Order', {
 				const apiBaseUrl = window.location.protocol === 'https:' 
 					? 'https://192.168.8.147:3443' 
 					: 'http://192.168.8.147:3000';
-					
+
 				//TESTE using ESC/POS
 				frappe.call({
 					method: "angola_erp.util.angola.generate_escpos_and_print",
