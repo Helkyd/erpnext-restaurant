@@ -1056,6 +1056,9 @@ ProcessManage = class ProcessManage {
               console.log('USAR PARA PRINT ');
               
               console.log(dados_to_print);
+
+              //FIX 27-05-2025; Trying to use printer node 
+              
               
               /*
               let dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;font-size:12px;">	PEDIDO MESA<br></p></strong>'

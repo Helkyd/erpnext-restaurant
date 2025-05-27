@@ -527,6 +527,8 @@ class TableOrder {
   order() {
     //FIX 24-12-2024;
     console.log('table order - ORDER');
+    console.log ('ORDERED =>>>>>> ', this.data.name);
+
     if (RM.busy_message() || this.data.products_not_ordered <= 0) {
       return;
     }
@@ -543,6 +545,32 @@ class TableOrder {
         this.data = r.message.order.data;
         this.render();
         this.check_items({ items: r.message.items });
+
+        console.log('AO RETORNAR....');
+        console.log('data ', this.data);
+
+        //use Print NODE
+        if (this.data.status == "Attending") {
+          //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
+          const apiBaseUrl = "http://rnhce-102-218-85-27.a.free.pinggy.link";
+          //TESTE using ESC/POS
+          frappe.call({
+            method: "angola_erp.util.angola.generate_barkit_escpos_print",
+            args: {
+              server_url: apiBaseUrl,
+              doctype: 'Table Order',
+              docname: this.data.name
+            },
+            callback: function(response) {
+              if (response.message) {
+                console.log('response ESCPOS and Print')
+                console.log(response.message)                
+              }
+            }
+          })
+
+        }
+
       },
     });
   }
@@ -619,7 +647,8 @@ class TableOrder {
     var orderprint  = "";
 
     frappe.model.with_doc('Table Order', this.data.name, function() { 
-      var d = Object.keys(locals['Table Order'])[0]
+      //FIX 27-05-2025
+      var d = Object.keys(locals['Table Order'])[Object.keys(locals['Table Order']).length-1]
       frappe.model.with_doctype('Table Order', () => {
         let meta = frappe.get_meta("Table Order");
         var fichatec = frappe.model.get_doc('Table Order', d);
@@ -638,8 +667,8 @@ class TableOrder {
         
         //frappe.set_route('print', 'Table Order', d);   
         //meta.default_print_format
-        console.log('default template ');
-        console.log(meta.__print_formats[1].html);
+        //console.log('default template ');
+        //console.log(meta.__print_formats[1].html);
 
         /*        
         let print_template_data = frappe.render_template("print_template", {
@@ -707,6 +736,68 @@ class TableOrder {
         }, 1000)
         */  
       }).then((r) => {
+        //FIX 27-050-2025; Added two button for PRT-BAR01 and PRT-BAR02
+        let dialog = new frappe.ui.Dialog({
+          title: 'Selecione a Impressora',
+          primary_action_label: 'Impressora BAR 01', // Custom text for the primary button
+          primary_action: function() {
+            console.log('Selecionou Printer 01');
+            //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
+            const apiBaseUrl = "http://rnhce-102-218-85-27.a.free.pinggy.link";
+            //TESTE using ESC/POS
+            frappe.call({
+              method: "angola_erp.util.angola.generate_escpos_and_print",
+              args: {
+                server_url: apiBaseUrl,
+                doctype: 'Table Order',
+                docname: ficha_tec.name,
+                company_info: ficha_tec.company,
+                to_printer: 1,
+                logo_path: '/files/logo.png'
+              },
+              callback: function(response) {
+                if (response.message) {
+                  console.log('response ESCPOS and Print')
+                  console.log(response.message)                
+                }
+              }
+            })
+
+            dialog.hide();
+
+          }
+        });
+      
+        // Adding a custom secondary button
+        dialog.set_secondary_action(function() {
+            console.log('Selecionou Printer 02');
+            //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
+            const apiBaseUrl = "http://rnhce-102-218-85-27.a.free.pinggy.link";
+            //TESTE using ESC/POS
+            frappe.call({
+              method: "angola_erp.util.angola.generate_escpos_and_print",
+              args: {
+                server_url: apiBaseUrl,
+                doctype: 'Table Order',
+                docname: ficha_tec.name,
+                company_info: ficha_tec.company,
+                to_printer: 2,
+                logo_path: '/files/logo.png'
+              },
+              callback: function(response) {
+                if (response.message) {
+                  console.log('response ESCPOS and Print')
+                  console.log(response.message)                
+                }
+              }
+            })
+
+            dialog.hide();
+        });
+        dialog.set_secondary_action_label('Impressora BAR 02'); // Custom text for the secondary button
+        dialog.show();
+
+      /*
         //console.log('TERMINOUIadfsadfsfsafsafasfa');
 
         frappe.call({
@@ -753,18 +844,6 @@ class TableOrder {
           }
         })
 
-        /*
-        console.log('aaaaaaa ', order_print);
-        
-        var w = window.open();
-        //w.document.write('<html><head><title>Print</title></head><body>');
-        w.document.write(orderprint);
-        //w.document.write('</body></html>');
-        w.document.close();
-        setTimeout(function () {
-          w.print();
-          w.close();
-        }, 1000)
         */
     
       });

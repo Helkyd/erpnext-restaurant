@@ -152,7 +152,7 @@ class ItemsTree {
               ${this[`${item.name}_count`].html()}
             </span>
             <span class="tree-label" data-children="${item.name}"></span>
-            <svg style="float:right;" class="icon icon-md" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <svg style="float:right;" class="icon icon-md" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
               ${icon.html()}
             </svg>
           </span>

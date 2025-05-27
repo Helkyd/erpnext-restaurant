@@ -410,17 +410,82 @@ class PayForm extends DeskForm {
     var orderprint  = "";
 
     frappe.model.with_doc('POS Invoice', invoice_name, function() { 
-      var d = Object.keys(locals['POS Invoice'])[0]
+      //var d = Object.keys(locals['POS Invoice'])[0]
+      //FIX 27-05-2025
+      var d = Object.keys(locals['POS Invoice'])[Object.keys(locals['POS Invoice']).length-1]      
       frappe.model.with_doctype('POS Invoice', () => {
         let meta = frappe.get_meta("POS Invoice");
         var fichatec = frappe.model.get_doc('POS Invoice', d);
         ficha_tec = fichatec; 
         console.log ('ficccc ', ficha_tec.name);      
-        console.log('default template ');
-        console.log(meta.__print_formats[1].html);
+        ///console.log('default template ');
+        //console.log(meta.__print_formats[1].html);
 
       }).then((r) => {
+        //FIX 27-050-2025; Added two button for PRT-BAR01 and PRT-BAR02
+        let dialog = new frappe.ui.Dialog({
+          title: 'Selecione a Impressora',
+          primary_action_label: 'Impressora BAR 01', // Custom text for the primary button
+          primary_action: function() {
+            console.log('Selecionou Printer 01');
+            //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
+            const apiBaseUrl = "http://rnyvz-102-218-85-27.a.free.pinggy.link";
+            //TESTE using ESC/POS
+            frappe.call({
+              method: "angola_erp.util.angola.generate_escpos_and_print",
+              args: {
+                server_url: apiBaseUrl,
+                doctype: 'POS Invoice',
+                docname: ficha_tec.name,
+                company_info: ficha_tec.company,
+                to_printer: 1,
+                logo_path: '/files/logo.png'
+              },
+              callback: function(response) {
+                if (response.message) {
+                  console.log('response ESCPOS and Print')
+                  console.log(response.message)                
+                }
+              }
+            })
+
+            dialog.hide();
+
+          }
+        });
+      
+        // Adding a custom secondary button
+        dialog.set_secondary_action(function() {
+            console.log('Selecionou Printer 02');
+            //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
+            const apiBaseUrl = "http://rnyvz-102-218-85-27.a.free.pinggy.link";
+            //TESTE using ESC/POS
+            frappe.call({
+              method: "angola_erp.util.angola.generate_escpos_and_print",
+              args: {
+                server_url: apiBaseUrl,
+                doctype: 'POS Invoice',
+                docname: ficha_tec.name,
+                company_info: ficha_tec.company,
+                to_printer: 2,
+                logo_path: '/files/logo.png'
+              },
+              callback: function(response) {
+                if (response.message) {
+                  console.log('response ESCPOS and Print')
+                  console.log(response.message)                
+                }
+              }
+            })
+
+            dialog.hide();
+        });
+        dialog.set_secondary_action_label('Impressora BAR 02'); // Custom text for the secondary button
+        dialog.show();
+
+        
         //console.log('TERMINOUIadfsadfsfsafsafasfa');    
+        /*
         frappe.call({
           "method": "frappe.www.printview.get_html_and_style",
           args: {
@@ -462,7 +527,9 @@ class PayForm extends DeskForm {
 
           }
         })
+        */
       })
+      
     })
     /*
     REMOVED FOR NOW
@@ -477,7 +544,7 @@ class PayForm extends DeskForm {
 
     //FIX 02-01-2025; TRying to reload
     console.log('RELOAD after printting PAYMENT');
-    this.reload();
+    //this.reload();
 
   }
 
