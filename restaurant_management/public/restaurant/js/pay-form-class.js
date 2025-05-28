@@ -545,6 +545,8 @@ class PayForm extends DeskForm {
     //FIX 02-01-2025; TRying to reload
     console.log('RELOAD after printting PAYMENT');
     this.reload();
+    //FIX 28-05-2025
+    document.getElementsByClassName('modal-backdrop')[0].remove('fade');
 
   }
 
