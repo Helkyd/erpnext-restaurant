@@ -429,7 +429,7 @@ class PayForm extends DeskForm {
           primary_action: function() {
             console.log('Selecionou Printer 01');
             //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
-            const apiBaseUrl = "http://rnyvz-102-218-85-27.a.free.pinggy.link";
+            const apiBaseUrl = "https://superb-tapir-peaceful.ngrok-free.app";
             //TESTE using ESC/POS
             frappe.call({
               method: "angola_erp.util.angola.generate_escpos_and_print",
@@ -458,7 +458,7 @@ class PayForm extends DeskForm {
         dialog.set_secondary_action(function() {
             console.log('Selecionou Printer 02');
             //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
-            const apiBaseUrl = "http://rnyvz-102-218-85-27.a.free.pinggy.link";
+            const apiBaseUrl = "https://superb-tapir-peaceful.ngrok-free.app";
             //TESTE using ESC/POS
             frappe.call({
               method: "angola_erp.util.angola.generate_escpos_and_print",
@@ -544,7 +544,7 @@ class PayForm extends DeskForm {
 
     //FIX 02-01-2025; TRying to reload
     console.log('RELOAD after printting PAYMENT');
-    //this.reload();
+    this.reload();
 
   }
 
