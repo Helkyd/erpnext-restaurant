@@ -363,6 +363,19 @@ class OrderItem {
               }
             }
           },
+          //FIX 29-05-2025; Hide
+          item_tax_rate: {
+            hidden: 1,
+          },
+          valuation_rate: {
+            hidden: 1,
+          },
+          price_list_rate: {
+            hidden: 1,
+          },
+          tax_amout: {
+            hidden: 1,
+          }
         }
       });
     }
@@ -429,6 +442,7 @@ class OrderItemEditor extends DeskForm {
     });
 
     this.get_input("notes").css("height", "100px").on("focusout", (e) => {
+      console.log('ORDERITEMEDITOR getINPUT notes');
       update(this.get_field("notes"));
     });
   }

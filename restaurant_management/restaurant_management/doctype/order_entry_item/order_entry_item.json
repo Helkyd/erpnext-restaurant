@@ -35,7 +35,8 @@
   "sub_items",
   "from_customize",
   "is_customizable",
-  "was_printed"
+  "was_printed",
+  "ponto_carne"
  ],
  "fields": [
   {
@@ -222,12 +223,18 @@
    "fieldname": "was_printed",
    "fieldtype": "Check",
    "label": "Was Printed"
+  },
+  {
+   "fieldname": "ponto_carne",
+   "fieldtype": "Select",
+   "label": "Ponto Carne",
+   "options": "\nBem\nMedia\nMal"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-10-13 09:55:09.725747",
+ "modified": "2025-05-29 10:14:42.211643",
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "Order Entry Item",
@@ -236,5 +243,6 @@
  "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }
