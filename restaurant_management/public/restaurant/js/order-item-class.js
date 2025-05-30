@@ -69,6 +69,7 @@ class OrderItem {
   }
 
   render() {
+    console.log('FAZ OU CALL RENDER');
     this.row = frappe.jshtml({
       tag: "li",
       properties: { class: "media event" },
@@ -82,9 +83,104 @@ class OrderItem {
     this.order.current_item = this;
     this.order.order_manage.check_item_editor_status(this);
     this.row.toggle_common('media.event', 'selected');
+
     //this.order.order_manage.toggle_main_section("items");
 
     if (scroller) this.order.scroller();
+    console.log('ACHOOOO ASYNC SELECT');
+    console.log('ORDER ITEM ', this.order.current_item);
+
+  
+    //FIX 30-05-2025
+    //this.form_editor.field_properties.ponto_carne.hidden = this.data.item_group != "Comidas"
+    if (this.data.item_group != "Comidas") {
+      this.form_editor.field_properties.ponto_carne.hidden = true;
+      document.querySelector('[data-fieldname="ponto_carne"]').style.display="none"
+      this.form_editor.field_properties.ponto_carne.hidden = true;
+    } else if (this.form_editor.fields_dict.ponto_carne._label === "") {
+      document.querySelector('[data-fieldname="ponto_carne"]').style.display="none"
+      this.form_editor.field_properties.ponto_carne.hidden = true;
+    }
+
+    //this.form_editor.field_properties.dish_side_01.hidden = this.data.item_group != "Comidas"
+    if (this.data.item_group != "Comidas") {
+      this.form_editor.field_properties.dish_side_01.hidden = true;
+      //document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
+      this.form_editor.field_properties.dish_side_01.hidden = true;
+      if (document.querySelector('[data-fieldname="dish_side_01"]')) document.querySelector('[data-fieldname="dish_side_01"]').remove();
+    } else if (this.form_editor.fields_dict.dish_side_01._label === "") {
+      //document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
+      this.form_editor.field_properties.dish_side_01.hidden = true;
+      if (document.querySelector('[data-fieldname="dish_side_01"]')) document.querySelector('[data-fieldname="dish_side_01"]').remove();
+    }
+
+
+    //this.form_editor.field_properties.dish_side_02.hidden = this.data.item_group != "Comidas"
+    if (this.data.item_group != "Comidas") {
+      this.form_editor.field_properties.dish_side_02.hidden = true;
+      document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+      this.form_editor.field_properties.dish_side_02.hidden = true;
+      if (document.querySelector('[data-fieldname="dish_side_02"]')) document.querySelector('[data-fieldname="dish_side_02"]').remove();
+    } else if (this.form_editor.fields_dict.dish_side_02._label === "") {
+      document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+      this.form_editor.field_properties.dish_side_02.hidden = true;
+      if (document.querySelector('[data-fieldname="dish_side_02"]')) document.querySelector('[data-fieldname="dish_side_02"]').remove();
+    }
+
+
+
+    if (this.data.item_group != "Comidas") {
+      this.form_editor.field_properties.dish_side_03.hidden = true;
+      document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+      this.form_editor.field_properties.dish_side_03.hidden = true;
+      if (document.querySelector('[data-fieldname="dish_side_03"]')) document.querySelector('[data-fieldname="dish_side_03"]').remove();
+    } else if (this.form_editor.fields_dict.dish_side_03._label === "") {
+      document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+      this.form_editor.field_properties.dish_side_03.hidden = true;
+      if (document.querySelector('[data-fieldname="dish_side_03"]')) document.querySelector('[data-fieldname="dish_side_03"]').remove();
+    }
+
+    
+    //this.form_editor.field_properties.dish_side_04.hidden = this.data.item_group != "Comidas"
+    if (this.data.item_group != "Comidas") {
+      this.form_editor.field_properties.dish_side_04.hidden = true;
+      document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+      this.form_editor.field_properties.dish_side_04.hidden = true;
+      if (document.querySelector('[data-fieldname="dish_side_04"]')) document.querySelector('[data-fieldname="dish_side_04"]').remove();
+    } else if (this.form_editor.fields_dict.dish_side_04._label === "") {
+      document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+      this.form_editor.field_properties.dish_side_04.hidden = true;
+      if (document.querySelector('[data-fieldname="dish_side_04"]')) document.querySelector('[data-fieldname="dish_side_04"]').remove();
+    }
+
+
+    //this.form_editor.field_properties.dish_side_05.hidden = this.data.item_group != "Comidas"
+    if (this.data.item_group != "Comidas") {
+      this.form_editor.field_properties.dish_side_05.hidden = true;
+      document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+      this.form_editor.field_properties.dish_side_05.hidden = true;
+      if (document.querySelector('[data-fieldname="dish_side_05"]')) document.querySelector('[data-fieldname="dish_side_05"]').remove();
+    } else if (this.form_editor.fields_dict.dish_side_05._label === "") {
+      document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+      this.form_editor.field_properties.dish_side_05.hidden = true;
+      if (document.querySelector('[data-fieldname="dish_side_05"]')) document.querySelector('[data-fieldname="dish_side_05"]').remove();
+    }
+
+
+    //this.form_editor.field_properties.dish_side_06.hidden = this.data.item_group != "Comidas"
+    if (this.data.item_group != "Comidas") {
+      this.form_editor.field_properties.dish_side_06.hidden = true;
+      document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+      this.form_editor.field_properties.dish_side_06.hidden = true;
+      if (document.querySelector('[data-fieldname="dish_side_06"]')) document.querySelector('[data-fieldname="dish_side_06"]').remove();
+
+    } else if (this.form_editor.fields_dict.dish_side_06._label === "") {
+      document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+      this.form_editor.field_properties.dish_side_06.hidden = true;
+      if (document.querySelector('[data-fieldname="dish_side_06"]')) document.querySelector('[data-fieldname="dish_side_06"]').remove();
+
+    }
+
   }
 
   active_editor() {
@@ -124,6 +220,7 @@ class OrderItem {
       args: { item: this.data.qty > 0 ? this.data : this.data.identifier },
       always: (r) => {
         if (r.exc) {
+          console.log('Check items!!!!!!!')
           this.order.check_items({ items: [...Object.values(this.order.items).map(item => item.data), this.data] });
         }
         this.order.aggregate(true);
@@ -318,11 +415,104 @@ class OrderItem {
   }
 
   async make_form_editor() {
+    console.log('ASYN make form editor')
     if (this.form_editor) {
       const selected = this.row.has_class("selected");
+
       await this.form_editor.reload(this.data);
 
       this.form_editor[!selected || this.form_editor.in_modal ? "show" : "toggle"]();
+
+      //FIX 30-05-2025
+      //this.form_editor.field_properties.ponto_carne.hidden = this.data.item_group != "Comidas"
+      if (this.data.item_group != "Comidas") {
+        this.form_editor.field_properties.ponto_carne.hidden = true;
+        document.querySelector('[data-fieldname="ponto_carne"]').style.display="none"
+      } else if (this.form_editor.field_properties.ponto_carne.label === "") {
+        this.form_editor.field_properties.ponto_carne.hidden = true;
+        document.querySelector('[data-fieldname="ponto_carne"]').style.display="none"
+      } else if (this.form_editor.fields_dict.ponto_carne._label == "") {
+        document.querySelector('[data-fieldname="ponto_carne"]').style.display="none"
+      }
+
+      //this.form_editor.field_properties.dish_side_01.hidden = this.data.item_group != "Comidas"
+      if (this.data.item_group != "Comidas") {
+        this.form_editor.field_properties.dish_side_01.hidden = true;
+        //document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
+        if (document.querySelector('[data-fieldname="dish_side_01"]')) document.querySelector('[data-fieldname="dish_side_01"]').remove();
+      } else if (this.form_editor.field_properties.dish_side_01.label === "") {
+        this.form_editor.field_properties.dish_side_01.hidden = true;
+        //document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
+        if (document.querySelector('[data-fieldname="dish_side_01"]')) document.querySelector('[data-fieldname="dish_side_01"]').remove();
+      } else if (this.form_editor.fields_dict.dish_side_01._label == "") {
+        //document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
+        if (document.querySelector('[data-fieldname="dish_side_01"]')) document.querySelector('[data-fieldname="dish_side_01"]').remove();
+      }
+
+
+      //this.form_editor.field_properties.dish_side_02.hidden = this.data.item_group != "Comidas"
+      if (this.data.item_group != "Comidas") {
+        this.form_editor.field_properties.dish_side_02.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+      } else if (this.form_editor.field_properties.dish_side_02.label === "") {
+        this.form_editor.field_properties.dish_side_02.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+      } else if (this.form_editor.fields_dict.dish_side_02._label == "") {
+        document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+      }
+
+
+
+      if (this.data.item_group != "Comidas") {
+        this.form_editor.field_properties.dish_side_03.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+      } else if (this.form_editor.field_properties.dish_side_03.label === "") {
+        this.form_editor.field_properties.dish_side_03.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+      } else if (this.form_editor.fields_dict.dish_side_03._label == "") {
+        document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+      }
+
+      
+      //this.form_editor.field_properties.dish_side_04.hidden = this.data.item_group != "Comidas"
+      if (this.data.item_group != "Comidas") {
+        this.form_editor.field_properties.dish_side_04.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+      } else if (this.form_editor.field_properties.dish_side_04.label === "") {
+        this.form_editor.field_properties.dish_side_04.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+      } else if (this.form_editor.fields_dict.dish_side_04._label == "") {
+        document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+      }
+
+
+      //this.form_editor.field_properties.dish_side_05.hidden = this.data.item_group != "Comidas"
+      if (this.data.item_group != "Comidas") {
+        this.form_editor.field_properties.dish_side_05.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+      } else if (this.form_editor.field_properties.dish_side_05.label === "") {
+        this.form_editor.field_properties.dish_side_05.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+      } else if (this.form_editor.fields_dict.dish_side_05._label == "") {
+        document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+      }
+
+
+      //this.form_editor.field_properties.dish_side_06.hidden = this.data.item_group != "Comidas"
+      if (this.data.item_group != "Comidas") {
+        this.form_editor.field_properties.dish_side_06.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+      } else if (this.form_editor.field_properties.dish_side_06.label === "") {
+        this.form_editor.field_properties.dish_side_06.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+      } else if (this.form_editor.fields_dict.dish_side_06._label == "") {
+        document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+      }
+
+
+
+
+
     } else {
       this.form_editor = new OrderItemEditor({
         order_item: this,
@@ -375,9 +565,147 @@ class OrderItem {
           },
           tax_amout: {
             hidden: 1,
-          }
+          },
+          ponto_carne: {
+            hidden: this.data.item_group != "Comidas",
+            "get_query": () => {
+              console.log('acompanhaaaaaaa PONTO CARNE');
+              console.log(this.data.item_code);
+              return {
+                filters: [
+                  ['item_code', '=', this.data.item_code]
+                ]
+              }
+            }
+          },
+          dish_side_01: {
+            hidden: this.data.item_group != "Comidas",
+            label: !this.data.dish_sides || this.data.dish_sides.length <= 0 
+            ? "" 
+            : this.data.dish_sides[0].item_name,
+            
+          },
+          dish_side_02: {
+            hidden: this.data.item_group != "Comidas",
+            label: !this.data.dish_sides || this.data.dish_sides.length <= 1
+            ? "" 
+            : this.data.dish_sides[1].item_name,
+          },
+          dish_side_03: {
+            hidden: this.data.item_group != "Comidas" || this.data.dish_sides?.length <= 2,
+            label: !this.data.dish_sides || this.data.dish_sides.length <= 2 
+            ? "" 
+            : this.data.dish_sides[2]?.item_name || "",
+            read_only: this.data.dish_sides?.length <= 2,
+          },
+          dish_side_04: {
+            hidden: this.data.item_group != "Comidas",
+            label: !this.data.dish_sides || this.data.dish_sides.length <= 3 
+            ? "" 
+            : this.data.dish_sides[3].item_name,
+          },
+          dish_side_05: {
+            hidden: this.data.item_group != "Comidas",
+            label: !this.data.dish_sides || this.data.dish_sides.length <= 4 
+            ? "" 
+            : this.data.dish_sides[4].item_name,
+          },
+          dish_side_06: {
+            hidden: this.data.item_group != "Comidas",
+            label: !this.data.dish_sides || this.data.dish_sides.length <= 5 
+            ? "" 
+            : this.data.dish_sides[5].item_name,
+          },
+
+
+
         }
       });
+
+      //FIX 30-05-2025
+      //this.form_editor.field_properties.ponto_carne.hidden = this.data.item_group != "Comidas"
+      if (this.data.item_group != "Comidas") {
+        this.form_editor.field_properties.ponto_carne.hidden = true;
+        document.querySelector('[data-fieldname="ponto_carne"]').style.display="none"
+      } else if (this.form_editor.field_properties.ponto_carne.label === "") {
+        this.form_editor.field_properties.ponto_carne.hidden = true;
+        document.querySelector('[data-fieldname="ponto_carne"]').style.display="none"
+      } else if (this.form_editor.fields_dict.ponto_carne._label == "") {
+        document.querySelector('[data-fieldname="ponto_carne"]').style.display="none"
+      }
+
+      //this.form_editor.field_properties.dish_side_01.hidden = this.data.item_group != "Comidas"
+      if (this.data.item_group != "Comidas") {
+        this.form_editor.field_properties.dish_side_01.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
+      } else if (this.form_editor.field_properties.dish_side_01.label === "") {
+        this.form_editor.field_properties.dish_side_01.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
+      } else if (this.form_editor.fields_dict.dish_side_01._label == "") {
+        document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
+      }
+
+
+      //this.form_editor.field_properties.dish_side_02.hidden = this.data.item_group != "Comidas"
+      if (this.data.item_group != "Comidas") {
+        this.form_editor.field_properties.dish_side_02.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+      } else if (this.form_editor.field_properties.dish_side_02.label === "") {
+        this.form_editor.field_properties.dish_side_02.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+      } else if (this.form_editor.fields_dict.dish_side_02._label == "") {
+        document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+      }
+
+
+
+      if (this.data.item_group != "Comidas") {
+        this.form_editor.field_properties.dish_side_03.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+      } else if (this.form_editor.field_properties.dish_side_03.label === "") {
+        this.form_editor.field_properties.dish_side_03.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+      } else if (this.form_editor.fields_dict.dish_side_03._label == "") {
+        document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+      }
+
+      
+      //this.form_editor.field_properties.dish_side_04.hidden = this.data.item_group != "Comidas"
+      if (this.data.item_group != "Comidas") {
+        this.form_editor.field_properties.dish_side_04.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+      } else if (this.form_editor.field_properties.dish_side_04.label === "") {
+        this.form_editor.field_properties.dish_side_04.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+      } else if (this.form_editor.fields_dict.dish_side_04._label == "") {
+        document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+      }
+
+
+      //this.form_editor.field_properties.dish_side_05.hidden = this.data.item_group != "Comidas"
+      if (this.data.item_group != "Comidas") {
+        this.form_editor.field_properties.dish_side_05.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+      } else if (this.form_editor.field_properties.dish_side_05.label === "") {
+        this.form_editor.field_properties.dish_side_05.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+      } else if (this.form_editor.fields_dict.dish_side_05._label == "") {
+        document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+      }
+
+
+      //this.form_editor.field_properties.dish_side_06.hidden = this.data.item_group != "Comidas"
+      if (this.data.item_group != "Comidas") {
+        this.form_editor.field_properties.dish_side_06.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+      } else if (this.form_editor.field_properties.dish_side_06.label === "") {
+        this.form_editor.field_properties.dish_side_06.hidden = true;
+        document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+      } else if (this.form_editor.fields_dict.dish_side_06._label == "") {
+        document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+      }
+
+
     }
   }
 
@@ -396,6 +724,40 @@ class OrderItem {
       this.form_editor.set_field_property("qty", "read_only", !this.is_enabled_to_edit);
       this.form_editor.set_field_property("discount_percentage", "read_only", !this.is_enabled_to_edit || !pos_profile.allow_discount_change);
       this.form_editor.set_field_property("rate", "read_only", !this.is_enabled_to_edit || !pos_profile.allow_rate_change);
+
+      //FIX 30-05-2025
+      this.form_editor.set_field_property("ponto_carne", "read_only", !this.is_enabled_to_edit);
+
+      this.form_editor.set_field_property("dish_side_01", "read_only", !this.is_enabled_to_edit);
+      this.form_editor.set_field_property("dish_side_02", "read_only", !this.is_enabled_to_edit);
+      this.form_editor.set_field_property("dish_side_03", "read_only", !this.is_enabled_to_edit);
+      this.form_editor.set_field_property("dish_side_04", "read_only", !this.is_enabled_to_edit);
+      this.form_editor.set_field_property("dish_side_05", "read_only", !this.is_enabled_to_edit);
+      this.form_editor.set_field_property("dish_side_06", "read_only", !this.is_enabled_to_edit);
+
+      //FIX 30-05-2025
+      if (this.data.item_group == "Comidas") {
+        this.form_editor.set_field_property("ponto_carne", "hidden", 0);
+        this.form_editor.set_field_property("dish_side_01", "hidden", 0);
+        this.form_editor.set_field_property("dish_side_02", "hidden", 0);
+        this.form_editor.set_field_property("dish_side_03", "hidden", 0);
+        this.form_editor.set_field_property("dish_side_04", "hidden", 0);
+        this.form_editor.set_field_property("dish_side_05", "hidden", 0);
+        this.form_editor.set_field_property("dish_side_06", "hidden", 0);
+  
+      } else {
+        this.form_editor.set_field_property("ponto_carne", "hidden", 1);        
+        this.form_editor.set_field_property("dish_side_01", "hidden", 1);
+        this.form_editor.set_field_property("dish_side_02", "hidden", 1);
+        this.form_editor.set_field_property("dish_side_03", "hidden", 1);
+        this.form_editor.set_field_property("dish_side_04", "hidden", 1);
+        this.form_editor.set_field_property("dish_side_05", "hidden", 1);
+        this.form_editor.set_field_property("dish_side_06", "hidden", 1);
+
+      }
+
+
+
     }
   }
 
@@ -438,6 +800,11 @@ class OrderItemEditor extends DeskForm {
     }
 
     this.on(["qty", "rate", "discount_percentage", "batch_no"], "change", (field) => {
+      update(field);
+    });
+
+    //FIX 29-05-2025
+    this.on(["ponto_carne","dish_side_01","dish_side_02","dish_side_03","dish_side_04","dish_side_05","dish_side_06"], "change", (field) => {
       update(field);
     });
 

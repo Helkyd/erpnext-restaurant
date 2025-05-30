@@ -549,6 +549,87 @@ class TableOrder {
         console.log('AO RETORNAR....');
         console.log('data ', this.data);
 
+        /*
+        var pontocarne = "";
+        var acompanha01 = acompanha02 = acompanha03 = acompanha04 = acompanha05 = acompanha06 = "";
+
+        //Now needs to update NOTES
+        for (var listaitems in r.message.items.items) {
+          console.log('Lista de ITEMS');
+          console.log(r.message.items.items[listaitems]);
+          if (r.message.items.items[listaitems].ponto_carne) {
+
+          }
+          for (var dishsides in r.message.items.items[listaitems].dish_sides) {
+            console.log('Dishsides');
+            console.log(dishsides);
+            console.log(r.message.items.items[listaitems].dish_sides[dishsides]);
+
+            if (r.message.items.items[listaitems].dish_side_01 == 1) {
+              //First from dish sides will be 1
+              if (r.message.items.items[listaitems].dish_sides[dishsides].idx == 1) {
+                console.log('vvvvvv 01 SET ACTIVO ')
+                r.message.items.items[listaitems].dish_sides[dishsides].activo = 1;
+                acompanha01 = r.message.items.items[listaitems].dish_sides[dishsides].item_name;
+
+              }
+              
+            }
+            if (r.message.items.items[listaitems].dish_side_02 == 1) {
+              //First from dish sides will be 2
+              if (r.message.items.items[listaitems].dish_sides[dishsides].idx == 2) {
+                console.log('vvvvvv 02 SET ACTIVO ')
+                r.message.items.items[listaitems].dish_sides[dishsides].activo = 1;
+                acompanha02 = r.message.items.items[listaitems].dish_sides[dishsides].item_name;
+              }
+
+            }            
+            if (r.message.items.items[listaitems].dish_side_03 == 1) {
+              //First from dish sides will be 2
+              if (r.message.items.items[listaitems].dish_sides[dishsides].idx == 3) {
+                console.log('vvvvvv 03 SET ACTIVO ')
+                r.message.items.items[listaitems].dish_sides[dishsides].activo = 1;
+                acompanha03 = r.message.items.items[listaitems].dish_sides[dishsides].item_name;
+
+              }
+
+            }            
+
+          }
+          if (r.message.items.items[listaitems].dish_side_04 == 1) {
+            //First from dish sides will be 2
+            if (r.message.items.items[listaitems].dish_sides[dishsides].idx == 4) {
+              console.log('vvvvvv 04 SET ACTIVO ')
+              r.message.items.items[listaitems].dish_sides[dishsides].activo = 1;
+              acompanha04 = r.message.items.items[listaitems].dish_sides[dishsides].item_name;
+
+            }
+
+          }            
+          if (r.message.items.items[listaitems].dish_side_05 == 1) {
+            //First from dish sides will be 2
+            if (r.message.items.items[listaitems].dish_sides[dishsides].idx == 5) {
+              console.log('vvvvvv 05 SET ACTIVO ')
+              r.message.items.items[listaitems].dish_sides[dishsides].activo = 1;
+              acompanha05 = r.message.items.items[listaitems].dish_sides[dishsides].item_name;
+
+            }
+
+          }            
+          if (r.message.items.items[listaitems].dish_side_06 == 1) {
+            //First from dish sides will be 2
+            if (r.message.items.items[listaitems].dish_sides[dishsides].idx == 6) {
+              console.log('vvvvvv 06 SET ACTIVO ')
+              r.message.items.items[listaitems].dish_sides[dishsides].activo = 1;
+              acompanha06 = r.message.items.items[listaitems].dish_sides[dishsides].item_name;
+
+            }
+
+          }            
+
+        }
+          */
+
         //use Print NODE
         if (this.data.status == "Attending") {
           //Once bought the PLAN this will be printer-backend.angolaerp.co.ao

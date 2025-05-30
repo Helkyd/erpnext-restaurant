@@ -1,8 +1,58 @@
 // Copyright (c) 2021, Quantum Bit Core and contributors
 // For license information, please see license.txt
 
-//LAST MODIFIED: 21-12-2024
+//LAST MODIFIED: 29-05-2025
+
+frappe.ui.form.on("Order Entry Item","item_code", function(frm,cdt,cdn) {
+	var d = locals[cdt][cdn];
+	
+	console.log('TABLE ORDER ENTRY ITEM');
+	/*
+	var table = document.getElementById("Mytable");
+	var row = table.insertRow(-1);
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+	cell1.innerHTML = "NEW CELL1";
+	cell2.innerHTML = "NEW CELL2";
+	*/
+	frm.set_df_property('acompanhamentos', 'options', '<h3 style="color: green;">Hello, this is dynamic HTML content!</h3>');
+
+	// Iterate through the child table rows
+	/*
+	frm.fields_dict.entry_items.grid.data.forEach(row => {
+		//frm.fields_dict['Order Entry Item'].grid.data.forEach(row => {
+		// Set the HTML value for a specific field in the child table
+		console.log(row);
+		if (row.item_group == "Comidas"){
+			frappe.model.set_value(row.doctype, row.name, 'acompanhamentos', '<b>Custom HTML Content</b>');	
+		}
+		
+	});
+	*/
+	/*
+	var table = document.getElementById("myTable");
+	frm.doc.child.forEach(function(element){
+	   var row = table.insertRow(-1);
+		//repeat the next 2 lines depending on how many cells you have
+		var cell1 = row.insertCell(0);
+		cell1.innerHTML = element.name;
+		
+		
+	})	
+	*/
+	// Add custom HTML content
+	frm.fields_dict.acompanhamentos.$wrapper.html(`
+		<div>
+			<h3>Welcome, ${frm.doc.owner}!</h3>
+			<p>This is a dynamically generated message.</p>
+			<button class="btn btn-primary" id="custom-button">Click Me</button>
+		</div>
+	`);
+
+});
+
 frappe.ui.form.on('Table Order', {
+	
 	refresh: function(frm) {
 		//FIX 21-12-2024; Adding Button PRINT INVOICE
 		if (frm.doc.status == "Invoiced") {
