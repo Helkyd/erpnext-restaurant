@@ -1109,7 +1109,7 @@ class OrderItemEditor extends DeskForm {
 
     const update_dishsides = (field) => {
       if (this.order_item.data[field.df.fieldname] === field.get_value()) return;
-
+      this.order_item.calculate_form(field.df.fieldname, field.get_value());
       this.order_item.update();
     }
     this.on(["qty", "rate", "discount_percentage", "batch_no"], "change", (field) => {
