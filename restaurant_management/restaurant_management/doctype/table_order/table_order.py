@@ -646,6 +646,10 @@ class TableOrder(Document):
 
     def data(self, items=None, last_table=None):
         short_data = self.short_data(last_table)
+        print ('TABLE ORDER - DATA')
+        print ('items')
+        print (items)
+
         items = self.items_list() if items is None else items
 
         return dict(
@@ -751,7 +755,7 @@ class TableOrder(Document):
                     "dish_side_03",
                     "dish_side_04",
                     "dish_side_05",
-                    "dish_side_06",
+                    "dish_side_06"
                 ]}
 
                 row["order_name"] = item.parent
@@ -762,7 +766,13 @@ class TableOrder(Document):
                 row["order"] = short_name
                 row["table_description"] = self.table_info
                 #row["table_info"] = self.table_info
+                
+                print ('item item_code ', item.item_code)
                 row['dish_sides'] = frappe.get_doc('Item',item.item_code).dish_sides #FIX 30-05-2025
+                print ('ITEMS LIST DISH SIDES ')
+                print (frappe.get_doc('Item',item.item_code).dish_sides)
+                if frappe.get_doc('Item',item.item_code).dish_sides:
+                    print (frappe.get_doc('Item',item.item_code).dish_sides[0].item_code)
 
                 #FIX 31-12-2024
                 #row["was_printed"] = item.was_printed

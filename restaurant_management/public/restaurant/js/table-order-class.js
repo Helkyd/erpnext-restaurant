@@ -182,6 +182,10 @@ class TableOrder {
       test_item.update();
       test_item.select(true);
     }
+    //FIX 31-05-2025
+    //this.select();
+    //this.get_items();
+    //this.select(true,true);
   }
 
   add_locale_item(item) {
@@ -315,6 +319,8 @@ class TableOrder {
   }
 
   get_items() {
+    console.log('TABLE ORDER - GET ITEMS.....');
+
     RM.working(__("Loading items in") + ": " + this.data.name);
     frappeHelper.api.call({
       model: "Table Order",
@@ -324,6 +330,8 @@ class TableOrder {
         RM.ready();
         if (typeof r.message != "undefined") {
           this.data = r.message.order.data;
+          console.log('TABLE ORDER GETITEMS - DATA RETURN')
+          console.log(this.data)
           this.render();
           this.check_items({ items: r.message.items });
         }

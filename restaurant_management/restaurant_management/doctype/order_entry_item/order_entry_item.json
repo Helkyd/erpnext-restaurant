@@ -238,13 +238,6 @@
    "options": "\nBem\nMedio\nMal"
   },
   {
-   "default": "\t<div>\n\t\t\t<h3>Welcome, ${frm.doc.owner}!</h3>\n\t\t\t<p>This is a dynamically generated message.</p>\n\t\t\t<button class=\"btn btn-primary\" id=\"custom-button\">Click Me</button>\n\t\t</div>",
-   "fieldname": "acompanhamentos",
-   "fieldtype": "HTML",
-   "label": "Acompanhamentos",
-   "options": "<table id=\"Mytable\"></table>\n"
-  },
-  {
    "default": "0",
    "fieldname": "dish_side_01",
    "fieldtype": "Check",

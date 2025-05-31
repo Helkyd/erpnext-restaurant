@@ -77,6 +77,10 @@ class OrderItem {
     });
 
     this.order.container.append(this.row.html());
+    //FIX 31-05-2025
+    //this.select(false);
+    //const teste = new TableOrder();
+    //teste.select();
   }
 
   async select(scroller = false) {
@@ -94,90 +98,234 @@ class OrderItem {
     //FIX 30-05-2025
     //this.form_editor.field_properties.ponto_carne.hidden = this.data.item_group != "Comidas"
     if (this.data.item_group != "Comidas") {
-      this.form_editor.field_properties.ponto_carne.hidden = true;
-      document.querySelector('[data-fieldname="ponto_carne"]').style.display="none"
-      this.form_editor.field_properties.ponto_carne.hidden = true;
-    } else if (this.form_editor.fields_dict.ponto_carne._label === "") {
+      if (this.form_editor) {
+        this.form_editor.field_properties.ponto_carne.hidden = true;
+        document.querySelector('[data-fieldname="ponto_carne"]').style.display="none"
+        this.form_editor.field_properties.ponto_carne.hidden = true;
+  
+      }
+    } else if (this.form_editor && this.form_editor.fields_dict.ponto_carne._label === "") {
       document.querySelector('[data-fieldname="ponto_carne"]').style.display="none"
       this.form_editor.field_properties.ponto_carne.hidden = true;
     }
 
     //this.form_editor.field_properties.dish_side_01.hidden = this.data.item_group != "Comidas"
     if (this.data.item_group != "Comidas") {
-      this.form_editor.field_properties.dish_side_01.hidden = true;
+      if (this.form_editor) {      
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >0) {
+          this.form_editor.field_properties.dish_side_01.hidden = false;
+          this.form_editor.field_properties.dish_side_01.label = this.order.current_item.data.dish_sides[0].item_name;
+          this.form_editor.fields_dict.dish_side_01._label = this.order.current_item.data.dish_sides[0].item_name
+        } else {
+          if (document.querySelector('[data-fieldname="dish_side_01"]')) {
+            this.form_editor.field_properties.dish_side_01.hidden = true;
+            //document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
+            this.form_editor.field_properties.dish_side_01.hidden = true;
+  
+            document.querySelector('[data-fieldname="dish_side_01"]').remove()
+          };
+  
+        }
+      }
+    } else if (this.form_editor && this.form_editor.fields_dict.dish_side_01._label === "") {
       //document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
-      this.form_editor.field_properties.dish_side_01.hidden = true;
-      if (document.querySelector('[data-fieldname="dish_side_01"]')) document.querySelector('[data-fieldname="dish_side_01"]').remove();
-    } else if (this.form_editor.fields_dict.dish_side_01._label === "") {
-      //document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
-      this.form_editor.field_properties.dish_side_01.hidden = true;
-      if (document.querySelector('[data-fieldname="dish_side_01"]')) document.querySelector('[data-fieldname="dish_side_01"]').remove();
+      //Check if has DISH SIDES
+      if (this.order.current_item.data.dish_sides.length >0) {
+        this.form_editor.field_properties.dish_side_01.hidden = false;
+        this.form_editor.field_properties.dish_side_01.label = this.order.current_item.data.dish_sides[0].item_name;
+        this.form_editor.fields_dict.dish_side_01._label = this.order.current_item.data.dish_sides[0].item_name
+      } else {
+
+        if (document.querySelector('[data-fieldname="dish_side_01"]')) {
+          this.form_editor.field_properties.dish_side_01.hidden = true;          
+          document.querySelector('[data-fieldname="dish_side_01"]').remove()
+        };
+      }
     }
 
 
     //this.form_editor.field_properties.dish_side_02.hidden = this.data.item_group != "Comidas"
     if (this.data.item_group != "Comidas") {
-      this.form_editor.field_properties.dish_side_02.hidden = true;
-      document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
-      this.form_editor.field_properties.dish_side_02.hidden = true;
-      if (document.querySelector('[data-fieldname="dish_side_02"]')) document.querySelector('[data-fieldname="dish_side_02"]').remove();
-    } else if (this.form_editor.fields_dict.dish_side_02._label === "") {
-      document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
-      this.form_editor.field_properties.dish_side_02.hidden = true;
-      if (document.querySelector('[data-fieldname="dish_side_02"]')) document.querySelector('[data-fieldname="dish_side_02"]').remove();
+      if (this.form_editor) {      
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >1) {
+          this.form_editor.field_properties.dish_side_02.hidden = false;
+          this.form_editor.field_properties.dish_side_02.label = this.order.current_item.data.dish_sides[1].item_name;
+          this.form_editor.fields_dict.dish_side_02._label = this.order.current_item.data.dish_sides[1].item_name
+        } else {
+
+          if (document.querySelector('[data-fieldname="dish_side_02"]')) {
+            this.form_editor.field_properties.dish_side_02.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+            this.form_editor.field_properties.dish_side_02.hidden = true;
+              
+            document.querySelector('[data-fieldname="dish_side_02"]').remove()
+          };
+        }
+      }
+    } else if (this.form_editor && this.form_editor.fields_dict.dish_side_02._label === "") {
+      //Check if has DISH SIDES
+      if (this.order.current_item.data.dish_sides.length >1) {
+        this.form_editor.field_properties.dish_side_02.hidden = false;
+        this.form_editor.field_properties.dish_side_02.label = this.order.current_item.data.dish_sides[1].item_name;
+        this.form_editor.fields_dict.dish_side_02._label = this.order.current_item.data.dish_sides[1].item_name
+      } else {
+
+        if (document.querySelector('[data-fieldname="dish_side_02"]')) {
+          document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+          this.form_editor.field_properties.dish_side_02.hidden = true;
+  
+          document.querySelector('[data-fieldname="dish_side_02"]').remove()
+        };
+      }
     }
 
 
 
     if (this.data.item_group != "Comidas") {
-      this.form_editor.field_properties.dish_side_03.hidden = true;
-      document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
-      this.form_editor.field_properties.dish_side_03.hidden = true;
-      if (document.querySelector('[data-fieldname="dish_side_03"]')) document.querySelector('[data-fieldname="dish_side_03"]').remove();
-    } else if (this.form_editor.fields_dict.dish_side_03._label === "") {
-      document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
-      this.form_editor.field_properties.dish_side_03.hidden = true;
-      if (document.querySelector('[data-fieldname="dish_side_03"]')) document.querySelector('[data-fieldname="dish_side_03"]').remove();
+      if (this.form_editor) {
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >2) {
+          this.form_editor.field_properties.dish_side_03.hidden = false;
+          this.form_editor.field_properties.dish_side_03.label = this.order.current_item.data.dish_sides[2].item_name;
+          this.form_editor.fields_dict.dish_side_03._label = this.order.current_item.data.dish_sides[2].item_name
+        } else {
+
+          if (document.querySelector('[data-fieldname="dish_side_03"]')) {
+            this.form_editor.field_properties.dish_side_03.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+            this.form_editor.field_properties.dish_side_03.hidden = true;
+  
+            document.querySelector('[data-fieldname="dish_side_03"]').remove()
+          };
+        }
+      }
+    } else if (this.form_editor && this.form_editor.fields_dict.dish_side_03._label === "") {
+      //Check if has DISH SIDES
+      if (this.order.current_item.data.dish_sides.length >3) {
+        this.form_editor.field_properties.dish_side_03.hidden = false;
+        this.form_editor.field_properties.dish_side_03.label = this.order.current_item.data.dish_sides[3].item_name;
+        this.form_editor.fields_dict.dish_side_03._label = this.order.current_item.data.dish_sides[3].item_name
+      } else {
+
+        if (document.querySelector('[data-fieldname="dish_side_03"]')) {
+          document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+          this.form_editor.field_properties.dish_side_03.hidden = true;
+  
+          document.querySelector('[data-fieldname="dish_side_03"]').remove()
+        };
+      }
     }
 
     
     //this.form_editor.field_properties.dish_side_04.hidden = this.data.item_group != "Comidas"
     if (this.data.item_group != "Comidas") {
-      this.form_editor.field_properties.dish_side_04.hidden = true;
-      document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
-      this.form_editor.field_properties.dish_side_04.hidden = true;
-      if (document.querySelector('[data-fieldname="dish_side_04"]')) document.querySelector('[data-fieldname="dish_side_04"]').remove();
-    } else if (this.form_editor.fields_dict.dish_side_04._label === "") {
-      document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
-      this.form_editor.field_properties.dish_side_04.hidden = true;
-      if (document.querySelector('[data-fieldname="dish_side_04"]')) document.querySelector('[data-fieldname="dish_side_04"]').remove();
+      if (this.form_editor) {
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >4) {
+          this.form_editor.field_properties.dish_side_04.hidden = false;
+          this.form_editor.field_properties.dish_side_04.label = this.order.current_item.data.dish_sides[4].item_name;
+          this.form_editor.fields_dict.dish_side_04._label = this.order.current_item.data.dish_sides[4].item_name
+        } else {
+
+          if (document.querySelector('[data-fieldname="dish_side_04"]')) {
+            this.form_editor.field_properties.dish_side_04.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+            this.form_editor.field_properties.dish_side_04.hidden = true;
+  
+            document.querySelector('[data-fieldname="dish_side_04"]').remove()
+          };
+        }
+      }
+    } else if (this.form_editor && this.form_editor.fields_dict.dish_side_04._label === "") {
+      //Check if has DISH SIDES
+      if (this.order.current_item.data.dish_sides.length >4) {
+        this.form_editor.field_properties.dish_side_04.hidden = false;
+        this.form_editor.field_properties.dish_side_04.label = this.order.current_item.data.dish_sides[4].item_name;
+        this.form_editor.fields_dict.dish_side_04._label = this.order.current_item.data.dish_sides[4].item_name
+      } else {
+
+        if (document.querySelector('[data-fieldname="dish_side_04"]')) {
+          document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+          this.form_editor.field_properties.dish_side_04.hidden = true;
+            
+          document.querySelector('[data-fieldname="dish_side_04"]').remove()
+        };
+      }
     }
 
 
     //this.form_editor.field_properties.dish_side_05.hidden = this.data.item_group != "Comidas"
     if (this.data.item_group != "Comidas") {
-      this.form_editor.field_properties.dish_side_05.hidden = true;
-      document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
-      this.form_editor.field_properties.dish_side_05.hidden = true;
-      if (document.querySelector('[data-fieldname="dish_side_05"]')) document.querySelector('[data-fieldname="dish_side_05"]').remove();
-    } else if (this.form_editor.fields_dict.dish_side_05._label === "") {
-      document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
-      this.form_editor.field_properties.dish_side_05.hidden = true;
-      if (document.querySelector('[data-fieldname="dish_side_05"]')) document.querySelector('[data-fieldname="dish_side_05"]').remove();
+      if (this.form_editor) {
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >5) {
+          this.form_editor.field_properties.dish_side_05.hidden = false;
+          this.form_editor.field_properties.dish_side_05.label = this.order.current_item.data.dish_sides[5].item_name;
+          this.form_editor.fields_dict.dish_side_05._label = this.order.current_item.data.dish_sides[5].item_name
+        } else {
+
+          if (document.querySelector('[data-fieldname="dish_side_05"]')) {
+            this.form_editor.field_properties.dish_side_05.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+            this.form_editor.field_properties.dish_side_05.hidden = true;
+  
+            document.querySelector('[data-fieldname="dish_side_05"]').remove()
+          };
+        }
+      }
+    } else if (this.form_editor && this.form_editor.fields_dict.dish_side_05._label === "") {
+      //Check if has DISH SIDES
+      if (this.order.current_item.data.dish_sides.length >5) {
+        this.form_editor.field_properties.dish_side_05.hidden = false;
+        this.form_editor.field_properties.dish_side_05.label = this.order.current_item.data.dish_sides[5].item_name;
+        this.form_editor.fields_dict.dish_side_05._label = this.order.current_item.data.dish_sides[5].item_name
+      } else {
+
+        if (document.querySelector('[data-fieldname="dish_side_05"]')) {
+          document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+          this.form_editor.field_properties.dish_side_05.hidden = true;
+  
+          document.querySelector('[data-fieldname="dish_side_05"]').remove()
+        };
+      }
     }
 
 
     //this.form_editor.field_properties.dish_side_06.hidden = this.data.item_group != "Comidas"
     if (this.data.item_group != "Comidas") {
-      this.form_editor.field_properties.dish_side_06.hidden = true;
-      document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
-      this.form_editor.field_properties.dish_side_06.hidden = true;
-      if (document.querySelector('[data-fieldname="dish_side_06"]')) document.querySelector('[data-fieldname="dish_side_06"]').remove();
+      if (this.form_editor) {
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >6) {
+          this.form_editor.field_properties.dish_side_06.hidden = false;
+          this.form_editor.field_properties.dish_side_06.label = this.order.current_item.data.dish_sides[5].item_name;
+          this.form_editor.fields_dict.dish_side_06._label = this.order.current_item.data.dish_sides[5].item_name
+        } else {
 
-    } else if (this.form_editor.fields_dict.dish_side_06._label === "") {
-      document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
-      this.form_editor.field_properties.dish_side_06.hidden = true;
-      if (document.querySelector('[data-fieldname="dish_side_06"]')) document.querySelector('[data-fieldname="dish_side_06"]').remove();
+          if (document.querySelector('[data-fieldname="dish_side_06"]')) {
+            this.form_editor.field_properties.dish_side_06.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+            this.form_editor.field_properties.dish_side_06.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_06"]').remove();
+  
+          }
+        }
+      }
+    } else if (this.form_editor && this.form_editor.fields_dict.dish_side_06._label === "") {
+      //Check if has DISH SIDES
+      if (this.order.current_item.data.dish_sides.length >6) {
+        this.form_editor.field_properties.dish_side_06.hidden = false;
+        this.form_editor.field_properties.dish_side_06.label = this.order.current_item.data.dish_sides[6].item_name;
+        this.form_editor.fields_dict.dish_side_06._label = this.order.current_item.data.dish_sides[6].item_name
+      } else {
+        if (document.querySelector('[data-fieldname="dish_side_06"]')) {
+          document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+          this.form_editor.field_properties.dish_side_06.hidden = true;
+          document.querySelector('[data-fieldname="dish_side_06"]').remove();
+  
+        }
+      }
 
     }
 
@@ -237,6 +385,9 @@ class OrderItem {
         //this.check_buttons_status();
         //this.order.order_manage.objects
         this.order.order_manage.check_permissions_status();
+        //document.querySelector("#order-container-gelhv7ljkn > button.btn.btn-app.btn-lg.btn-order.selected").click;
+        this.order.current_item.order.button.$[0].click();
+
         //this.order.order_manage.check_permissions_status();
 
         /*
@@ -437,76 +588,233 @@ class OrderItem {
 
       //this.form_editor.field_properties.dish_side_01.hidden = this.data.item_group != "Comidas"
       if (this.data.item_group != "Comidas") {
-        this.form_editor.field_properties.dish_side_01.hidden = true;
-        //document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
-        if (document.querySelector('[data-fieldname="dish_side_01"]')) document.querySelector('[data-fieldname="dish_side_01"]').remove();
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >0) {
+          this.form_editor.field_properties.dish_side_01.hidden = false;
+          this.form_editor.field_properties.dish_side_01.label = this.order.current_item.data.dish_sides[0].item_name;
+          this.form_editor.fields_dict.dish_side_01._label = this.order.current_item.data.dish_sides[0].item_name
+        } else {        
+          if (document.querySelector('[data-fieldname="dish_side_01"]')) {
+            this.form_editor.field_properties.dish_side_01.hidden = true;
+            //document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
+  
+            document.querySelector('[data-fieldname="dish_side_01"]').remove()
+          };
+        }
       } else if (this.form_editor.field_properties.dish_side_01.label === "") {
-        this.form_editor.field_properties.dish_side_01.hidden = true;
-        //document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
-        if (document.querySelector('[data-fieldname="dish_side_01"]')) document.querySelector('[data-fieldname="dish_side_01"]').remove();
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >0) {
+          this.form_editor.field_properties.dish_side_01.hidden = false;
+          this.form_editor.field_properties.dish_side_01.label = this.order.current_item.data.dish_sides[0].item_name;
+          this.form_editor.fields_dict.dish_side_01._label = this.order.current_item.data.dish_sides[0].item_name
+        } else {        
+          if (document.querySelector('[data-fieldname="dish_side_01"]')) {
+            this.form_editor.field_properties.dish_side_01.hidden = true;
+            //document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
+  
+            document.querySelector('[data-fieldname="dish_side_01"]').remove()
+          };
+        }
       } else if (this.form_editor.fields_dict.dish_side_01._label == "") {
         //document.querySelector('[data-fieldname="dish_side_01"]').style.display="none"
-        if (document.querySelector('[data-fieldname="dish_side_01"]')) document.querySelector('[data-fieldname="dish_side_01"]').remove();
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >0) {
+          this.form_editor.field_properties.dish_side_01.hidden = false;
+          this.form_editor.field_properties.dish_side_01.label = this.order.current_item.data.dish_sides[0].item_name;
+          this.form_editor.fields_dict.dish_side_01._label = this.order.current_item.data.dish_sides[0].item_name
+        } else {        
+          if (document.querySelector('[data-fieldname="dish_side_01"]')) document.querySelector('[data-fieldname="dish_side_01"]').remove();
+        }
       }
 
 
       //this.form_editor.field_properties.dish_side_02.hidden = this.data.item_group != "Comidas"
       if (this.data.item_group != "Comidas") {
-        this.form_editor.field_properties.dish_side_02.hidden = true;
-        document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >1) {
+          this.form_editor.field_properties.dish_side_02.hidden = false;
+          this.form_editor.field_properties.dish_side_02.label = this.order.current_item.data.dish_sides[1].item_name;
+          this.form_editor.fields_dict.dish_side_02._label = this.order.current_item.data.dish_sides[1].item_name
+        } else {        
+          if (document.querySelector('[data-fieldname="dish_side_02"]')) {
+            this.form_editor.field_properties.dish_side_02.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+          }
+        }
       } else if (this.form_editor.field_properties.dish_side_02.label === "") {
-        this.form_editor.field_properties.dish_side_02.hidden = true;
-        document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >1) {
+          this.form_editor.field_properties.dish_side_02.hidden = false;
+          this.form_editor.field_properties.dish_side_02.label = this.order.current_item.data.dish_sides[1].item_name;
+          this.form_editor.fields_dict.dish_side_02._label = this.order.current_item.data.dish_sides[1].item_name
+        } else {        
+          if (document.querySelector('[data-fieldname="dish_side_02"]')) {
+            this.form_editor.field_properties.dish_side_02.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+          }
+        }
       } else if (this.form_editor.fields_dict.dish_side_02._label == "") {
-        document.querySelector('[data-fieldname="dish_side_02"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >1) {
+          this.form_editor.field_properties.dish_side_02.hidden = false;
+          this.form_editor.field_properties.dish_side_02.label = this.order.current_item.data.dish_sides[1].item_name;
+          this.form_editor.fields_dict.dish_side_02._label = this.order.current_item.data.dish_sides[1].item_name
+        } else {        
+
+          if (document.querySelector('[data-fieldname="dish_side_02"]')) document.querySelector('[data-fieldname="dish_side_02"]').style.display="none";
+        }
       }
 
 
 
       if (this.data.item_group != "Comidas") {
-        this.form_editor.field_properties.dish_side_03.hidden = true;
-        document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >2) {
+          this.form_editor.field_properties.dish_side_03.hidden = false;
+          this.form_editor.field_properties.dish_side_03.label = this.order.current_item.data.dish_sides[2].item_name;
+          this.form_editor.fields_dict.dish_side_03._label = this.order.current_item.data.dish_sides[2].item_name
+        } else {        
+          if (document.querySelector('[data-fieldname="dish_side_03"]')) {
+            this.form_editor.field_properties.dish_side_03.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+          }
+        }
       } else if (this.form_editor.field_properties.dish_side_03.label === "") {
-        this.form_editor.field_properties.dish_side_03.hidden = true;
-        document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >2) {
+          this.form_editor.field_properties.dish_side_03.hidden = false;
+          this.form_editor.field_properties.dish_side_03.label = this.order.current_item.data.dish_sides[2].item_name;
+          this.form_editor.fields_dict.dish_side_03._label = this.order.current_item.data.dish_sides[2].item_name
+        } else {        
+          if (document.querySelector('[data-fieldname="dish_side_03"]')) {
+            this.form_editor.field_properties.dish_side_03.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+          }
+        }
       } else if (this.form_editor.fields_dict.dish_side_03._label == "") {
-        document.querySelector('[data-fieldname="dish_side_03"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >2) {
+          this.form_editor.field_properties.dish_side_03.hidden = false;
+          this.form_editor.field_properties.dish_side_03.label = this.order.current_item.data.dish_sides[2].item_name;
+          this.form_editor.fields_dict.dish_side_03._label = this.order.current_item.data.dish_sides[2].item_name
+        } else {        
+
+          if (document.querySelector('[data-fieldname="dish_side_03"]')) document.querySelector('[data-fieldname="dish_side_03"]').style.display="none";
+        }
       }
 
       
       //this.form_editor.field_properties.dish_side_04.hidden = this.data.item_group != "Comidas"
       if (this.data.item_group != "Comidas") {
-        this.form_editor.field_properties.dish_side_04.hidden = true;
-        document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >3) {
+          this.form_editor.field_properties.dish_side_04.hidden = false;
+          this.form_editor.field_properties.dish_side_04.label = this.order.current_item.data.dish_sides[3].item_name;
+          this.form_editor.fields_dict.dish_side_04._label = this.order.current_item.data.dish_sides[3].item_name
+        } else {        
+          if (document.querySelector('[data-fieldname="dish_side_04"]')) {
+            this.form_editor.field_properties.dish_side_04.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+          }
+        }
       } else if (this.form_editor.field_properties.dish_side_04.label === "") {
-        this.form_editor.field_properties.dish_side_04.hidden = true;
-        document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >3) {
+          this.form_editor.field_properties.dish_side_04.hidden = false;
+          this.form_editor.field_properties.dish_side_04.label = this.order.current_item.data.dish_sides[3].item_name;
+          this.form_editor.fields_dict.dish_side_04._label = this.order.current_item.data.dish_sides[3].item_name
+        } else {        
+          if (document.querySelector('[data-fieldname="dish_side_04"]')) {
+            this.form_editor.field_properties.dish_side_04.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+          }
+        }
       } else if (this.form_editor.fields_dict.dish_side_04._label == "") {
-        document.querySelector('[data-fieldname="dish_side_04"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >3) {
+          this.form_editor.field_properties.dish_side_04.hidden = false;
+          this.form_editor.field_properties.dish_side_04.label = this.order.current_item.data.dish_sides[3].item_name;
+          this.form_editor.fields_dict.dish_side_04._label = this.order.current_item.data.dish_sides[3].item_name
+        } else {        
+
+          if (document.querySelector('[data-fieldname="dish_side_04"]')) document.querySelector('[data-fieldname="dish_side_04"]').style.display="none";
+        }
       }
 
 
       //this.form_editor.field_properties.dish_side_05.hidden = this.data.item_group != "Comidas"
       if (this.data.item_group != "Comidas") {
-        this.form_editor.field_properties.dish_side_05.hidden = true;
-        document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >4) {
+          this.form_editor.field_properties.dish_side_05.hidden = false;
+          this.form_editor.field_properties.dish_side_05.label = this.order.current_item.data.dish_sides[4].item_name;
+          this.form_editor.fields_dict.dish_side_05._label = this.order.current_item.data.dish_sides[4].item_name
+        } else {        
+          if (document.querySelector('[data-fieldname="dish_side_05"]')) {
+            this.form_editor.field_properties.dish_side_05.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+          }
+        }
       } else if (this.form_editor.field_properties.dish_side_05.label === "") {
-        this.form_editor.field_properties.dish_side_05.hidden = true;
-        document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >4) {
+          this.form_editor.field_properties.dish_side_05.hidden = false;
+          this.form_editor.field_properties.dish_side_05.label = this.order.current_item.data.dish_sides[4].item_name;
+          this.form_editor.fields_dict.dish_side_05._label = this.order.current_item.data.dish_sides[4].item_name
+        } else {        
+          if (document.querySelector('[data-fieldname="dish_side_05"]')) {
+            this.form_editor.field_properties.dish_side_05.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+          }
+        }
       } else if (this.form_editor.fields_dict.dish_side_05._label == "") {
-        document.querySelector('[data-fieldname="dish_side_05"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >4) {
+          this.form_editor.field_properties.dish_side_05.hidden = false;
+          this.form_editor.field_properties.dish_side_05.label = this.order.current_item.data.dish_sides[4].item_name;
+          this.form_editor.fields_dict.dish_side_05._label = this.order.current_item.data.dish_sides[4].item_name
+        } else {        
+
+          if (document.querySelector('[data-fieldname="dish_side_05"]')) document.querySelector('[data-fieldname="dish_side_05"]').style.display="none";
+        }
       }
 
 
       //this.form_editor.field_properties.dish_side_06.hidden = this.data.item_group != "Comidas"
       if (this.data.item_group != "Comidas") {
-        this.form_editor.field_properties.dish_side_06.hidden = true;
-        document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >5) {
+          this.form_editor.field_properties.dish_side_06.hidden = false;
+          this.form_editor.field_properties.dish_side_06.label = this.order.current_item.data.dish_sides[5].item_name;
+          this.form_editor.fields_dict.dish_side_06._label = this.order.current_item.data.dish_sides[5].item_name
+        } else {        
+          if (document.querySelector('[data-fieldname="dish_side_06"]')) {
+            this.form_editor.field_properties.dish_side_06.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+          }
+        }
       } else if (this.form_editor.field_properties.dish_side_06.label === "") {
-        this.form_editor.field_properties.dish_side_06.hidden = true;
-        document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >5) {
+          this.form_editor.field_properties.dish_side_06.hidden = false;
+          this.form_editor.field_properties.dish_side_06.label = this.order.current_item.data.dish_sides[5].item_name;
+          this.form_editor.fields_dict.dish_side_06._label = this.order.current_item.data.dish_sides[5].item_name
+        } else {        
+          if (document.querySelector('[data-fieldname="dish_side_06"]')) {
+            this.form_editor.field_properties.dish_side_06.hidden = true;
+            document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+          }
+        }
       } else if (this.form_editor.fields_dict.dish_side_06._label == "") {
-        document.querySelector('[data-fieldname="dish_side_06"]').style.display="none"
+        //Check if has DISH SIDES
+        if (this.order.current_item.data.dish_sides.length >5) {
+          this.form_editor.field_properties.dish_side_06.hidden = false;
+          this.form_editor.field_properties.dish_side_06.label = this.order.current_item.data.dish_sides[5].item_name;
+          this.form_editor.fields_dict.dish_side_06._label = this.order.current_item.data.dish_sides[5].item_name
+        } else {        
+
+          if (document.querySelector('[data-fieldname="dish_side_06"]')) document.querySelector('[data-fieldname="dish_side_06"]').style.display="none";
+        }
       }
 
 
@@ -799,14 +1107,21 @@ class OrderItemEditor extends DeskForm {
       this.order_item.update();
     }
 
+    const update_dishsides = (field) => {
+      if (this.order_item.data[field.df.fieldname] === field.get_value()) return;
+
+      this.order_item.update();
+    }
     this.on(["qty", "rate", "discount_percentage", "batch_no"], "change", (field) => {
       update(field);
     });
 
     //FIX 29-05-2025
+    
     this.on(["ponto_carne","dish_side_01","dish_side_02","dish_side_03","dish_side_04","dish_side_05","dish_side_06"], "change", (field) => {
-      update(field);
+      update_dishsides(field);
     });
+    
 
     this.get_input("notes").css("height", "100px").on("focusout", (e) => {
       console.log('ORDERITEMEDITOR getINPUT notes');
