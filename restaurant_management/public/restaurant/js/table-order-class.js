@@ -641,7 +641,7 @@ class TableOrder {
         //use Print NODE
         if (this.data.status == "Attending") {
           //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
-          const apiBaseUrl = "https://superb-tapir-peaceful.ngrok-free.app";
+          const apiBaseUrl = frappe.get_single("Restaurant Settings").ngrok_or_pinggy_address || "https://superb-tapir-peaceful.ngrok-free.app"; 
           //TESTE using ESC/POS
           frappe.call({
             method: "angola_erp.util.angola.generate_barkit_escpos_print",
@@ -832,7 +832,7 @@ class TableOrder {
           primary_action: function() {
             console.log('Selecionou Printer 01');
             //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
-            const apiBaseUrl = "https://superb-tapir-peaceful.ngrok-free.app";
+            const apiBaseUrl = frappe.get_single("Restaurant Settings").ngrok_or_pinggy_address || "https://superb-tapir-peaceful.ngrok-free.app"; 
             //TESTE using ESC/POS
             frappe.call({
               method: "angola_erp.util.angola.generate_escpos_and_print",
@@ -861,7 +861,7 @@ class TableOrder {
         dialog.set_secondary_action(function() {
             console.log('Selecionou Printer 02');
             //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
-            const apiBaseUrl = "https://superb-tapir-peaceful.ngrok-free.app";
+            const apiBaseUrl = frappe.get_single("Restaurant Settings").ngrok_or_pinggy_address || "https://superb-tapir-peaceful.ngrok-free.app"; 
             //TESTE using ESC/POS
             frappe.call({
               method: "angola_erp.util.angola.generate_escpos_and_print",
