@@ -1,4 +1,4 @@
-//LAST Modified: 22-05-2025
+//LAST Modified: 01-06-2025
 class PayForm extends DeskForm {
   payment_methods = {};
   form_name = "Payment Order";
@@ -422,68 +422,75 @@ class PayForm extends DeskForm {
         //console.log(meta.__print_formats[1].html);
 
       }).then((r) => {
-        //FIX 27-050-2025; Added two button for PRT-BAR01 and PRT-BAR02
-        let dialog = new frappe.ui.Dialog({
-          title: 'Selecione a Impressora',
-          primary_action_label: 'Impressora BAR 01', // Custom text for the primary button
-          primary_action: function() {
-            console.log('Selecionou Printer 01');
-            //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
-            //const apiBaseUrl = "https://superb-tapir-peaceful.ngrok-free.app";
-            const apiBaseUrl = frappe.get_single("Restaurant Settings").ngrok_or_pinggy_address || "https://superb-tapir-peaceful.ngrok-free.app"; 
-            //TESTE using ESC/POS
-            frappe.call({
-              method: "angola_erp.util.angola.generate_escpos_and_print",
-              args: {
-                server_url: apiBaseUrl,
-                doctype: 'POS Invoice',
-                docname: ficha_tec.name,
-                company_info: ficha_tec.company,
-                to_printer: 1,
-                logo_path: '/files/logo.png'
-              },
-              callback: function(response) {
-                if (response.message) {
-                  console.log('response ESCPOS and Print')
-                  console.log(response.message)                
-                }
+        frappe.model.get_value('Restaurant Settings',{'name': 'Restaurant Settings'}, 'ngrok_or_pinggy_address',
+          function(d) {
+            console.log('TEM VALOR DO NGROK');
+            console.log(d)
+            const apiBaseUrl = d.ngrok_or_pinggy_address;
+
+            //Moved inside here
+
+            //FIX 27-050-2025; Added two button for PRT-BAR01 and PRT-BAR02
+            let dialog = new frappe.ui.Dialog({
+              title: 'Selecione a Impressora',
+              primary_action_label: 'Impressora BAR 01', // Custom text for the primary button
+              primary_action: function() {
+                console.log('Selecionou Printer 01');
+                //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
+                //TESTE using ESC/POS
+                frappe.call({
+                  method: "angola_erp.util.angola.generate_escpos_and_print",
+                  args: {
+                    server_url: apiBaseUrl,
+                    doctype: 'POS Invoice',
+                    docname: ficha_tec.name,
+                    company_info: ficha_tec.company,
+                    to_printer: 1,
+                    logo_path: '/files/logo.png'
+                  },
+                  callback: function(response) {
+                    if (response.message) {
+                      console.log('response ESCPOS and Print')
+                      console.log(response.message)                
+                    }
+                  }
+                })
+
+                dialog.hide();
+
               }
-            })
+            });
+          
+            // Adding a custom secondary button
+            dialog.set_secondary_action(function() {
+                console.log('Selecionou Printer 02');
+                //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
+                //const apiBaseUrl = "https://superb-tapir-peaceful.ngrok-free.app";
+                const apiBaseUrl = frappe.db.get_single_value("Restaurant Settings","ngrok_or_pinggy_address") || "https://superb-tapir-peaceful.ngrok-free.app"; 
+                //TESTE using ESC/POS
+                frappe.call({
+                  method: "angola_erp.util.angola.generate_escpos_and_print",
+                  args: {
+                    server_url: apiBaseUrl,
+                    doctype: 'POS Invoice',
+                    docname: ficha_tec.name,
+                    company_info: ficha_tec.company,
+                    to_printer: 2,
+                    logo_path: '/files/logo.png'
+                  },
+                  callback: function(response) {
+                    if (response.message) {
+                      console.log('response ESCPOS and Print')
+                      console.log(response.message)                
+                    }
+                  }
+                })
 
-            dialog.hide();
-
-          }
-        });
-      
-        // Adding a custom secondary button
-        dialog.set_secondary_action(function() {
-            console.log('Selecionou Printer 02');
-            //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
-            //const apiBaseUrl = "https://superb-tapir-peaceful.ngrok-free.app";
-            const apiBaseUrl = frappe.get_single("Restaurant Settings").ngrok_or_pinggy_address || "https://superb-tapir-peaceful.ngrok-free.app"; 
-            //TESTE using ESC/POS
-            frappe.call({
-              method: "angola_erp.util.angola.generate_escpos_and_print",
-              args: {
-                server_url: apiBaseUrl,
-                doctype: 'POS Invoice',
-                docname: ficha_tec.name,
-                company_info: ficha_tec.company,
-                to_printer: 2,
-                logo_path: '/files/logo.png'
-              },
-              callback: function(response) {
-                if (response.message) {
-                  console.log('response ESCPOS and Print')
-                  console.log(response.message)                
-                }
-              }
-            })
-
-            dialog.hide();
-        });
-        dialog.set_secondary_action_label('Impressora BAR 02'); // Custom text for the secondary button
-        dialog.show();
+                dialog.hide();
+            });
+            dialog.set_secondary_action_label('Impressora BAR 02'); // Custom text for the secondary button
+            dialog.show();
+          });
 
         
         //console.log('TERMINOUIadfsadfsfsafsafasfa');    
