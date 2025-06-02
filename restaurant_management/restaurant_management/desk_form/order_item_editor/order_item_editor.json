@@ -19,7 +19,7 @@
    "label": "Ponto Carne",
    "max_length": 0,
    "max_value": 0,
-   "options": "\nBem\nMedio\nMal",
+   "options": "\nBem\nMedio\nMal\nMedio Bem\nMedio Mal",
    "read_only": 0,
    "reqd": 0,
    "show_in_filter": 0
@@ -429,7 +429,7 @@
  "is_standard": 1,
  "login_required": 1,
  "max_attachment_size": 0,
- "modified": "2025-05-31 12:10:14.342784",
+ "modified": "2025-06-02 13:24:10.748875",
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "order-item-editor",
