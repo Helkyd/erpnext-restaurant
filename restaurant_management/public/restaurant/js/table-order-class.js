@@ -641,6 +641,8 @@ class TableOrder {
 
         //use Print NODE
         if (this.data.status == "Attending") {
+          //FIX 02-05-2025
+          locals['Table Order'] = this.data;
           frappe.model.get_value('Restaurant Settings',{'name': 'Restaurant Settings'}, 'ngrok_or_pinggy_address',
             function(d) {
               console.log('TEM VALOR DO NGROK');
@@ -655,7 +657,7 @@ class TableOrder {
                 args: {
                   server_url: apiBaseUrl,
                   doctype: 'Table Order',
-                  docname: this.data.name
+                  docname: locals['Table Order'].name //FIX 02-06-2025 this.data.name
                 },
                 callback: function(response) {
                   if (response.message) {
