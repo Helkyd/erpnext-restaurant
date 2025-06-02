@@ -1,4 +1,4 @@
-//LAST Modified: 01-06-2025
+//LAST Modified: 02-06-2025
 class PayForm extends DeskForm {
   payment_methods = {};
   form_name = "Payment Order";
@@ -465,8 +465,6 @@ class PayForm extends DeskForm {
             dialog.set_secondary_action(function() {
                 console.log('Selecionou Printer 02');
                 //Once bought the PLAN this will be printer-backend.angolaerp.co.ao
-                //const apiBaseUrl = "https://superb-tapir-peaceful.ngrok-free.app";
-                const apiBaseUrl = frappe.db.get_single_value("Restaurant Settings","ngrok_or_pinggy_address") || "https://superb-tapir-peaceful.ngrok-free.app"; 
                 //TESTE using ESC/POS
                 frappe.call({
                   method: "angola_erp.util.angola.generate_escpos_and_print",
@@ -553,6 +551,7 @@ class PayForm extends DeskForm {
 
     //FIX 02-01-2025; TRying to reload
     console.log('RELOAD after printting PAYMENT');
+    document.getElementsByClassName('modal-backdrop')[0].remove('fade');
     this.reload();
     //FIX 28-05-2025
     document.getElementsByClassName('modal-backdrop')[0].remove('fade');
