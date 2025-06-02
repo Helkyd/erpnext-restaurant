@@ -214,7 +214,7 @@ RestaurantObject = class RestaurantObject {
     });
 
     this.room.tables_container.append(this.obj.html());
-
+    console.log('RENDERE restaurant OBJECT')
     setTimeout(() => {
       this.draggable();
     }, 0);

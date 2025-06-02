@@ -155,7 +155,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-05-31 23:43:01.507248",
+ "modified": "2025-06-02 12:23:40.580370",
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "Restaurant Settings",
@@ -180,6 +180,13 @@
    "role": "Restaurant Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Restaurant User",
+   "share": 1
   }
  ],
  "quick_entry": 1,
