@@ -432,11 +432,25 @@ class OrderItem {
         return;
       }
 
-      const qty_field = this.form_editor.get_field("qty");
+      //FIX 03-06-2025
+      if (input == "qty" && typeof value === "number") {
+        var qty_field = (value / 1000).toFixed(3);;
+        var qty = flt(qty_field);
+
+      } else if (this.form_editor.get_field("qty").value.toUpperCase().includes('GRAM') || this.form_editor.get_field("qty").value.toUpperCase().includes('KG'))  {
+        //const qty = parseFloat(value.split(' ')[0]);
+        var qty_field = parseFloat(this.form_editor.get_field("qty").value.split(' ')[0]);
+        var qty = flt(qty_field);
+      } else {
+        var qty_field = this.form_editor.get_field("qty");
+        var qty = flt(qty_field.get_value());
+      }
+    
+      //const qty_field = this.form_editor.get_field("qty");
       const rate_field = this.form_editor.get_field("rate");
       const discount_field = this.form_editor.get_field("discount_percentage");
 
-      const qty = flt(qty_field.get_value());
+      //const qty = flt(qty_field.get_value());
       let discount = flt(discount_field.get_value());
       let rate = flt(rate_field.get_value());
       const base_rate = flt(this.data.price_list_rate);
@@ -574,6 +588,27 @@ class OrderItem {
 
       this.form_editor[!selected || this.form_editor.in_modal ? "show" : "toggle"]();
 
+      //FIX 03-06-2025
+      // Add this check for stock_uom
+      if (['KG', 'GRAM'].includes(this.data.stock_uom.toUpperCase())) {
+        this.form_editor.field_properties.qty = {
+          fieldtype: 'Select',
+          options: ['100', '200', '300'].map(g => g + ' GRAM').join('\n'),
+          label: __('Weight'),
+          default: this.data.qty + ' ' + this.data.stock_uom,
+          onchange: (field) => {
+            const value = field.get_value();
+            const qty = parseFloat(value.split(' ')[0]);
+            // Convert to KG if needed
+            const convertedQty = this.data.stock_uom.toUpperCase() === 'KG' ? qty / 1000 : qty;
+            this.order_item.calculate_form('qty', convertedQty);
+            this.order_item.calculate();
+            this.order_item.update();
+          }
+        };
+      }
+
+
       //FIX 30-05-2025
       //this.form_editor.field_properties.ponto_carne.hidden = this.data.item_group != "Comidas"
       if (this.data.item_group != "Comidas") {
@@ -624,7 +659,7 @@ class OrderItem {
           this.form_editor.fields_dict.dish_side_01._label = this.order.current_item.data.dish_sides[0].item_name
         } else {        
           if (document.querySelector('[data-fieldname="dish_side_01"]')) {
-            console.log('Nadddd 01')
+            console.log('nada 01')
             //document.querySelector('[data-fieldname="dish_side_01"]').remove()
           };
         }
@@ -928,6 +963,13 @@ class OrderItem {
             : this.data.dish_sides[5].item_name,
           },
 
+          // Add this for qty field
+          qty: ['KG', 'GRAM'].includes(this.data.stock_uom.toUpperCase()) ? {
+            fieldtype: 'Select',
+            options: ['100', '200', '300'].map(g => g + ' GRAM').join('\n'),
+            label: __('Weight'),
+            default: this.data.qty + ' ' + this.data.stock_uom
+          } : {},
 
 
         }
@@ -1105,7 +1147,18 @@ class OrderItemEditor extends DeskForm {
     const update = (field) => {
       if (this.order_item.data[field.df.fieldname] === field.get_value()) return;
 
-      this.order_item.calculate_form(field.df.fieldname, field.get_value());
+      // Handle gram/KG conversion for select field
+      let value = field.get_value();
+      if (field.df.fieldname === 'qty' && ['KG', 'GRAM'].includes(this.order_item.data.stock_uom.toUpperCase())) {
+        if (typeof value === 'string' && value.toUpperCase().includes('GRAM')) {
+          const qty = parseFloat(value.split(' ')[0]);
+          value = this.order_item.data.stock_uom.toUpperCase() === 'KG' ? qty / 1000 : qty;
+        }
+        this.order_item.calculate_form(field.df.fieldname, value);
+      } else {
+        this.order_item.calculate_form(field.df.fieldname, field.get_value());
+      }
+      
       this.order_item.calculate();
       this.order_item.update();
     }

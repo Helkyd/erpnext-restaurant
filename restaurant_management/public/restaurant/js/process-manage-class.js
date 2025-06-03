@@ -1,4 +1,4 @@
-//LAST MODIFIED: 09-01-2025
+//LAST MODIFIED: 03-06-2025
 ProcessManage = class ProcessManage {
   status = "close";
   modal = null;
@@ -862,7 +862,7 @@ ProcessManage = class ProcessManage {
     // here you can use anything you defined in the loaded script
     //const qz = require("qz-tray");
     var options = [];
-    options['host']=['localhost','POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx'];
+    options['host']=['localhost','POS-BAR01','POS-BAR02'];
     options['usingSecure']= true;
     
     var kitprinter_name = "PRT-KIT01"; 
@@ -1018,7 +1018,8 @@ ProcessManage = class ProcessManage {
             var new_dados = r.message;
             console.log('NEW DADOS ', new_dados);
             console.log('NEW DADOS PRINT ', new_dados[0].was_printed);
-            if (new_dados[0].was_printed == 0) {    
+            //FIX 03-06-2025; NO LONGER NEEDED so SET 1000; not to run
+            if (new_dados[0].was_printed == 1000) {    
   
               new_data.forEach((data) => {
                 console.log('TEM SHORT NAMEEEEEEEEEEE ', data.short_name);
@@ -1316,82 +1317,8 @@ ProcessManage = class ProcessManage {
                     }
                   })
   
-                  /*
-                  if (data.item_group == "Comidas") {
-                    qz.printers.find(kitprinter_name).then((r) => {
-                      console.log('aaaaa PRINTER ');
-                      console.log(r);
-                      let config = qz.configs.create(r);
-            
-                      return qz.print(config, [{
-                          type: 'pixel',
-                          format: 'html',
-                          flavor: 'plain',
-                          data: dados_print
-                      }]);            
-  
-                    });
-                  } else {
-                    qz.printers.getDefault().then((r) => {
-                      console.log('PRINTERRRRRRRRRRRRRRRRR ');
-                      console.log(r);
-                      console.log(dados_print);
-                      let config = qz.configs.create(r);
-            
-                      return qz.print(config, [{
-                          type: 'pixel',
-                          format: 'html',
-                          flavor: 'plain',
-                          data: dados_print
-                      }]);            
-  
-                    });
-                  }
-                  */
                 })
               
-                /*
-                qz.websocket.connect(options).then(() => {
-                  console.log('ligouuuuuuu');
-                  if (data.item_group == "Comidas") {
-                    return qz.printers.find(kitprinter_name);
-                  } else {
-                    return qz.printers.getDefault();
-                  }
-  
-                }).then((impressora) => {
-                    console.log(impressora);
-                    print ('dadaosssssss');
-                    print (data);
-  
-                    //PRinter 0
-                    //To get from USER Settings WHICH PRINTER BAR and KITCHEN
-                    //let config = qz.configs.create(printers[0]);
-                    let config = qz.configs.create(impressora);
-                    //let dados_print =  '<!DOCTYPE html><style>	.print-format table, .print-format tr, 	.print-format td, .print-format div, .print-format p {		font-family: Tahoma, sans-serif;		line-height: 150%;		vertical-align: middle;	}	@media screen {		.print-format {			width: 4in;			padding: 0.25in;			min-height: 8in;		}	}</style><strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;">	PEDIDO MESA<br></p></strong>'
-                    let dados_print =  '<strong><p class="text-center" style="margin-bottom: 1rem;text-align:center;">	PEDIDO MESA<br></p></strong>'
-                    //'&nbsp;&nbsp;&nbsp;&nbsp;<div class="text-center"><h2>PEDIDO MESA</h2></div> '
-                    dados_print += '&nbsp;&nbsp;<strong><p style="font-size:10px;">Pedido N. ' + data.short_name + ' - ' + data.table_description + ' </p> '
-                    //dados_print += '<p style="font-size:10px;">MESA: ' + data.table_description + ' </p> </strong>'
-                    dados_print += '<strong><p style="font-size:14px;text-align:center;">' + data.item_name.trim() + ' </p> '
-                    dados_print += ' &nbsp;&nbsp;<p>QTD:  ' + data.qty + ' </p> </strong>'
-                    dados_print += '&nbsp;&nbsp;&nbsp;&nbsp;<p class="text-center" style="text-align:center;font-size:10px;" >Pedido as:  ' + data.ordered_time + ' </p>'
-  
-                    return qz.print(config, [{
-                        type: 'pixel',
-                        format: 'html',
-                        flavor: 'plain',
-                        data: dados_print
-                    }]);
-                }).then(() => {
-                    return qz.websocket.disconnect();
-                }).then(() => {
-                    // process.exit(0);
-                }).catch((err) => {
-                    console.error(err);
-                    // process.exit(1);
-                });
-                */           
               }
             }
           }, 100);
@@ -1520,7 +1447,7 @@ ProcessManage = class ProcessManage {
     // here you can use anything you defined in the loaded script
     //const qz = require("qz-tray");
     var options = [];
-    options['host']=['POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx'];
+    options['host']=['POS-BAR01','POS-BAR02'];
     options['usingSecure']= true;
     
     var kitprinter_name = "PRT-KIT01"; 
@@ -1708,7 +1635,7 @@ ProcessManage = class ProcessManage {
             // here you can use anything you defined in the loaded script
             //const qz = require("qz-tray");
             var options = [];
-            options['host']=['POS-BAR01','POS-BAR02','helkyd-HP-Pavilion-x360-Convertible-14-dy1xxx'];
+            options['host']=['POS-BAR01','POS-BAR02'];
             options['usingSecure']= true;
 
             if (qz.websocket.isActive()) {	// if already active, resolve immediately
