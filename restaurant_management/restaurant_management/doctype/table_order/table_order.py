@@ -13,7 +13,7 @@ from restaurant_management.restaurant_management.page.restaurant_manage.restaura
 
 status_attending = "Attending"
 
-#Last Modified: 30-05-2025
+#Last Modified: 03-06-2025
 
 class TableOrder(Document):
     synchronize_data = None
@@ -287,10 +287,6 @@ class TableOrder(Document):
                 print ('GET INVOICE =====================================')
                 if "ponto_carne" in item:
                     print (item["ponto_carne"])
-                if "dish_side_01" in item:
-                    print (item["dish_side_01"])
-                if "dish_side_02" in item:
-                    print (item["dish_side_02"])            
 
                 margin_rate_or_amount = (rate - price_list_rate)
                 invoice.append('items', dict(
@@ -314,14 +310,9 @@ class TableOrder(Document):
                     conversion_factor=1,
 
                     ponto_carne = item['ponto_carne'] if "ponto_carne" in item else None,
-                    dish_side_01 = item['dish_side_01'] if "dish_side_01" in item else 0,
-                    dish_side_02 = item['dish_side_02'] if "dish_side_02" in item else 0,
-                    dish_side_03 = item['dish_side_03'] if "dish_side_03" in item else 0,
-                    dish_side_04 = item['dish_side_04'] if "dish_side_04" in item else 0,
-                    dish_side_05 = item['dish_side_05'] if "dish_side_05" in item else 0,
-                    dish_side_06 = item['dish_side_06'] if "dish_side_06" in item else 0,
 
-                    stock_uom=item['stock_uom']
+                    stock_uom=item['stock_uom'],
+                    dish_side_selected = item['dish_side_selected'] if "dish_side_selected" in item else None
                 ))
 
                 #frappe.publish_realtime("debug", dict(data=item))
@@ -525,8 +516,6 @@ class TableOrder(Document):
 
             print ('UPDATE ITEM=====================================')
             print (item.ponto_carne)
-            print (item.dish_side_01)
-            print (item.dish_side_02)            
 
 
             data = dict(
@@ -560,12 +549,8 @@ class TableOrder(Document):
                 #is_customizable=entry["is_customizable"],  #REMOVED FOR NOW; 14-10-2024
                 #FIX 30-05-2025
                 ponto_carne = entry["ponto_carne"] if "ponto_carne" in entry else None,
-                dish_side_01 = entry["dish_side_01"] if "dish_side_01" in entry else 0,
-                dish_side_02 = entry["dish_side_02"] if "dish_side_02" in entry else 0,
-                dish_side_03 = entry["dish_side_03"] if "dish_side_03" in entry else 0,
-                dish_side_04 = entry["dish_side_04"] if "dish_side_04" in entry else 0,
-                dish_side_05 = entry["dish_side_05"] if "dish_side_05" in entry else 0,
-                dish_side_06 = entry["dish_side_06"] if "dish_side_06" in entry else 0
+
+                dish_side_selected = entry['dish_side_selected'] if "dish_side_selected" in entry else None
 
             )
 
@@ -629,14 +614,10 @@ class TableOrder(Document):
 
                 #FIX 30-05-2025
                 ponto_carne=entry_item["ponto_carne"],
-                dish_side_01=entry_item["dish_side_01"],
-                dish_side_02=entry_item["dish_side_02"],
-                dish_side_03=entry_item["dish_side_03"],
-                dish_side_04=entry_item["dish_side_04"],
-                dish_side_05=entry_item["dish_side_05"],
-                dish_side_06=entry_item["dish_side_06"],
 
-                stock_uom=item.stock_uom    #FIX 03-06-2025
+                stock_uom=item.stock_uom,    #FIX 03-06-2025
+
+                dish_side_selected = entry_item['dish_side_selected']
 
             ))
             #item.serial_no = None
@@ -758,12 +739,7 @@ class TableOrder(Document):
                     "is_customizable",
                     "was_printed",
                     "ponto_carne",
-                    "dish_side_01",
-                    "dish_side_02",
-                    "dish_side_03",
-                    "dish_side_04",
-                    "dish_side_05",
-                    "dish_side_06"
+                    "dish_side_selected"
                 ]}
 
                 row["order_name"] = item.parent
@@ -782,11 +758,6 @@ class TableOrder(Document):
                 if pratos.dish_sides:
                     #row['dish_sides'] = frappe.get_doc('Item',item.item_code).dish_sides #FIX 30-05-2025
                     row['dish_sides'] = pratos.dish_sides #FIX 30-05-2025
-
-                print ('ITEMS LIST DISH SIDES ')
-                print (frappe.get_doc('Item',item.item_code).dish_sides)
-                if frappe.get_doc('Item',item.item_code).dish_sides:
-                    print (frappe.get_doc('Item',item.item_code).dish_sides[0].item_code)
 
                 #FIX 31-12-2024
                 #row["was_printed"] = item.was_printed
@@ -808,13 +779,6 @@ class TableOrder(Document):
                 item.ordered_time = frappe.utils.now_datetime()
                 #fIX 30-05-2025
                 print ('PONTO CARNE ', i.ponto_carne)
-                print ('DIS SIDES')
-                print (i.dish_side_01)
-                print (i.dish_side_02)
-                print (i.dish_side_03)
-                print (i.dish_side_04)
-                print (i.dish_side_05)
-                print (i.dish_side_06)
                 item.save()
 
                 data_to_send.append(table.get_command_data(item))

@@ -13,6 +13,7 @@ class NumPad {
     get html(){return this.#html}
 
     make() {
+        console.log('NUM PAD CLASS - MAKE')
         const default_class = `pad-col button btn-default`;
 
         let num_pads = [

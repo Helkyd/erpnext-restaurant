@@ -44,7 +44,9 @@
   "dish_side_04",
   "dish_side_05",
   "dish_side_06",
-  "dish_sides"
+  "dish_sides",
+  "sides",
+  "dish_side_selected"
  ],
  "fields": [
   {
@@ -286,12 +288,23 @@
    "fieldtype": "Data",
    "label": "Stock UOM",
    "read_only": 1
+  },
+  {
+   "fieldname": "sides",
+   "fieldtype": "Table",
+   "label": "Sides",
+   "options": "Order Entry Item Dishes"
+  },
+  {
+   "fieldname": "dish_side_selected",
+   "fieldtype": "Data",
+   "label": "Dish Side Selected"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-06-03 15:23:45.338247",
+ "modified": "2025-06-03 19:56:15.007081",
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "Order Entry Item",

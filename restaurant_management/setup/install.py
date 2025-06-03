@@ -4,6 +4,7 @@ from itertools import chain
 import os
 import json
 
+#Last Modified: 03-06-2025
 
 custom_fields = {
     "POS Profile User": dict(
@@ -52,8 +53,8 @@ custom_fields = {
         customizable_options=dict(label="Customizable Options", fieldtype="Table", options="Item Customizable", insert_after="is_customizable"),
         section_break_27=dict(fieldtype="Section Break", insert_after="customizable_options", collapsible=1),
         item_type=dict(label="Item Type", fieldtype="Select", options="Veg\nNon-Veg\nVeg/Non-Veg", insert_after="section_break_27"),
-        ponto_carne=dict(label="Ponto Carne", fieldtype="Select", options="Bem\nMedio\nMal\nMedio Bem\nMedio Mal\n", insert_after="item_type"), #29-05-2025; Added
-        dish_sides=dict(label="Acompanhamentos",fieldtype="Table", options="Acompanhamentos", insert_after="ponto_carne"),  #29-05-2025; Added
+        #ponto_carne=dict(label="Ponto Carne", fieldtype="Select", options="Bem\nMedio\nMal\nMedio Bem\nMedio Mal\n", insert_after="item_type"), #FIX 03-06-2025 #29-05-2025; Added
+        dish_sides=dict(label="Acompanhamentos",fieldtype="Table", options="Acompanhamentos", insert_after="item_type"),  #FIX 03-06-2025 #29-05-2025; Added
         column_break_29=dict(fieldtype="Column Break", insert_after="ponto_carne"), #29-05-2025; Changed from item_type to ponto_carne
         cuisine=dict(label="Cuisine", fieldtype="Link", options="Cuisine Type", insert_after="column_break_29"),
     ),
