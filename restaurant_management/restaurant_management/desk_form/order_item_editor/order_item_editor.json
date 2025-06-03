@@ -429,7 +429,7 @@
  "is_standard": 1,
  "login_required": 1,
  "max_attachment_size": 0,
- "modified": "2025-06-03 07:54:00.390001",
+ "modified": "2025-06-03 16:24:23.312411",
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "order-item-editor",

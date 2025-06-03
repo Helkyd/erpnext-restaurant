@@ -963,7 +963,12 @@ class OrderManage extends ObjectManage {
           //FIX 24-12-2024;
           //this.reload();
           //this.modal.load_data();
-          this.modal.render();
+          setTimeout(() => {
+            this.modal.render();
+          }, 5);
+          //this.modal.render();
+          //RM.current_room.render();
+
           //RM.is_mobile && this.select_last_order();
         }
       },
