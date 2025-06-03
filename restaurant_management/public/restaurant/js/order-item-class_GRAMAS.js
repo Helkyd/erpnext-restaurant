@@ -434,7 +434,7 @@ class OrderItem {
 
       //FIX 03-06-2025
       if (input == "qty" && typeof value === "number") {
-        var qty_field = (value / 1000).toFixed(3);;
+        var qty_field = (value / 1000);
         var qty = flt(qty_field);
 
       } else if (this.form_editor.get_field("qty").value.toUpperCase().includes('GRAM') || this.form_editor.get_field("qty").value.toUpperCase().includes('KG'))  {

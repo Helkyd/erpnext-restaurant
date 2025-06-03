@@ -236,7 +236,7 @@
    "fieldname": "ponto_carne",
    "fieldtype": "Select",
    "label": "Ponto Carne",
-   "options": "\nBem\nMedio\nMal"
+   "options": "\nBem\nMedio\nMal\nMedio Bem\nMedio Mal"
   },
   {
    "default": "0",
@@ -291,7 +291,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-06-03 06:23:23.998919",
+ "modified": "2025-06-03 15:23:45.338247",
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "Order Entry Item",
