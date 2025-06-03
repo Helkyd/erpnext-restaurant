@@ -320,6 +320,8 @@ class TableOrder(Document):
                     dish_side_04 = item['dish_side_04'] if "dish_side_04" in item else 0,
                     dish_side_05 = item['dish_side_05'] if "dish_side_05" in item else 0,
                     dish_side_06 = item['dish_side_06'] if "dish_side_06" in item else 0,
+
+                    stock_uom=item['stock_uom']
                 ))
 
                 #frappe.publish_realtime("debug", dict(data=item))
@@ -531,6 +533,7 @@ class TableOrder(Document):
                 item_code=item.item_code,
                 qty=item.qty,
                 rate=item.rate,
+                stock_uom=item.stock_uom,   #FIX 03-06-2025
                 price_list_rate=item.price_list_rate,
                 item_tax_template=item.item_tax_template,
                 item_tax_rate=item.item_tax_rate,
@@ -563,6 +566,7 @@ class TableOrder(Document):
                 dish_side_04 = entry["dish_side_04"] if "dish_side_04" in entry else 0,
                 dish_side_05 = entry["dish_side_05"] if "dish_side_05" in entry else 0,
                 dish_side_06 = entry["dish_side_06"] if "dish_side_06" in entry else 0
+
             )
 
             self.validate()
@@ -630,7 +634,10 @@ class TableOrder(Document):
                 dish_side_03=entry_item["dish_side_03"],
                 dish_side_04=entry_item["dish_side_04"],
                 dish_side_05=entry_item["dish_side_05"],
-                dish_side_06=entry_item["dish_side_06"]
+                dish_side_06=entry_item["dish_side_06"],
+
+                stock_uom=item.stock_uom    #FIX 03-06-2025
+
             ))
             #item.serial_no = None
 
@@ -728,6 +735,7 @@ class TableOrder(Document):
                     "item_code",
                     "item_name",
                     "qty",
+                    "stock_uom",    #FIX 03-06-2025
                     "rate",
                     "amount",
                     "discount_percentage",

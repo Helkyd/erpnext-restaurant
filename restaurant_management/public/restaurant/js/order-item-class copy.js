@@ -623,7 +623,10 @@ class OrderItem {
           this.form_editor.field_properties.dish_side_01.label = this.order.current_item.data.dish_sides[0].item_name;
           this.form_editor.fields_dict.dish_side_01._label = this.order.current_item.data.dish_sides[0].item_name
         } else {        
-          if (document.querySelector('[data-fieldname="dish_side_01"]')) //document.querySelector('[data-fieldname="dish_side_01"]').remove();
+          if (document.querySelector('[data-fieldname="dish_side_01"]')) {
+            console.log('Nadddd 01')
+            //document.querySelector('[data-fieldname="dish_side_01"]').remove()
+          };
         }
       }
       

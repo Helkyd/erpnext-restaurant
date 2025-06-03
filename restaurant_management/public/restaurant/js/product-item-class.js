@@ -407,6 +407,7 @@ class ProductItem {
       item_name: item.item_name,
       qty: qty,
       rate: rate,
+      stock_uom: item.stock_uom,  //FIX 03-06-2025
       price_list_rate: rate,
       discount_percentage: 0,
       discount_amount: 0,
