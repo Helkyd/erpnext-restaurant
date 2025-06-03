@@ -140,14 +140,16 @@ class OrderManage extends ObjectManage {
   }
 
   make_dom() {
+    
     this.empty_carts = frappe.jshtml({
       tag: 'div',
       content: RMHelper.no_data('No added items'),
       properties: {
         class: 'empty-carts',
-        /*style: 'display: none'*/
+        /*style: 'display: none' */
       }
     });
+    
 
     this.not_selected_order = frappe.jshtml({
       tag: 'div',
@@ -359,7 +361,7 @@ class OrderManage extends ObjectManage {
               ${this.items_wrapper.html()}
           </div>
           <div class="tab items-cart">
-            <div class="panel-order-items" style="height: calc(100% - 400px); position: relative; width: 100%;overflow:auto;")>
+            <div class="panel-order-items" style="height: calc(100% - 350px); position: relative; width: 100%;overflow:auto;")>
               <ul class="products-list" id="${this.order_entry_container_name}">
                   
               </ul>

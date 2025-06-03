@@ -768,7 +768,13 @@ class TableOrder(Document):
                 #row["table_info"] = self.table_info
                 
                 print ('item item_code ', item.item_code)
-                row['dish_sides'] = frappe.get_doc('Item',item.item_code).dish_sides #FIX 30-05-2025
+                
+                #FIX 02-06-2025
+                pratos = frappe.get_doc('Item',item.item_code)
+                if pratos.dish_sides:
+                    #row['dish_sides'] = frappe.get_doc('Item',item.item_code).dish_sides #FIX 30-05-2025
+                    row['dish_sides'] = pratos.dish_sides #FIX 30-05-2025
+
                 print ('ITEMS LIST DISH SIDES ')
                 print (frappe.get_doc('Item',item.item_code).dish_sides)
                 if frappe.get_doc('Item',item.item_code).dish_sides:
