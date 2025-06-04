@@ -238,11 +238,21 @@ class OrderItem {
         return;
       }
 
-      const qty_field = this.form_editor.get_field("qty");
+
+      //FIX 03-06-2025
+      if (input == "qty" && typeof value === "number" && this.data.stock_uom && this.data.stock_uom.toUpperCase() == "GRAM") {
+        var qty_field = (value / 1000);
+        var qty = flt(qty_field);
+      } else {
+        var qty_field = this.form_editor.get_field("qty");
+        var qty = flt(qty_field.get_value());
+  
+      }
+      //const qty_field = this.form_editor.get_field("qty");
       const rate_field = this.form_editor.get_field("rate");
       const discount_field = this.form_editor.get_field("discount_percentage");
 
-      const qty = flt(qty_field.get_value());
+      //const qty = flt(qty_field.get_value());
       let discount = flt(discount_field.get_value());
       let rate = flt(rate_field.get_value());
       const base_rate = flt(this.data.price_list_rate);

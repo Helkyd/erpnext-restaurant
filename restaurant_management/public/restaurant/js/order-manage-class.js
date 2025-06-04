@@ -1,4 +1,4 @@
-//LAST MODIFIED: 24-12-2024
+//LAST MODIFIED: 04-06-2025
 class OrderManage extends ObjectManage {
   #objects = {};
   #components = {};
@@ -629,7 +629,13 @@ class OrderManage extends ObjectManage {
     if (RM.busy) return;
 
     const set_data = (item, qty, discount, rate) => {
-      item.data.qty = qty;
+      //FIX 04-06-2025;Check if GRAM
+      if (item.data.stock_uom && item.data.stock_uom.toUpperCase() == "GRAM") {
+        item.data.qty = qty / 1000;
+      } else {
+        item.data.qty = qty;
+      }
+      
       item.data.discount_percentage = discount;
       item.data.rate = rate;
       item.data.status = "Pending";
@@ -951,11 +957,11 @@ class OrderManage extends ObjectManage {
     
     console.log('check item editor status.... get item Stock UOM')
     console.log(data.stock_uom)
-    if (data.stock_uom && data.stock_uom.toUpperCase() == "GRAM" || data.stock_uom.toUpperCase() == "KG") {
-      //this.NumPad.get_custom_numbers();
-      //this.num_pad.get_custom_numbers()//
-      this.num_pad.grams = true;
-      
+    //FIX 04-06-2025; Check if GRAM and change KEYBOARD
+    if (data.stock_uom && data.stock_uom.toUpperCase() == "GRAM") { // || data.stock_uom.toUpperCase() == "KG") {
+      this.num_pad.grams = true; 
+    } else {
+      this.num_pad.grams = false; 
     }
     item.check_status();
   }
