@@ -798,7 +798,9 @@ class OrderManage extends ObjectManage {
           if (this.current_order && this.current_order.current_item) {
             const item = this.current_order.current_item.data;
             if (item.item_group === "Comidas" && ["KG", "GRAM"].includes(item.stock_uom.toUpperCase())) {
-              return [100, 150, 200, 250, 300, 350, 400, 450, 500];
+              //return [100, 150, 200, 250, 300, 350, 400, 450, 500];
+              console.log('Numero GRAM')
+
               //this.num_pad.wrapper.innerHtml = '<table class="pad-container"><tbody><tr class="pad-row"><td class="sm pad-btn pad-col button btn-default-7">400 </td><td class="sm pad-btn pad-col button btn-default-8">450 </td><td class="sm pad-btn pad-col button btn-default-9">500 </td><td class="md pad-btn pad-col button btn-default-Del">Del <span class="fa fa-arrow-left pull-left" style="font-size: 16px; padding-top: 3px"></span></td></tr><tr class="pad-row"><td class="sm pad-btn pad-col button btn-default-4">250 </td><td class="sm pad-btn pad-col button btn-default-5">300 </td><td class="sm pad-btn pad-col button btn-default-6">350 </td><td class="md pad-btn pad-col button btn-default-Enter" rowspan="3">Enter <br><br><span class="fa fa-level-down" style="font-size: 25px; transform: rotate(90deg);"></span></td></tr><tr class="pad-row"><td class="sm pad-btn pad-col button btn-default-1">100 </td><td class="sm pad-btn pad-col button btn-default-2">150 </td><td class="sm pad-btn pad-col button btn-default-3">200 </td></tr><tr class="pad-row"><td class="sm pad-btn pad-col button btn-default-0" colspan="2">0 </td><td class="sm pad-btn pad-col button btn-default-.">. </td></tr></tbody></table>';
             }
           }
@@ -949,9 +951,11 @@ class OrderManage extends ObjectManage {
     
     console.log('check item editor status.... get item Stock UOM')
     console.log(data.stock_uom)
-    if (data.stock_uom.toUpperCase() == "GRAM" || data.stock_uom.toUpperCase() == "KG") {
+    if (data.stock_uom && data.stock_uom.toUpperCase() == "GRAM" || data.stock_uom.toUpperCase() == "KG") {
       //this.NumPad.get_custom_numbers();
-      this.num_pad.get_custom_numbers()//
+      //this.num_pad.get_custom_numbers()//
+      this.num_pad.grams = true;
+      
     }
     item.check_status();
   }
