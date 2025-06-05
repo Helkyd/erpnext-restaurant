@@ -44,8 +44,6 @@
   "dish_side_04",
   "dish_side_05",
   "dish_side_06",
-  "dish_sides",
-  "sides",
   "dish_side_selected"
  ],
  "fields": [
@@ -277,23 +275,11 @@
    "label": "Dish Side 06"
   },
   {
-   "fieldname": "dish_sides",
-   "fieldtype": "Table",
-   "label": "Dish Sides",
-   "options": "Acompanhamentos"
-  },
-  {
    "fetch_from": "item_code.stock_uom",
    "fieldname": "stock_uom",
    "fieldtype": "Data",
    "label": "Stock UOM",
    "read_only": 1
-  },
-  {
-   "fieldname": "sides",
-   "fieldtype": "Table",
-   "label": "Sides",
-   "options": "Order Entry Item Dishes"
   },
   {
    "fieldname": "dish_side_selected",
@@ -304,7 +290,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-06-03 19:56:15.007081",
+ "modified": "2025-06-05 17:11:53.667069",
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "Order Entry Item",
