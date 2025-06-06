@@ -38,13 +38,8 @@
   "is_customizable",
   "was_printed",
   "ponto_carne",
-  "dish_side_01",
-  "dish_side_02",
-  "dish_side_03",
-  "dish_side_04",
-  "dish_side_05",
-  "dish_side_06",
-  "dish_side_selected"
+  "dish_side_selected",
+  "which_printer"
  ],
  "fields": [
   {
@@ -239,42 +234,6 @@
    "options": "\nBem\nMedio\nMal\nMedio Bem\nMedio Mal"
   },
   {
-   "default": "0",
-   "fieldname": "dish_side_01",
-   "fieldtype": "Check",
-   "label": "Dish Side 01"
-  },
-  {
-   "default": "0",
-   "fieldname": "dish_side_02",
-   "fieldtype": "Check",
-   "label": "Dish Side 02"
-  },
-  {
-   "default": "0",
-   "fieldname": "dish_side_03",
-   "fieldtype": "Check",
-   "label": "Dish Side 03"
-  },
-  {
-   "default": "0",
-   "fieldname": "dish_side_04",
-   "fieldtype": "Check",
-   "label": "Dish Side 04"
-  },
-  {
-   "default": "0",
-   "fieldname": "dish_side_05",
-   "fieldtype": "Check",
-   "label": "Dish Side 05"
-  },
-  {
-   "default": "0",
-   "fieldname": "dish_side_06",
-   "fieldtype": "Check",
-   "label": "Dish Side 06"
-  },
-  {
    "fetch_from": "item_code.stock_uom",
    "fieldname": "stock_uom",
    "fieldtype": "Data",
@@ -285,12 +244,18 @@
    "fieldname": "dish_side_selected",
    "fieldtype": "Data",
    "label": "Dish Side Selected"
+  },
+  {
+   "fieldname": "which_printer",
+   "fieldtype": "Select",
+   "label": "Which Printer",
+   "options": "\nPRT-BAR01\nPRT-BAR02"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-06-05 17:11:53.667069",
+ "modified": "2025-06-06 14:18:14.362014",
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "Order Entry Item",

@@ -13,7 +13,7 @@ from restaurant_management.restaurant_management.page.restaurant_manage.restaura
 
 status_attending = "Attending"
 
-#Last Modified: 03-06-2025
+#Last Modified: 06-06-2025
 
 class TableOrder(Document):
     synchronize_data = None
@@ -312,7 +312,8 @@ class TableOrder(Document):
                     ponto_carne = item['ponto_carne'] if "ponto_carne" in item else None,
 
                     stock_uom=item['stock_uom'],
-                    dish_side_selected = item['dish_side_selected'] if "dish_side_selected" in item else None
+                    dish_side_selected = item['dish_side_selected'] if "dish_side_selected" in item else None,
+                    which_printer = item['which_printer'] if "which_printer" in item else None
                 ))
 
                 #frappe.publish_realtime("debug", dict(data=item))
@@ -550,7 +551,8 @@ class TableOrder(Document):
                 #FIX 30-05-2025
                 ponto_carne = entry["ponto_carne"] if "ponto_carne" in entry else None,
 
-                dish_side_selected = entry['dish_side_selected'] if "dish_side_selected" in entry else None
+                dish_side_selected = entry['dish_side_selected'] if "dish_side_selected" in entry else None,
+                which_printer = entry['which_printer'] if "which_printer" in entry else None
 
             )
 
@@ -617,7 +619,8 @@ class TableOrder(Document):
 
                 stock_uom=item.stock_uom,    #FIX 03-06-2025
 
-                dish_side_selected = entry_item['dish_side_selected']
+                dish_side_selected = entry_item['dish_side_selected'],
+                which_printer = entry_item['which_printer']
 
             ))
             #item.serial_no = None
@@ -739,7 +742,8 @@ class TableOrder(Document):
                     "is_customizable",
                     "was_printed",
                     "ponto_carne",
-                    "dish_side_selected"
+                    "dish_side_selected",
+                    "which_printer"
                 ]}
 
                 row["order_name"] = item.parent

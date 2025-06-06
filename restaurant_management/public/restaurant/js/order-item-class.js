@@ -134,6 +134,17 @@ class OrderItem {
       this.form_editor.set_field_property('dish_side_selected', 'hidden', true);
     }
 
+    //FIX 06-06-2025; For Drinks only
+    if (this.data.item_group == "Bebidas") {
+      if (this.form_editor) {
+        this.form_editor.set_field_property('which_printer','hidden', false);
+      }
+    } else {
+      if (this.form_editor) {
+        this.form_editor.set_field_property('which_printer','hidden', true);
+      }
+
+    }
 
   }
 
@@ -421,7 +432,19 @@ class OrderItem {
 
       }
 
+      //FIX 06-06-2025; For Drinks only
+      if (this.data.item_group == "Bebidas") {
+        if (this.form_editor) {
+          this.form_editor.set_field_property('which_printer','hidden', false);
+        }
+      } else {
+        if (this.form_editor) {
+          this.form_editor.set_field_property('which_printer','hidden', true);
+        }
 
+      }
+
+      
     } else {
       this.form_editor = new OrderItemEditor({
         order_item: this,
@@ -506,6 +529,11 @@ class OrderItem {
             label: __('Dish Side Selected'),
             hidden: this.data.item_group != "Comidas"
           },
+          
+          //FIX 06-06-2026
+          which_printer: {
+            hidden: this.data.item_group !="Bebidas"
+          },
 
         }
       });
@@ -533,6 +561,9 @@ class OrderItem {
       //FIX 30-05-2025
       this.form_editor.set_field_property("ponto_carne", "read_only", !this.is_enabled_to_edit);
       this.form_editor.set_field_property("dish_side_selected", "read_only", !this.is_enabled_to_edit);
+
+      //FIX 06-06-2025
+      this.form_editor.set_field_property("which_printer", "read_only", !this.is_enabled_to_edit);
 
     }
   }
@@ -591,7 +622,8 @@ class OrderItemEditor extends DeskForm {
     });
     
     //FIX 03-06-2025; Add to the constructor or make() method
-    this.on("dish_side_selected", "change", (field) => {
+    //FIX 06-06-2025; added which_printer
+    this.on(["dish_side_selected","which_printer"], "change", (field) => {
       this.order_item.calculate_form(field.df.fieldname, field.get_value());
       this.order_item.update();
     });
