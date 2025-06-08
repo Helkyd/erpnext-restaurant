@@ -1,4 +1,4 @@
-//LAST MODIFIED: 04-06-2025
+//LAST MODIFIED: 08-06-2025
 class OrderManage extends ObjectManage {
   #objects = {};
   #components = {};
@@ -999,7 +999,7 @@ class OrderManage extends ObjectManage {
           if (this.table.order_manage['tab-containerorders'][0].childNodes.length >= 3) {
             console.log ('TESTI ', this.table.order_manage['tab-containerorders'][0].childNodes.item(2).innerText);
             console.log (this.table.order_manage['tab-containerorders'][0].childNodes.item(2).checkVisibility());
-            if (this.table.order_manage['tab-containerorders'][0].childNodes.length > 3) {
+            if (this.table.order_manage['tab-containerorders'][0].childNodes.length > 4) {
               setTimeout(() => {
                 this.modal.render();
               }, 5);
