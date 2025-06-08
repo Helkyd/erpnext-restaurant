@@ -992,9 +992,26 @@ class OrderManage extends ObjectManage {
           //FIX 24-12-2024;
           //this.reload();
           //this.modal.load_data();
-          setTimeout(() => {
-            this.modal.render();
-          }, 5);
+          
+          //08-06-2025; TO TEST
+          console.log (' TESTOMG ', this.table.order_manage['tab-containerorders'].length);
+          console.log ('CHILDS ', this.table.order_manage['tab-containerorders'][0].childNodes.length)
+          if (this.table.order_manage['tab-containerorders'][0].childNodes.length >= 3) {
+            console.log ('TESTI ', this.table.order_manage['tab-containerorders'][0].childNodes.item(2).innerText);
+            console.log (this.table.order_manage['tab-containerorders'][0].childNodes.item(2).checkVisibility());
+            if (this.table.order_manage['tab-containerorders'][0].childNodes.length > 3) {
+              setTimeout(() => {
+                this.modal.render();
+              }, 5);
+            }
+            
+          } else {
+            setTimeout(() => {
+              this.modal.render();
+            }, 5);
+  
+          }
+
           //this.modal.render();
           //RM.current_room.render();
 
