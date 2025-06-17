@@ -65,19 +65,25 @@ custom_fields = {
     #FIX 08-06-2025; Adding Week Days and Time for HAPPY HOUR
     #Princing Rule
     "Pricing Rule": dict(
-        week_days=dict(label="Week Days", fieldtype="Section Break", insert_after="valid_upto", collapsible=0),
+        week_days=dict(label="Week Days", fieldtype="Section Break", insert_after="currency", collapsible=0),
         day_monday=dict(label="Monday", fieldtype="Check", insert_after="week_days", default=0),
         day_tuesday=dict(label="Tuesday", fieldtype="Check", insert_after="day_monday", default=0),
+
         column_break_week=dict(fieldtype="Column Break", insert_after="day_tuesday"),
-        day_wednesday=dict(label="Wednesday", fieldtype="Check", insert_after="day_tuesday", default=0),
+
+        day_wednesday=dict(label="Wednesday", fieldtype="Check", insert_after="column_break_week", default=0),
         day_thursday=dict(label="Thursday", fieldtype="Check", insert_after="day_wednesday", default=0),
-        from_time=dict(label="From Time", fieldtype="Time", insert_after="day_thursday"),
-        column_break_week1=dict(fieldtype="Column Break", insert_after="from_time"),
+
+        column_break_week1=dict(fieldtype="Column Break", insert_after="day_thursday"),
+
         day_friday=dict(label="Friday", fieldtype="Check", insert_after="column_break_week1", default=0),
         day_saturday=dict(label="Saturday", fieldtype="Check", insert_after="day_friday", default=0),
         day_sunday=dict(label="Sunday", fieldtype="Check", insert_after="day_saturday", default=0),
-        
-        to_time=dict(label="To Time", fieldtype="Time", insert_after="day_saturday")
+
+        column_break_week2=dict(fieldtype="Column Break", insert_after="day_sunday"),
+
+        from_time=dict(label="From Time", fieldtype="Time", insert_after="column_break_week2"),
+        to_time=dict(label="To Time", fieldtype="Time", insert_after="from_time")
     )
 
 }

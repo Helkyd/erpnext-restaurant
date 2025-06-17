@@ -475,11 +475,13 @@ def get_pricing_rule_for_item(args, doc=None, for_validate=False):
 			print ('TO TIME ', pricing_rules[0].to_time)
 			print ('NOW TIME ', frappe.utils.nowtime())
 			from datetime import datetime
-			print (datetime.strptime(str(frappe.utils.nowtime()),'%H:%M:%S.%f').strftime("%H:%M:%S"))
-			print ('h ', datetime.strptime(str(frappe.utils.nowtime()),'%H:%M:%S.%f').strftime("%H:%M:%S") >= datetime.strptime(str(pricing_rules[0].from_time),'%H:%M:%S').strftime("%H:%M:%S"))
-			print ('b ', str(frappe.utils.nowtime()) <= str(pricing_rules[0].to_time))
+			if (pricing_rules[0].from_time and pricing_rules[0].to_time):
+				print (datetime.strptime(str(frappe.utils.nowtime()),'%H:%M:%S.%f').strftime("%H:%M:%S"))
+				print ('h ', datetime.strptime(str(frappe.utils.nowtime()),'%H:%M:%S.%f').strftime("%H:%M:%S") >= datetime.strptime(str(pricing_rules[0].from_time),'%H:%M:%S.%f').strftime("%H:%M:%S"))
+				print ('b ', str(frappe.utils.nowtime()) <= str(pricing_rules[0].to_time))
+
 			can_run_today = False
-			if datetime.strptime(str(frappe.utils.nowtime()),'%H:%M:%S.%f').strftime("%H:%M:%S") >= datetime.strptime(str(pricing_rules[0].from_time),'%H:%M:%S').strftime("%H:%M:%S") and datetime.strptime(str(frappe.utils.nowtime()),'%H:%M:%S.%f').strftime("%H:%M:%S") <= datetime.strptime(str(pricing_rules[0].to_time),'%H:%M:%S').strftime("%H:%M:%S"):
+			if (pricing_rules[0].from_time and pricing_rules[0].to_time) and (datetime.strptime(str(frappe.utils.nowtime()),'%H:%M:%S.%f').strftime("%H:%M:%S") >= datetime.strptime(str(pricing_rules[0].from_time),'%H:%M:%S.%f').strftime("%H:%M:%S") and datetime.strptime(str(frappe.utils.nowtime()),'%H:%M:%S.%f').strftime("%H:%M:%S") <= datetime.strptime(str(pricing_rules[0].to_time),'%H:%M:%S.%f').strftime("%H:%M:%S")):
 				if pricing_rules[0].day_monday == 1 and frappe.utils.now_datetime().weekday() == 0:
 					#Check time
 					can_run_today = True
