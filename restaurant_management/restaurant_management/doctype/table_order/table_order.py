@@ -13,7 +13,7 @@ from restaurant_management.restaurant_management.page.restaurant_manage.restaura
 
 status_attending = "Attending"
 
-#Last Modified: 06-06-2025
+#Last Modified: 29-07-2025
 
 class TableOrder(Document):
     synchronize_data = None
@@ -497,7 +497,10 @@ class TableOrder(Document):
             amount += item.amount
 
         self.tax = tax
-        self.amount = amount
+        #FIX 29-07-2025; Added Round....
+        #self.amount = amount
+        self.amount = round(amount,2)
+
         self.save()
 
     def update_item(self, entry, unrestricted=False, synchronize_on_delete=True):
