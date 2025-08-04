@@ -212,6 +212,7 @@ class ItemsTree {
   }
 
   update_items_count() {
+    console.log('update times count.... ', RM.url_manage)
     frappe.call({
       method: RM.url_manage + 'group_items_count',
       freeze: true
