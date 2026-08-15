@@ -17,7 +17,13 @@ class ItemsTree {
     }
 
     if(this.in_menu) {
-      filters.item_group_name = ["in", RM.menu.items_groups];
+      //FIX 15-08-2026; If more than 10 groups get Iem Groups from Profile
+      if(length(RM.menu.items_groups) > 10){
+        filters.item_group_name = ["in", RM.pos.settings.item_groups.map(item => item.item_group)];
+      } else {
+        filters.item_group_name = ["in", RM.menu.items_groups];
+      }
+      
     }
 
     frappe.db.get_list("Item Group", { fields: ["*"], filters, order_by: "lft" }).then(groups => {
@@ -212,6 +218,7 @@ class ItemsTree {
   }
 
   update_items_count() {
+    console.log('update times count.... ', RM.url_manage)
     frappe.call({
       method: RM.url_manage + 'group_items_count',
       freeze: true

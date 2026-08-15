@@ -108,6 +108,7 @@ class OrderItem {
     if (this.data.item_group == "Comidas") {
       if (this.form_editor) {
         this.form_editor.set_field_property('dish_side_selected', 'hidden', false);
+        this.form_editor.set_field_property('dish_side_selected1', 'hidden', false);
         
         // Refresh options
         if (this.form_editor.fields_dict.dish_side_selected.df.options.length === 0) {
@@ -123,15 +124,35 @@ class OrderItem {
           var options = this.form_editor.fields_dict.dish_side_selected.df.options;
         }
 
+        if (this.form_editor.fields_dict.dish_side_selected1.df.options.length === 0) {
+          const listadishes1 = [];          
+          if (this.order.current_item.data.dish_sides?.length > 0) {
+
+            for (const ds of this.order.current_item.data.dish_sides) {
+              listadishes1.push(ds.item_name);
+            }
+          }
+          var options1 = listadishes1;
+        } else {
+          var options1 = this.form_editor.fields_dict.dish_side_selected1.df.options;
+        }
+
         this.form_editor.set_df_property('dish_side_selected', 'options', options);
+        this.form_editor.set_df_property('dish_side_selected1', 'options', options1);
         
         // Set value if needed
         if (this.data.dish_side_selected) {
           this.form_editor.set_value('dish_side_selected', this.data.dish_side_selected);
         }
+
+        // Set value if needed
+        if (this.data.dish_side_selected1) {
+          this.form_editor.set_value('dish_side_selected1', this.data.dish_side_selected1);
+        }        
       }
     } else if (this.form_editor) {
       this.form_editor.set_field_property('dish_side_selected', 'hidden', true);
+      this.form_editor.set_field_property('dish_side_selected1', 'hidden', true);
     }
 
     //FIX 06-06-2025; For Drinks only
@@ -429,7 +450,24 @@ class OrderItem {
           label: __('Dish Side Selected'),
           hidden: this.data.item_group != "Comidas"
         }
-
+        this.form_editor.field_properties.dish_side_selected1 = {
+          fieldtype: 'Select',
+          options: () => {  // Use arrow function to maintain 'this' context
+            console.log('Generating dish side options XXXXXXXXXXXXXXXXXXXXXXX...');
+            if (this.data.item_group == "Comidas") {
+              const listadishes1 = [];
+              if (this.order.current_item.data.dish_sides?.length > 0) {
+                for (const ds of this.order.current_item.data.dish_sides) {
+                  listadishes1.push(ds.item_name);
+                }
+              }
+              return listadishes;
+            }
+            return [];
+          },
+          label: __('Dish Side Selected'),
+          hidden: this.data.item_group != "Comidas"
+        }
       }
 
       //FIX 06-06-2025; For Drinks only
@@ -529,7 +567,25 @@ class OrderItem {
             label: __('Dish Side Selected'),
             hidden: this.data.item_group != "Comidas"
           },
-          
+
+          dish_side_selected1: {
+            fieldtype: 'Select',
+            options: () => {  // Use arrow function to maintain 'this' context
+              console.log('Generating dish side options...');
+              if (this.data.item_group == "Comidas") {
+                const listadishes1 = [];
+                if (this.order.current_item.data.dish_sides?.length > 0) {
+                  for (const ds of this.order.current_item.data.dish_sides) {
+                    listadishes1.push(ds.item_name);
+                  }
+                }
+                return listadishes1;
+              }
+              return [];
+            },
+            label: __('Dish Side Selected'),
+            hidden: this.data.item_group != "Comidas"
+          },          
           //FIX 06-06-2026
           which_printer: {
             hidden: this.data.item_group !="Bebidas"
@@ -561,6 +617,7 @@ class OrderItem {
       //FIX 30-05-2025
       this.form_editor.set_field_property("ponto_carne", "read_only", !this.is_enabled_to_edit);
       this.form_editor.set_field_property("dish_side_selected", "read_only", !this.is_enabled_to_edit);
+      this.form_editor.set_field_property("dish_side_selected1", "read_only", !this.is_enabled_to_edit);
 
       //FIX 06-06-2025
       this.form_editor.set_field_property("which_printer", "read_only", !this.is_enabled_to_edit);
@@ -624,6 +681,11 @@ class OrderItemEditor extends DeskForm {
     //FIX 03-06-2025; Add to the constructor or make() method
     //FIX 06-06-2025; added which_printer
     this.on(["dish_side_selected","which_printer"], "change", (field) => {
+      this.order_item.calculate_form(field.df.fieldname, field.get_value());
+      this.order_item.update();
+    });
+
+    this.on(["dish_side_selected1","which_printer"], "change", (field) => {
       this.order_item.calculate_form(field.df.fieldname, field.get_value());
       this.order_item.update();
     });

@@ -39,6 +39,7 @@
   "was_printed",
   "ponto_carne",
   "dish_side_selected",
+  "dish_side_selected1",
   "which_printer"
  ],
  "fields": [
@@ -250,12 +251,17 @@
    "fieldtype": "Select",
    "label": "Which Printer",
    "options": "\nPRT-BAR01\nPRT-BAR02"
+  },
+  {
+   "fieldname": "dish_side_selected1",
+   "fieldtype": "Data",
+   "label": "Dish Side Selected 2"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-06-06 14:18:14.362014",
+ "modified": "2025-08-04 19:35:18.693191",
  "modified_by": "Administrator",
  "module": "Restaurant Management",
  "name": "Order Entry Item",

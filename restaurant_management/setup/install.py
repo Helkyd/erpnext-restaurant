@@ -55,6 +55,7 @@ custom_fields = {
         item_type=dict(label="Item Type", fieldtype="Select", options="Veg\nNon-Veg\nVeg/Non-Veg", insert_after="section_break_27"),
         #ponto_carne=dict(label="Ponto Carne", fieldtype="Select", options="Bem\nMedio\nMal\nMedio Bem\nMedio Mal\n", insert_after="item_type"), #FIX 03-06-2025 #29-05-2025; Added
         dish_sides=dict(label="Acompanhamentos",fieldtype="Table", options="Acompanhamentos", insert_after="item_type"),  #FIX 03-06-2025 #29-05-2025; Added
+        #dish_sides1=dict(label="Acompanhamentos",fieldtype="Table", options="Acompanhamentos", insert_after="dish_sides1"),  #FIX 03-06-2025 #29-05-2025; Added
         column_break_29=dict(fieldtype="Column Break", insert_after="dish_sides"), #29-05-2025; Changed from item_type to ponto_carne
         cuisine=dict(label="Cuisine", fieldtype="Link", options="Cuisine Type", insert_after="column_break_29"),
     ),

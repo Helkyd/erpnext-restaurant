@@ -13,7 +13,7 @@ from restaurant_management.restaurant_management.page.restaurant_manage.restaura
 
 status_attending = "Attending"
 
-#Last Modified: 06-06-2025
+#Last Modified: 04-08-2025
 
 class TableOrder(Document):
     synchronize_data = None
@@ -313,6 +313,7 @@ class TableOrder(Document):
 
                     stock_uom=item['stock_uom'],
                     dish_side_selected = item['dish_side_selected'] if "dish_side_selected" in item else None,
+                    dish_side_selected1 = item['dish_side_selected1'] if "dish_side_selected1" in item else None,
                     which_printer = item['which_printer'] if "which_printer" in item else None
                 ))
 
@@ -497,7 +498,10 @@ class TableOrder(Document):
             amount += item.amount
 
         self.tax = tax
-        self.amount = amount
+        #FIX 29-07-2025; Added Round....
+        #self.amount = amount
+        self.amount = round(amount,2)
+
         self.save()
 
     def update_item(self, entry, unrestricted=False, synchronize_on_delete=True):
@@ -552,6 +556,7 @@ class TableOrder(Document):
                 ponto_carne = entry["ponto_carne"] if "ponto_carne" in entry else None,
 
                 dish_side_selected = entry['dish_side_selected'] if "dish_side_selected" in entry else None,
+                dish_side_selected1 = entry['dish_side_selected1'] if "dish_side_selected1" in entry else None,
                 which_printer = entry['which_printer'] if "which_printer" in entry else None
 
             )
@@ -620,6 +625,7 @@ class TableOrder(Document):
                 stock_uom=item.stock_uom,    #FIX 03-06-2025
 
                 dish_side_selected = entry_item['dish_side_selected'],
+                dish_side_selected1 = entry_item['dish_side_selected1'],
                 which_printer = entry_item['which_printer']
 
             ))
@@ -743,6 +749,7 @@ class TableOrder(Document):
                     "was_printed",
                     "ponto_carne",
                     "dish_side_selected",
+                    "dish_side_selected1",
                     "which_printer"
                 ]}
 
