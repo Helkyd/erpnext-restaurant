@@ -18,7 +18,7 @@ class ItemsTree {
 
     if(this.in_menu) {
       //FIX 15-08-2026; If more than 10 groups get Iem Groups from Profile
-      if(length(RM.menu.items_groups) > 10){
+      if(RM.menu.items_groups.length > 10){
         filters.item_group_name = ["in", RM.pos.settings.item_groups.map(item => item.item_group)];
       } else {
         filters.item_group_name = ["in", RM.menu.items_groups];
