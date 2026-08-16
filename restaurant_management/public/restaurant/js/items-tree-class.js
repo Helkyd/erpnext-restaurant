@@ -18,8 +18,19 @@ class ItemsTree {
 
     if(this.in_menu) {
       //FIX 15-08-2026; If more than 10 groups get Iem Groups from Profile
-      if(RM.menu.items_groups.length > 10){
-        filters.item_group_name = ["in", RM.pos.settings.item_groups.map(item => item.item_group)];
+      console.log('aqui menu');
+      if(RM.menu.items_groups.length > 20){
+        // Using Set (preserves insertion order in modern JS)
+        //const uniqueGroups = [...new Set(RM.menu.items_groups)];
+
+        // Remove empty strings
+        const uniqueGroups = [...new Set(RM.menu.items_groups.filter(g => g))];
+
+        console.log(`Original: ${RM.menu.items_groups.length}, Unique: ${uniqueGroups.length}`);
+        //FIX 16-08-2026; Trying this
+        filters.item_group_name = ["in", uniqueGroups];
+
+        //filters.item_group_name = ["in", RM.pos.settings.item_groups.map(item => item.item_group)];
       } else {
         filters.item_group_name = ["in", RM.menu.items_groups];
       }
