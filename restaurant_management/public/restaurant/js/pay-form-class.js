@@ -407,7 +407,316 @@ class PayForm extends DeskForm {
 			});
 	}
 
+	
+	// Fixed print_account method
 	async print(invoice_name) {
+		try {
+			console.log('print account....');
+			const baseUrl = await this.baseURL();
+			const docname = invoice_name;
+
+			if (!RM.can_pay) return;
+
+			const title = invoice_name + " (" + __("Print") + ")";
+			const order_manage = this.order.order_manage;
+
+			const props = {
+				model: "POS Invoice",
+				model_name: invoice_name,
+				args: {
+					format: RM.pos_profile.print_format,
+					_lang: RM.lang,
+					no_letterhead: RM.pos_profile.letter_head || 1,
+					letterhead: RM.pos_profile.letter_head || 'No%20Letterhead'
+				},
+				from_server: true,
+				set_buttons: true,
+				is_pdf: true,
+				customize: true,
+				title: title
+			};
+
+			//FIX 15-10-2024
+			
+			var order_print = "";
+			var ficha_tec = "";
+			var orderprint  = "";
+
+			console.log('Base URL:', baseUrl);
+			console.log('Docname:', docname);
+			
+			// Use a wrapper function to handle the callback properly
+			await new Promise((resolve, reject) => {
+				frappe.model.with_doc('POS Invoice', docname, function() {
+					try {
+						// Get all keys from locals['POS Invoice']
+						const keys = Object.keys(locals['POS Invoice']);
+						console.log('Keys:', keys);
+						
+						if (keys.length === 0) {
+							reject(new Error('No Invoice document found in locals'));
+							return;
+						}
+						
+						// Get the last key
+						const d = keys[keys.length - 1];
+						console.log('Document key:', d);
+						
+						// Get the document
+						const fichatec = frappe.model.get_doc('POS Invoice', d);
+						ficha_tec = fichatec;
+						console.log('Document loaded:', ficha_tec.name);
+						
+						resolve(ficha_tec);
+					} catch (error) {
+						reject(error);
+					}
+				});
+			});
+			
+			// Now ficha_tec should be available
+			if (!ficha_tec || !ficha_tec.name) {
+				frappe.msgprint(__('POS Invoice document not found'));
+				return false;
+			}
+			
+			// Continue with printing logic based on baseUrl
+			if (baseUrl) {
+				console.log('Using ngrok/pinggy address:', baseUrl);
+				// Your printing logic with ngrok/pinggy
+				await this.printWithNgrok(baseUrl);
+			} else {
+				console.log('Using local printer');
+				// Your printing logic without ngrok/pinggy
+				await this.printWithLocalPrinter(ficha_tec,props,title);
+			}
+			
+		} catch (error) {
+			console.error('Print error:', error);
+			frappe.msgprint(__('Error printing: ') + error.message);
+			return false;
+		}
+
+		//FIX 02-01-2025; TRying to reload
+		console.log('RELOAD after printting PAYMENT');
+		document.getElementsByClassName('modal-backdrop')[0].remove('fade');
+		this.reload();
+		//FIX 28-05-2025
+		document.getElementsByClassName('modal-backdrop')[0].remove('fade');
+				
+	}
+
+	// Helper method for printing with ngrok/pinggy
+	async printWithNgrok(baseUrl) {
+		try {
+			// Check printer
+			const printerStatus = await PrintHelper.checkPrinter();
+			if (!printerStatus.available) {
+				frappe.msgprint(__('Printer not available: ') + printerStatus.message);
+				return false;
+			}
+			/*
+			// Generate buffer
+			const bufferResult = await PrintHelper.generateBuffer(
+				'Table Order',
+				ficha_tec.name,
+				ficha_tec.company,
+				{ 
+					server_url: baseUrl,
+					freeze: true 
+				}
+			);
+
+			if (!bufferResult.success) {
+				frappe.msgprint(__('Failed to generate receipt: ') + (bufferResult.error || ''));
+				return false;
+			}
+			*/
+
+			console.log('TEM VALOR DO NGROK');
+
+			//const apiBaseUrl = d.ngrok_or_pinggy_address;
+
+			//Moved inside here
+			let dialog = new frappe.ui.Dialog({
+				title: 'Selecione a Impressora',
+				primary_action_label: 'Impressora BAR 01', // Custom text for the primary button
+				primary_action: function() {
+					console.log('Selecionou Printer 01');
+
+					//TESTE using ESC/POS
+					frappe.call({
+						method: "angola_erp.util.angola.generate_escpos_and_print",
+						args: {
+							server_url: baseUrl,
+							doctype: 'Table Order',
+							docname: ficha_tec.name,
+							company_info: ficha_tec.company,
+							to_printer: 1,
+							logo_path: '/files/logo.png'
+						},
+						callback: function(response) {
+							if (response.message) {
+								console.log('response ESCPOS and Print')
+								console.log(response.message)                
+							}
+						}
+					})
+
+					dialog.hide();
+
+				}
+			});
+		
+			// Adding a custom secondary button
+			dialog.set_secondary_action(function() {
+					console.log('Selecionou Printer 02');
+
+					//TESTE using ESC/POS
+					frappe.call({
+						method: "angola_erp.util.angola.generate_escpos_and_print",
+						args: {
+							server_url: baseUrl,
+							doctype: 'Table Order',
+							docname: ficha_tec.name,
+							company_info: ficha_tec.company,
+							to_printer: 2,
+							logo_path: '/files/logo.png'
+						},
+						callback: function(response) {
+							if (response.message) {
+								console.log('response ESCPOS and Print')
+								console.log(response.message)                
+							}
+						}
+					})
+
+					dialog.hide();
+			});
+			dialog.set_secondary_action_label('Impressora BAR 02'); // Custom text for the secondary button
+			dialog.show();
+
+			/*
+			// Print
+			const result = await PrintHelper.printUSB(bufferResult.buffer);
+			
+			if (result.success) {
+				frappe.msgprint(__('Receipt printed successfully!'));
+				return true;
+			} else {
+				frappe.msgprint(__('Failed to print receipt: ') + (result.error || ''));
+				return false;
+			}
+				*/
+
+		} catch (error) {
+			console.error('Ngrok printing error:', error);
+			throw error;
+		}
+	}
+
+	// Helper method for local printing
+	async printWithLocalPrinter(ficha_tec,props,title) {
+		try {
+			// Check printer
+			const printerStatus = await PrintHelper.checkPrinter();
+			if (!printerStatus.available) {
+				// Offer browser fallback
+				/*
+				const useFallback = await frappe.confirm(
+					__('Printer not available. Would you like to print via browser?')
+				);
+				*/
+
+				/*
+				if (useFallback) {
+					return await this.printViaBrowser(ficha_tec);
+				}
+				*/
+				
+				return await this.printViaFrappeform(ficha_tec,props,title);
+				//return false;
+			}
+
+			// Generate buffer
+			const bufferResult = await PrintHelper.generateBuffer(
+				'Table Order',
+				ficha_tec.name,
+				ficha_tec.company,
+				{ freeze: true }
+			);
+
+			if (!bufferResult.success) {
+				frappe.msgprint(__('Failed to generate receipt: ') + (bufferResult.error || ''));
+				return false;
+			}
+
+			// Print
+			const result = await PrintHelper.printUSB(bufferResult.buffer);
+			
+			if (result.success) {
+				frappe.msgprint(__('Receipt printed successfully!'));
+				return true;
+			} else {
+				// Offer browser fallback if USB fails
+				const useFallback = await frappe.confirm(
+					__('USB printing failed. Would you like to print via browser?')
+				);
+				
+				if (useFallback) {
+					return await this.printViaBrowser(ficha_tec);
+				}
+				return false;
+			}
+		} catch (error) {
+			console.error('Local printing error:', error);
+			throw error;
+		}
+	}
+
+	async printViaFrappeform(order_manage,props,title) {
+		if (order_manage.print_modal) {
+			order_manage.print_modal.set_props(props);
+			order_manage.print_modal.set_title(title);
+			order_manage.print_modal.reload().show();
+		} else {
+			order_manage.print_modal = new DeskModal(props);
+		}
+		return true;
+	}
+
+	// Browser printing fallback
+	async printViaBrowser(doc) {
+		try {
+			const bufferResult = await PrintHelper.generateBuffer(
+				'Table Order',
+				doc.name,
+				doc.company
+			);
+			
+			if (!bufferResult.success) {
+				throw new Error(bufferResult.error);
+			}
+			
+			const result = await PrintHelper.printViaBrowser(bufferResult.buffer);
+			
+			if (result.success) {
+				frappe.msgprint({
+					title: __('Success'),
+					message: __('Print dialog opened'),
+					indicator: 'green'
+				});
+			}
+			
+			return result.success;
+		} catch (error) {
+			console.error('Browser printing error:', error);
+			frappe.msgprint(__('Browser printing failed: ') + error.message);
+			return false;
+		}
+	}
+
+	async print_v0(invoice_name) {
 		if (!RM.can_pay) return;
 
 		const title = invoice_name + " (" + __("Print") + ")";
