@@ -884,8 +884,10 @@ class TableOrder {
 					return await this.printViaBrowser(ficha_tec);
 				}
 				*/
+
+				return await this.printViaBrowser(ficha_tec);
 				
-				return await this.printViaFrappeform(ficha_tec,props,title);
+				//return await this.printViaFrappeform(ficha_tec,props,title);
 				//return false;
 			}
 
