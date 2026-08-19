@@ -885,7 +885,8 @@ class TableOrder {
 				}
 				*/
 
-				return await this.printViaBrowser(ficha_tec);
+				//return await this.printViaBrowser(ficha_tec);
+				return await this.printViaBrowser(ficha_tec,ficha_tec.doctype,ficha_tec.name);
 				
 				//return await this.printViaFrappeform(ficha_tec,props,title);
 				//return false;
@@ -939,7 +940,7 @@ class TableOrder {
 	}
 
 	// Browser printing fallback
-	async printViaBrowser(doc) {
+	async printViaBrowser(doc,doctype=null,docname=null) {
 		try {
 			const bufferResult = await PrintHelper.generateBuffer(
 				'Table Order',
@@ -951,7 +952,8 @@ class TableOrder {
 				throw new Error(bufferResult.error);
 			}
 			
-			const result = await PrintHelper.printViaBrowser(bufferResult.buffer);
+			//const result = await PrintHelper.printViaBrowser(bufferResult.buffer);
+			const result = await PrintHelper.printViaBrowser(doctype,docname);
 			
 			if (result.success) {
 				frappe.msgprint({
