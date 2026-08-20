@@ -549,7 +549,7 @@ class PayForm extends DeskForm {
 						method: "angola_erp.util.angola.generate_escpos_and_print",
 						args: {
 							server_url: baseUrl,
-							doctype: 'Table Order',
+							doctype: 'POS Invoice',
 							docname: ficha_tec.name,
 							company_info: ficha_tec.company,
 							to_printer: 1,
@@ -577,7 +577,7 @@ class PayForm extends DeskForm {
 						method: "angola_erp.util.angola.generate_escpos_and_print",
 						args: {
 							server_url: baseUrl,
-							doctype: 'Table Order',
+							doctype: 'POS Invoice',
 							docname: ficha_tec.name,
 							company_info: ficha_tec.company,
 							to_printer: 2,
@@ -640,7 +640,7 @@ class PayForm extends DeskForm {
 
 			// Generate buffer
 			const bufferResult = await PrintHelper.generateBuffer(
-				'Table Order',
+				'POS Invoice',
 				ficha_tec.name,
 				ficha_tec.company,
 				{ freeze: true }
@@ -689,7 +689,7 @@ class PayForm extends DeskForm {
 	async printViaBrowser(doc,doctype=null,docname=null) {
 		try {
 			const bufferResult = await PrintHelper.generateBuffer(
-				'Table Order',
+				'POS Invoice',
 				doc.name,
 				doc.company
 			);
