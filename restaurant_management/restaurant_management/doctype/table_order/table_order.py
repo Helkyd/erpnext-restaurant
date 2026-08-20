@@ -9,6 +9,8 @@ from frappe import _
 from frappe.model.document import Document
 import json
 
+import os
+
 from restaurant_management.restaurant_management.page.restaurant_manage.restaurant_manage import RestaurantManage
 
 status_attending = "Attending"
@@ -94,8 +96,28 @@ class TableOrder(Document):
         return frappe.get_doc("Restaurant Object", self.table)
 
     def divide_template(self):
+        #import os
+        # Get the directory of the current file
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        template_path = os.path.join(current_dir, 'divide_template.html')
+        
+        # Read the template file
+        with open(template_path, 'r') as f:
+            template_content = f.read()
+        
+        # Render the template
         return frappe.render_template(
-            "restaurant_management/restaurant_management/doctype/table_order/divide_template.html", {
+            template_content,
+            {
+                "model": self,
+                "items": self.items_list(),
+                "table": self.table
+            }
+        )
+
+    def divide_template_v0(self):
+        return frappe.render_template(
+            "restaurant_management/restaurant_management/restaurant_management/doctype/table_order/divide_template.html", {
                 "model": self,
                 "items": self.items_list(),
                 "table": self.table
@@ -311,7 +333,7 @@ class TableOrder(Document):
 
                     ponto_carne = item['ponto_carne'] if "ponto_carne" in item else None,
 
-                    stock_uom=item['stock_uom'],
+                    stock_uom=item['stock_uom'] if "stock_uom" in item else None,   #FIX 20-08-2026
                     dish_side_selected = item['dish_side_selected'] if "dish_side_selected" in item else None,
                     dish_side_selected1 = item['dish_side_selected1'] if "dish_side_selected1" in item else None,
                     which_printer = item['which_printer'] if "which_printer" in item else None
