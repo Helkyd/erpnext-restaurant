@@ -215,6 +215,9 @@ class TableOrder(Document):
         print ('call get invoice - make_invoice')
         invoice = self.get_invoice(entry_items, True)
 
+        #FIX 21-08-2026;
+        invoice.update_stock = 1
+
         invoice.payments = []
         for mp in mode_of_payment:
             invoice.append('payments', dict(

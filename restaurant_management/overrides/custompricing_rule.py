@@ -252,9 +252,12 @@ def apply_pricing_rule(args, doc=None):
 	item_list = args.get("items")
 	args.pop("items")
 
+	#FIX 21-08-2026; V15 does not have
+	'''
 	set_serial_nos_based_on_fifo = frappe.db.get_single_value(
 		"Stock Settings", "automatically_set_serial_nos_based_on_fifo"
 	)
+	'''
 
 	item_code_list = tuple(item.get("item_code") for item in item_list)
 	query_items = frappe.get_all(
@@ -273,11 +276,11 @@ def apply_pricing_rule(args, doc=None):
 		print ('RESTAURANT MANAGEMENT - CALL get pricing rule for item AAAAAAAAAAAAAAAAAAAAAAA')
 		data = get_pricing_rule_for_item(args_copy, doc=doc)
 		out.append(data)
-
+		#FIX 21-08-2026; Removed set_serial_nos_based_on_fifo
 		if (
 			serialized_items.get(item.get("item_code"))
 			and not item.get("serial_no")
-			and set_serial_nos_based_on_fifo
+			#and set_serial_nos_based_on_fifo
 			and not args.get("is_return")
 		):
 			out[0].update(get_serial_no_for_item(args_copy))
