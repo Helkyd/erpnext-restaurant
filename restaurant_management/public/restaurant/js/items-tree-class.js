@@ -29,7 +29,8 @@ class ItemsTree {
         console.log(`Original: ${RM.menu.items_groups.length}, Unique: ${uniqueGroups.length}`);
         //FIX 02-09-2026; Trying this
         if (uniqueGroups.length >5){
-          filters.item_group_name = ["in", RM.menu.items_groups];  
+          //filters.item_group_name = ["in", RM.menu.items_groups];  
+          filters.item_group_name = ["in", RM.pos.settings.item_groups.map(item => item.item_group)];
         } else {
           filters.item_group_name = ["in", uniqueGroups];
         }
