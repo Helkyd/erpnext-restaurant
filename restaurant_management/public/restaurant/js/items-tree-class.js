@@ -27,8 +27,13 @@ class ItemsTree {
         const uniqueGroups = [...new Set(RM.menu.items_groups.filter(g => g))];
 
         console.log(`Original: ${RM.menu.items_groups.length}, Unique: ${uniqueGroups.length}`);
-        //FIX 16-08-2026; Trying this
-        filters.item_group_name = ["in", uniqueGroups];
+        //FIX 02-09-2026; Trying this
+        if (uniqueGroups.length >5){
+          filters.item_group_name = ["in", RM.menu.items_groups];  
+        } else {
+          filters.item_group_name = ["in", uniqueGroups];
+        }
+        
 
         //filters.item_group_name = ["in", RM.pos.settings.item_groups.map(item => item.item_group)];
       } else {
