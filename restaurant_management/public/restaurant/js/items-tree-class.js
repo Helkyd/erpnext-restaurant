@@ -94,12 +94,12 @@ class ItemsTree {
     });
 
     groups.forEach(group => {
-      const icon_class = group.name === "All Item Groups" ? "fa fa-list" : group.icon || "fa fa-chevron-right";
+      const icon_class = group.name === __("All Item Groups") ? "fa fa-list" : group.icon || "fa fa-chevron-right";
       const style = group.name === "Options" ? "float: right; position:absolute; right:0;" : "";
       this.item_parent_wrapper.append(`
         <button class="btn btn-default btn-flat item-group-action" data-group="${group.name}" style="${style}">
           <span class="${icon_class}" icon-group="icon-group"></span>
-          ${group.name === "All Item Groups" ? __("All") : group.name}
+          ${group.name === __("All Item Groups") ? __("All") : group.name}
         </button>
       `)
     });
@@ -108,7 +108,7 @@ class ItemsTree {
       $(this).addClass('active').removeClass("text-muted").siblings().removeClass('active').addClass("text-muted");
       const item_group = $(this).attr('data-group');
 
-      const filter = item_group === "All Item Groups" ? { name: item_group } : { 
+      const filter = item_group === __("All Item Groups") ? { name: item_group } : { 
         parent_item_group: item_group
       };
 
@@ -225,7 +225,7 @@ class ItemsTree {
 
       this.update_items_count();
       setTimeout(() => {
-        item.name === "All Item Groups" && open_children();
+        item.name === __("All Item Groups") && open_children();
         //opened && open_children();
       }, 0);
 
