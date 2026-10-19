@@ -670,13 +670,35 @@ class TableOrder {
 			});
 	}
 
+	//FIX 19-10-2026; Get Print format
+	async default_Printformat() {
+			return new Promise((resolve, reject) => {
+					frappe.model.get_value('Restaurant Settings', {'name': 'Restaurant Settings'}, 'print_format',
+							function(d) {
+									if (d && d.print_format) {
+											console.log('Got Print format:', d);
+											resolve(d.print_format);
+									} else {
+											//reject(new Error('No ngrok/pinggy address found'));
+											console.log('No Print format found, returning default string');
+											resolve('Order Account');
+									}
+							}
+					);
+			});
+	}
+
 	// Fixed print_account method
 	async print_account() {
 		try {
 			console.log('print account....');
 			const baseUrl = await this.baseURL();
+			//FIX 19-10-2026
+			const defaultPrintFormat = await this.default_Printformat();
+
 			const docname = this.data.name;
 
+			
 
 			const title = this.data.name + " (" + __("Account") + ")";
 			const order_manage = this.order_manage;
@@ -685,7 +707,7 @@ class TableOrder {
 				model_name: this.data.name,
 				from_server: true,
 				args: {
-					format: "Order Account",
+					format: defaultPrintFormat,
 					_lang: RM.lang,
 					no_letterhead: RM.pos_profile.letter_head ? RM.pos_profile.letter_head : 1,
 					letterhead: RM.pos_profile.letter_head ? RM.pos_profile.letter_head : 'No%20Letterhead'
@@ -886,7 +908,7 @@ class TableOrder {
 				*/
 
 				//return await this.printViaBrowser(ficha_tec);
-				return await this.printViaBrowser(ficha_tec,ficha_tec.doctype,ficha_tec.name);
+				return await this.printViaBrowser(ficha_tec,ficha_tec.doctype,ficha_tec.name,props);
 				
 				//return await this.printViaFrappeform(ficha_tec,props,title);
 				//return false;
@@ -940,7 +962,8 @@ class TableOrder {
 	}
 
 	// Browser printing fallback
-	async printViaBrowser(doc,doctype=null,docname=null) {
+	//FIX 19-10-2026; Added default_Printformat
+	async printViaBrowser(doc,doctype=null,docname=null,default_Printformat=null) {
 		try {
 			const bufferResult = await PrintHelper.generateBuffer(
 				'Table Order',
@@ -953,14 +976,17 @@ class TableOrder {
 			}
 			
 			//const result = await PrintHelper.printViaBrowser(bufferResult.buffer);
-			const result = await PrintHelper.printViaBrowser(doctype,docname);
+			const result = await PrintHelper.printViaBrowser(doctype,docname,default_Printformat);
 			
 			if (result.success) {
+				console.log('Print dialog opened');
+				/*
 				frappe.msgprint({
 					title: __('Success'),
 					message: __('Print dialog opened'),
 					indicator: 'green'
 				});
+				*/
 			}
 			
 			return result.success;
@@ -974,6 +1000,9 @@ class TableOrder {
 	async print_account_V0() {
 		//FIX 18-08-2026
 		const baseUrl = await this.baseURL();
+		//FIX 19-10-2026
+		const defaultPrintFormat = await this.default_Printformat();
+
 		const docname = this.data.name;
 
 		const title = this.data.name + " (" + __("Account") + ")";
@@ -983,7 +1012,7 @@ class TableOrder {
 			model_name: this.data.name,
 			from_server: true,
 			args: {
-				format: "Order Account",
+				format: defaultPrintFormat,
 				_lang: RM.lang,
 				no_letterhead: RM.pos_profile.letter_head ? RM.pos_profile.letter_head : 1,
 				letterhead: RM.pos_profile.letter_head ? RM.pos_profile.letter_head : 'No%20Letterhead'
@@ -1257,11 +1286,14 @@ class TableOrder {
 								if (bufferResult.success) {
 									const browserResult = await PrintHelper.printViaBrowser(bufferResult.buffer);
 									if (browserResult.success) {
+										console.log('Print dialog opened');
+										/*
 										frappe.msgprint({
 											title: __('Success'),
 											message: __('Print dialog opened'),
 											indicator: 'green'
 										});
+										*/
 									} else {
 										frappe.msgprint({
 											title: __('Error'),
@@ -1332,11 +1364,14 @@ class TableOrder {
 							if (useFallback) {
 								const browserResult = await PrintHelper.printViaBrowser(bufferResult.buffer);
 								if (browserResult.success) {
+									console.log('Print dialog opened');
+									/*
 									frappe.msgprint({
 										title: __('Success'),
 										message: __('Print dialog opened'),
 										indicator: 'green'
 									});
+									*/
 								} else {
 									frappe.msgprint({
 										title: __('Error'),
