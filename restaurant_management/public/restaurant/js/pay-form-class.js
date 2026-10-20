@@ -633,7 +633,7 @@ class PayForm extends DeskForm {
 					return await this.printViaBrowser(ficha_tec);
 				}
 				*/
-				return await this.printViaBrowser(ficha_tec,ficha_tec.doctype,ficha_tec.name);
+				return await this.printViaBrowser(ficha_tec,ficha_tec.doctype,ficha_tec.name, props);
 				//return await this.printViaFrappeform(ficha_tec,props,title);
 				//return false;
 			}
@@ -686,7 +686,8 @@ class PayForm extends DeskForm {
 	}
 
 	// Browser printing fallback
-	async printViaBrowser(doc,doctype=null,docname=null) {
+	//FIX 19-10-2026; Added default_Printformat
+	async printViaBrowser(doc,doctype=null,docname=null,default_Printformat=null) {
 		try {
 			const bufferResult = await PrintHelper.generateBuffer(
 				'POS Invoice',
@@ -699,7 +700,7 @@ class PayForm extends DeskForm {
 			}
 			
 			//const result = await PrintHelper.printViaBrowser(bufferResult.buffer);
-			const result = await PrintHelper.printViaBrowser(doctype,docname);
+			const result = await PrintHelper.printViaBrowser(doctype,docname,default_Printformat);
 			
 			if (result.success) {
 				frappe.msgprint({
